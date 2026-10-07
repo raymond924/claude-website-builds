@@ -91,11 +91,14 @@ h1,h2,h3,h4,p{margin:0}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#10192066 0%,#10192000 30%,#10192000 45%,#101920cc 100%)}
 .hero-inner{position:relative;z-index:1;width:100%;padding-bottom:clamp(28px,5vw,64px)}
 .hero h1{max-width:12ch}
-.rot{display:inline-grid;vertical-align:bottom;overflow:hidden;height:1em;line-height:1}
-.rot span{grid-area:1/1;transform:translateY(105%);transition:transform .8s cubic-bezier(.7,0,.2,1)}
-.rot span.on{transform:none}
-.rot span.off{transform:translateY(-105%)}
-.rot .hl{color:var(--sun)}
+.rot{display:inline-grid;vertical-align:bottom;overflow:hidden;line-height:1.12;padding-bottom:.04em;margin-bottom:-.04em}
+.rot .w{grid-area:1/1;white-space:nowrap;visibility:hidden}
+.rot .w.on,.rot .w.off{visibility:visible}
+.rot .w > i{display:inline-block;font-style:normal;transform:translateY(105%);opacity:0;transition:transform .85s cubic-bezier(.22,1,.36,1),opacity .6s ease;transition-delay:calc(var(--i) * 28ms)}
+.rot .w.on > i{transform:none;opacity:1}
+.rot .w.off > i{transform:translateY(-105%);opacity:0;transition-duration:.6s,.45s;transition-timing-function:cubic-bezier(.55,0,.75,0),ease}
+.rot .w.snap > i{transition:none}
+.rot.hl{color:var(--sun)}
 .hero-row{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-top:clamp(24px,3vw,40px)}
 .hero-row p{max-width:440px;font-size:18px;line-height:1.4;color:#ffffffe0}
 .hero-ctas{display:flex;flex-wrap:wrap;gap:10px}
@@ -371,7 +374,7 @@ footer{padding:64px 0 32px}
 <section class="hero" id="top" aria-labelledby="hero-title">
   <img src="assets/hero.jpg" alt="A face-brick Johannesburg home with a charcoal tiled roof at dusk, a summer storm building behind it" fetchpriority="high">
   <div class="wrap hero-inner">
-    <h1 class="display" id="hero-title">Roofs built for <span class="rot" aria-hidden="true"><span class="hl on">hail.</span><span class="hl">summers.</span><span class="hl">generations.</span></span><span class="sr">hail, summers and generations.</span></h1>
+    <h1 class="display" id="hero-title">Roofs built for <span class="rot hl" aria-hidden="true"><span class="w on">hail.</span><span class="w">summers.</span><span class="w">generations.</span></span><span class="sr">hail, summers and generations.</span></h1>
     <div class="hero-row">
       <p>Re-roofing, repairs and waterproofing across Gauteng. One crew from first inspection to final handover, and a 15-year workmanship guarantee.</p>
       <div class="hero-ctas">
@@ -695,18 +698,26 @@ footer{padding:64px 0 32px}
 </footer>
 
 <script>
-// hero word rotator
+// hero word rotator: letters rise in with a stagger, the old word lifts out,
+// then resets below the line while hidden, so words never cross each other
 (() => {
-  const words = [...document.querySelectorAll('.rot span')];
-  if (!words.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  let i = 0;
-  setInterval(() => {
+  const words = [...document.querySelectorAll('.rot .w')];
+  if (!words.length) return;
+  words.forEach(w => { w.innerHTML = [...w.textContent].map((c, i) => `<i style="--i:${i}">${c}</i>`).join(''); });
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let i = 0, timer;
+  const step = () => {
     const cur = words[i], next = words[(i + 1) % words.length];
     cur.classList.remove('on'); cur.classList.add('off');
-    next.classList.remove('off'); next.classList.add('on');
-    setTimeout(() => cur.classList.remove('off'), 900);
+    next.classList.add('snap'); next.classList.remove('off'); void next.offsetWidth; next.classList.remove('snap');
+    setTimeout(() => next.classList.add('on'), 180);
+    setTimeout(() => { cur.classList.add('snap'); cur.classList.remove('off'); void cur.offsetWidth; cur.classList.remove('snap'); }, 1100);
     i = (i + 1) % words.length;
-  }, 2600);
+    timer = setTimeout(step, 3000);
+  };
+  const start = () => { clearTimeout(timer); timer = setTimeout(step, 2400); };
+  document.addEventListener('visibilitychange', () => document.hidden ? clearTimeout(timer) : start());
+  start();
 })();
 
 // phone menu
