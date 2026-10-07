@@ -55,7 +55,9 @@ No weight above 400. Geist and Geist Mono replace T1 Sans and T1 Sans Mono, so C
 
 ## Components
 
-- Nav: logo left (white), dark glass pill right, links 14px.
+- Nav: logo left (white), dark glass pill right, links 14px. The logo is never inside or clipped by the pill.
+- Case-study card (hero only): `--glass` card, 12px radius, 16px padding, mono "CASE STUDY" label, one-line
+  14px result, small thumbnail with 8px radius on the right. The one place a glass surface is a card, not a pill.
 - Buttons: outlined pill (1px `--ink`), 14px; filled pill only for the main hero action.
 - Location pill over media: glass pill with the place name plus a 32px circular arrow button.
 - Toggle: two-option glass segmented control (Evaporator / Concentrate).
