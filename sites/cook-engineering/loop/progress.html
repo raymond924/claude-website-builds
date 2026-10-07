@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>COOK Design Loop</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400&family=Geist+Mono&display=swap">
+<style>
+/* Progress board in the COOK "Concentrate" system: white canvas, ink text, mono labels, peel = pass marker only. */
+:root{--bg:#ffffff;--panel:#f2f1ec;--ink:#2b2a28;--muted:#86847f;--line:#dedcd6;--pass:#2f7d4f;--fail:#b4412b;--wait:#86847f;
+  --sans:"Geist",ui-sans-serif,system-ui,sans-serif;--mono:"Geist Mono",ui-monospace,Menlo,monospace;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121211;--panel:#1c1b1a;--ink:#ecebe7;--muted:#9a978f;--line:#2e2d2a;--pass:#5fbf86;--fail:#e0765f;--wait:#9a978f;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121211;--panel:#1c1b1a;--ink:#ecebe7;--muted:#9a978f;--line:#2e2d2a;--pass:#5fbf86;--fail:#e0765f;--wait:#9a978f;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.45 var(--sans);padding-inline:clamp(16px,4vw,48px)}
+.wrap{max-width:1100px;margin-inline:auto;padding-block:48px 72px;display:grid;gap:40px}
+.label{font:400 12px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);display:inline-flex;gap:8px;align-items:center}
+.label::before{content:"";width:4px;height:4px;background:currentColor}
+h1{font-weight:300;font-size:clamp(32px,4.5vw,52px);line-height:1;margin:12px 0 0;text-wrap:balance}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.stat{background:var(--panel);border-radius:16px;padding:20px;display:grid;gap:8px}
+.stat b{font:300 36px/1 var(--sans);font-variant-numeric:tabular-nums}
+@media (max-width:700px){.stats{grid-template-columns:1fr 1fr}}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:640px}
+th{text-align:left;font:400 12px var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:10px 12px;border-bottom:1px solid var(--ink)}
+td{padding:14px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+td.num{font-variant-numeric:tabular-nums}
+.v{display:inline-flex;align-items:center;gap:6px;font:400 12px var(--mono);text-transform:uppercase;letter-spacing:.06em}
+.v::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+.pass{color:var(--pass)}.fail{color:var(--fail)}.wait{color:var(--wait)}
+ol.log{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+ol.log li{display:grid;grid-template-columns:auto 1fr;gap:16px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+ol.log li span:first-child{font:400 12px var(--mono);color:var(--muted);white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><span class="label">Design loop · COOK Engineering homepage</span><h1>Builder vs three critics, until all three agree ours wins</h1></header>
+  <div class="stats">
+    <div class="stat"><span class="label">Round</span><b id="round">0</b></div>
+    <div class="stat"><span class="label">Pieces passed</span><b id="passed">0 / 4</b></div>
+    <div class="stat"><span class="label">Credits used</span><b id="credits">5.8</b></div>
+    <div class="stat"><span class="label">Credits left</span><b id="left">4.2</b></div>
+  </div>
+  <section><span class="label">Pieces</span>
+    <div class="tw"><table>
+      <thead><tr><th>Piece</th><th>Round</th><th>Brief</th><th>System</th><th>Craft</th><th>Biggest gap</th></tr></thead>
+      <tbody id="pieces">
+        <tr><td>1 · Hero</td><td class="num">0</td><td><span class="v wait">Pending</span></td><td><span class="v wait">Pending</span></td><td><span class="v wait">Pending</span></td><td>—</td></tr>
+        <tr><td>2 · Mission, locations, product panel</td><td class="num">0</td><td><span class="v wait">Pending</span></td><td><span class="v wait">Pending</span></td><td><span class="v wait">Pending</span></td><td>—</td></tr>
+        <tr><td>3 · Evaporator technology band</td><td class="num">0</td><td><span class="v wait">Pending</span></td><td><span class="v wait">Pending</span></td><td><span class="v wait">Pending</span></td><td>—</td></tr>
+        <tr><td>4 · Statistics, insights, footer</td><td class="num">0</td><td><span class="v wait">Pending</span></td><td><span class="v wait">Pending</span></td><td><span class="v wait">Pending</span></td><td>—</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+  <section><span class="label">Log</span>
+    <ol class="log" id="log">
+      <li><span>13:01</span><span>Hero still generated (Seedream 5.0 Flash, 0.5 cr). GPT Image 2.5 and Seedance 2.0 need a paid plan.</span></li>
+      <li><span>13:03</span><span>Hero video generated (Seedance 1.5, 4 s, 720p, 4.8 cr), made into an 8 s forward-and-back loop.</span></li>
+      <li><span>13:05</span><span>Nine supporting images generating one at a time (free plan allows one job at once).</span></li>
+    </ol>
+  </section>
+</div>
+</body>
+</html>
