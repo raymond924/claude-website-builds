@@ -139,8 +139,27 @@ style and the live site. Mark the selected style. Style the page in the selected
 3. Reply with: what was built, the link, what's placeholder, and what to send next
    (photos, logo, figures to confirm).
 
+## 8. Higgsfield assets and the design loop (learned on COOK, 2026-10-07)
+
+- **Free plan limits:** one job at a time (`concurrent_jobs_limit: 1`), and GPT Image 2.5, Seedance 2.0/2.0 Mini and
+  Grok Video need a paid plan. What worked: `seedream_5_0_flash` (0.5 cr, 2K stills), `z_image` (0.15 cr), and
+  `seedance1_5` image-to-video (4.8 cr for 4 s at 720p). Price first with `higgsfield generate cost …`.
+- **Video loop:** make a seamless loop by playing the clip forward then reversed with ffmpeg
+  (`split[a][b];[b]reverse[r];[a][r]concat`), strip audio, CRF 26–27, and export a poster frame.
+- **Auth from a cloud session:** run `higgsfield auth login` on its **default port (8765)** in the background, give
+  the user the sign-in URL from the generated `sign-in.html`, and have them paste back the
+  `http://localhost:8765/callback?...` address; `curl` it locally to finish. Custom `--port` values are rejected.
+  Then `higgsfield workspace set <id>`.
+- **Design loop scripts:** `scrollshots.js` (scroll-capture a reference site that reveals on scroll),
+  `pieces.js` (screenshot every `[data-piece]` element at 1440 and 390), `critics.py` (blind A/B composites and the
+  three critic prompts per piece). Critics judge screenshots only.
+- **What the critics kept failing on:** missing real contact details (never invent them), AI imagery looking
+  "synthetic" next to real footage, crowded signature graphics, logo hidden after the hero, CSS order bugs.
+- **Budget the loop:** the user prefers a few focused rounds over constant re-checking. After two critic rounds,
+  finish the named fixes and do one screenshot check instead of another 12-critic round unless asked.
+
 ## Project log
 
 | Date | Client | Primary reference | Alternatives | Notes |
 |---|---|---|---|---|
-| 2026-10-07 | COOK Engineering (citrus + fish factory engineering, juice evaporators; South Africa) | T1 Energy | ON.energy, teenage engineering | Homepage only, photo placeholders. Network access had to be opened for Refero. |
+| 2026-10-07 | COOK Engineering (citrus + fish factory engineering, juice evaporators; South Africa) | T1 Energy | ON.energy, teenage engineering | v1 with placeholders; v2 "Concentrate" system via /design-loop (3 rounds, 5/12 → fixes) with Higgsfield video + 11 images (8.7 of 10 credits). |
