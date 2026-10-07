@@ -79,7 +79,9 @@ Everything below is a believable placeholder. Replace before launch.
 - [ ] Contact form destination (form currently does not send)
 - [ ] Homepage statistics: 40+ plants and evaporators commissioned, 180 t/h water evaporation installed, 7 countries
 - [ ] Location tiles: Sundays River Valley (citrus) and Walvis Bay (fish) as representative sites
-- [ ] Hero case study line: concentrate output doubled on the existing boiler, Sundays River Valley
+- [ ] Hero case study line: Sundays River Valley, 2025, evaporation raised from 9 → 18 t/h on the existing boiler
+- [ ] Phone number, street address and city (the brief critic keeps failing the contact area without them)
+- [ ] Real plant or evaporator photos/video to replace the AI-generated imagery (critics call it "synthetic")
 - [ ] Stage Brix values in the technology accordion (12, 12, 45, 58, 65 °Brix)
 - [ ] Insights articles (four titles and dates are placeholders, no article pages exist)
 

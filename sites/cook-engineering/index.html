@@ -77,12 +77,15 @@ h1,h2,h3{font-weight:300}
 .brix.live .mk,.brix.live .v{transition:none}
 
 /* ---------- Header / nav ---------- */
-.logo{position:absolute;top:34px;left:var(--gutter);z-index:20;color:#fff;display:flex;flex-direction:column;gap:6px}
-.logo .wm{font:300 40px/1 var(--sans);letter-spacing:.06em}
+/* Logo is fixed and always visible: large and white over the hero, a compact glass pill (separate from the nav) after it */
+.logo{position:fixed;top:34px;left:var(--gutter);z-index:50;color:#fff;display:flex;flex-direction:column;gap:6px;border-radius:999px;transition:padding .3s,background .3s,top .3s}
+.logo .wm{font:300 40px/1 var(--sans);letter-spacing:.06em;transition:font-size .3s}
 .logo .sub{font:400 10px/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;padding-left:2px}
-.nav{position:fixed;top:36px;right:36px;z-index:50;display:flex;align-items:center;height:44px;padding:0 6px;border-radius:14px;color:#fff}
+.logo.compact{top:36px;flex-direction:row;align-items:center;gap:10px;height:44px;padding:0 20px;background:var(--glass);-webkit-backdrop-filter:blur(16px) brightness(.72);backdrop-filter:blur(16px) brightness(.72)}
+.logo.compact .wm{font-size:20px}
+.nav{position:fixed;top:36px;right:36px;z-index:50;display:flex;align-items:center;height:44px;padding:0 6px;border-radius:999px;color:#fff}
 .nav ul{display:flex}
-.nav ul a{display:block;padding:14px 22px;font-size:14px;line-height:16px;border-radius:10px}
+.nav ul a{display:block;padding:14px 22px;font-size:14px;line-height:16px;border-radius:999px}
 .nav ul a:hover{background:rgba(255,255,255,.12)}
 .nav .menu{display:none;background:none;border:0;cursor:pointer;height:44px;padding:0 18px;font-size:14px;color:#fff}
 
@@ -93,9 +96,10 @@ h1,h2,h3{font-weight:300}
 .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:right top;transform:scale(1.36);transform-origin:right top}
 .hero .scrim{position:absolute;inset:auto 0 0 0;height:62%;z-index:-1;background:linear-gradient(to top,rgba(15,15,16,.62),rgba(15,15,16,.28) 55%,rgba(15,15,16,0))}
 .hero-in{position:absolute;left:var(--gutter);right:var(--gutter);bottom:112px;display:grid;grid-template-columns:1fr auto;align-items:end;gap:48px}
-.hero h1{font-size:56px;line-height:1;letter-spacing:-.01em;max-width:13em}
+.hero .kicker{color:#fff;margin-bottom:20px;opacity:.9}
+.hero h1{font-size:52px;line-height:1;letter-spacing:-.01em;max-width:16.5em}
 .hero .acts{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:36px}
-.hero .brix{--c:#fff;position:absolute;left:var(--gutter);right:var(--gutter);bottom:30px}
+.hero .brix{--c:rgba(255,255,255,.7);position:absolute;left:var(--gutter);right:var(--gutter);bottom:22px;height:40px}
 .case{display:grid;grid-template-columns:1fr 88px;gap:20px;align-items:center;width:420px;padding:16px;border-radius:12px;color:#fff}
 .case .label{margin-bottom:10px}
 .case p{font-size:14px;line-height:1.35}
@@ -117,12 +121,15 @@ h1,h2,h3{font-weight:300}
 
 .facts{margin-top:40px;display:grid;grid-template-columns:auto 1fr;gap:10px 24px}
 .facts dt{color:var(--muted)}
-.product-row{display:grid;grid-template-columns:1fr 1fr;padding:0 var(--edge) 0 0}
-.panel{grid-column:2;position:relative;aspect-ratio:712/880;border-radius:var(--r);overflow:hidden;background:var(--pulp)}
+/* Product row (T1 manufacturing pattern): label + statement left half, panel right half to 8px from the edge */
+.product-row{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;padding:var(--pad) var(--edge) 0 var(--gutter)}
+.product-row .copy{display:grid;gap:28px;align-content:start;padding-top:12px;max-width:600px}
+.product-row .copy .pill{justify-self:start;margin-top:20px}
+.panel{position:relative;aspect-ratio:712/880;border-radius:var(--r);overflow:hidden;background:var(--pulp)}
 .panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .45s}
 .panel img[hidden]{display:block;opacity:0;visibility:hidden}
-.seg{position:absolute;left:50%;bottom:48px;transform:translateX(-50%);display:flex;padding:4px;border-radius:14px}
-.seg button{height:38px;padding:0 20px;min-width:118px;border:0;border-radius:10px;background:transparent;color:#fff;font-size:14px;cursor:pointer;transition:background .2s,color .2s}
+.seg{position:absolute;left:50%;bottom:48px;transform:translateX(-50%);display:flex;padding:4px;border-radius:999px}
+.seg button{height:38px;padding:0 20px;min-width:118px;border:0;border-radius:999px;background:transparent;color:#fff;font-size:14px;cursor:pointer;transition:background .2s,color .2s}
 .seg button[aria-pressed="true"]{background:var(--steel);color:var(--ink)}
 .seg button:focus-visible{outline-color:#fff}
 
@@ -145,18 +152,19 @@ h1,h2,h3{font-weight:300}
 
 /* ---------- 3 Technology band ---------- */
 .band{margin:0 var(--edge);border-radius:var(--r);background:var(--pulp);padding:144px var(--gutter)}
-.band-grid{display:grid;grid-template-columns:1fr 1fr;align-items:start}
-.drawing{max-width:460px}
-.drawing svg{width:100%;height:auto}
-.drawing svg .ln{fill:none;stroke:var(--muted);stroke-width:1;vector-effect:non-scaling-stroke;transition:stroke .45s}
-.drawing svg .stg.on .ln{stroke:var(--ink)}
-.drawing svg .film{fill:none;stroke:var(--ink);stroke-width:1.5;stroke-dasharray:3 12;vector-effect:non-scaling-stroke;animation:fall 1.6s linear infinite;opacity:0;transition:opacity .45s}
-.drawing svg .stg.on .film{opacity:1}
-@keyframes fall{to{stroke-dashoffset:-15}}
-.drawing .brix{margin-top:64px}
-.drawing .note{margin-top:28px;color:var(--muted)}
+.band-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.drawing{max-width:520px}
+.drawing .render{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:40px}
+.drawing .brix{margin-top:56px}
+.drawing .note{margin-top:20px;color:var(--muted)}
+/* Falling-film detail: small tube drawing inside the open accordion row */
+.tubes{width:180px;height:auto;margin:6px 0 4px}
+.tubes .ln{fill:none;stroke:var(--ink);stroke-width:1;vector-effect:non-scaling-stroke}
+.tubes .film{fill:none;stroke:var(--ink);stroke-width:2;stroke-dasharray:4 10;vector-effect:non-scaling-stroke;animation:fall 1.4s linear infinite}
+@keyframes fall{to{stroke-dashoffset:-14}}
 .acc-col{max-width:600px}
 .acc-col .st{margin-top:40px}
+.acc-col .specline{margin-top:20px;color:var(--ink)}
 
 /* ---------- 4 Company / stats / insights / contact / footer ---------- */
 .company{padding-bottom:0}
@@ -168,7 +176,6 @@ h1,h2,h3{font-weight:300}
 .stat + .stat{margin-top:72px}
 .stat b{display:block;font-weight:300;font-size:96px;line-height:1;letter-spacing:-.02em;white-space:nowrap}
 .stat .mono{display:block;margin-top:14px}
-.stats .spec{margin-top:72px;display:grid;gap:8px;color:var(--muted)}
 
 .news-head{padding-bottom:56px}
 .news{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 var(--edge)}
@@ -210,18 +217,21 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
   .stat b{font-size:80px}
 }
 @media (max-width:860px){
-  :root{--gutter:16px;--pad:72px;--r:40px}
+  :root{--gutter:16px;--pad:72px}
   .logo{top:24px}
   .logo .wm{font-size:30px}
+  .logo.compact{top:20px;padding:0 16px}
+  .logo.compact .sub{display:none}
   .nav{top:20px;right:16px;flex-wrap:wrap;justify-content:flex-end;height:auto;min-height:44px;max-width:calc(100vw - 140px);padding:0}
   .nav .menu{display:block}
   .nav ul{display:none;flex-basis:100%;flex-direction:column;padding:0 6px 8px}
   .nav.open ul{display:flex}
-  .nav.open{border-radius:20px;max-width:calc(100vw - 32px);min-width:200px}
+  .nav.open{border-radius:24px;max-width:calc(100vw - 32px);min-width:200px}
   .nav ul a{padding:12px 14px;font-size:16px}
   .hero{min-height:720px}
   .hero-in{grid-template-columns:1fr;gap:28px;bottom:96px}
-  .hero h1{font-size:38px}
+  .hero h1{font-size:36px}
+  .hero .kicker{margin-bottom:14px}
   .hero .acts{margin-top:24px}
   .hero .brix{bottom:26px}
   .case{width:100%;grid-template-columns:1fr 64px}
@@ -232,8 +242,8 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
   .split-body > .pill{margin-top:32px}
   .tiles{grid-template-columns:1fr}
   .loc{top:28px}
-  .product-row{grid-template-columns:1fr;padding:0 var(--edge)}
-  .panel{grid-column:1}
+  .product-row{grid-template-columns:1fr;gap:40px;padding:var(--pad) var(--edge) 0}
+  .product-row .copy{padding:0 calc(var(--gutter) - var(--edge))}
   .seg{bottom:24px}
   .seg button{min-width:0;padding:0 16px}
   .acc button.row{font-size:20px;gap:10px}
@@ -241,10 +251,12 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
   .acc .body{padding:0 0 20px 38px}
   .band{padding:72px 16px}
   .band-grid{grid-template-columns:1fr}
-  .drawing{order:2;margin:64px auto 0;max-width:420px}
-  .drawing .brix{margin-top:48px}
+  .band-grid{gap:56px}
+  .drawing{order:2;margin:0 auto;max-width:420px;width:100%}
+  .drawing .brix{margin-top:40px}
+  .tubes{width:150px}
   .stats-wrap{padding:56px var(--gutter) var(--pad)}
-  .shop{order:2;margin:64px 0 0 calc(var(--edge) - var(--gutter));width:min(320px,90%)}
+  .shop{order:2;margin:64px 0 0 calc(var(--edge) - var(--gutter));width:calc(100% + 2 * (var(--gutter) - var(--edge)))}
   .stat b{font-size:72px}
   .stat + .stat{margin-top:48px}
   .stats .brix{margin-bottom:56px}
@@ -283,7 +295,7 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
       <li><a href="#technology">Technology</a></li>
       <li><a href="#services">Services</a></li>
       <li><a href="#company">Company</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#contact">Request a quote</a></li>
     </ul>
   </nav>
 </header>
@@ -300,16 +312,16 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
   <div class="scrim" aria-hidden="true"></div>
   <div class="hero-in">
     <div>
-      <h1 id="hero-h">We design citrus and fish plants, and build our own juice evaporators.</h1>
+      <p class="label kicker">South African process engineers · Citrus &amp; fish</p>
+      <h1 id="hero-h">We design citrus and fish plants, and build our own evaporators.</h1>
       <div class="acts">
         <a class="pill pill-ink" href="#evaporators">See our evaporators</a>
-        <a class="pill pill-glass glass" href="#contact">Request a quote</a>
       </div>
     </div>
-    <a class="case glass" href="#technology" aria-label="Case study: concentrate output doubled on the existing boiler, Sundays River Valley">
+    <a class="case glass" href="#technology" aria-label="Case study: Sundays River Valley, 2025. Evaporation raised from 9 to 18 tonnes per hour on the existing boiler">
       <div>
-        <p class="label">Case study</p>
-        <p>Concentrate output doubled on the existing boiler.</p>
+        <p class="label">Case study · Sundays River Valley, 2025</p>
+        <p>Evaporation raised from <span class="nb">9 → 18&nbsp;t/h</span> on the plant's existing boiler.</p>
       </div>
       <img src="assets/evaporator-render.jpg" alt="" width="88" height="88">
     </a>
@@ -323,7 +335,7 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
     <h2 class="label" id="mission-h">Mission</h2>
     <div class="split-body">
       <p class="st">COOK Engineering designs, supplies and commissions the plants that turn southern Africa's citrus harvests and pelagic catches into export product.</p>
-      <p class="st">We take responsibility for the whole process: the mass balance, the equipment, the installation and the first season of production.</p>
+      <p class="st">We work for plant owners, not equipment makers, so every design is judged on yield, steam use and uptime.</p>
       <a class="pill" href="#services">Learn more</a>
     </div>
   </section>
@@ -356,9 +368,9 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
   </section>
 
   <section id="evaporators" aria-labelledby="evap-h">
-    <div class="split">
-      <h2 class="label" id="evap-h">Evaporators</h2>
-      <div class="split-body">
+    <div class="product-row">
+      <div class="copy">
+        <h2 class="label" id="evap-h">Evaporators</h2>
         <p class="st">COOK builds its own citrus juice concentrators: falling-film evaporators that take single-strength juice to <span class="nb">65&nbsp;°Brix</span> while keeping its colour, flavour and aroma.</p>
         <dl class="facts mono">
           <dt>Concentration</dt><dd class="nb">12&nbsp;→&nbsp;65&nbsp;°Brix</dd>
@@ -368,8 +380,6 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
         </dl>
         <a class="pill" href="#technology">See the five stages</a>
       </div>
-    </div>
-    <div class="product-row">
       <div class="panel">
         <img id="img-evap" src="assets/evaporator-render.jpg" alt="COOK four-effect falling-film juice evaporator, isolated three-quarter view">
         <img id="img-conc" src="assets/concentrate.jpg" alt="Orange juice concentrate in a glass beaker beside a halved orange" hidden>
@@ -384,7 +394,7 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
   <section class="split" id="services" aria-labelledby="svc-h">
     <h2 class="label" id="svc-h">Supply &amp; services</h2>
     <div class="split-body">
-      <p class="st">We work for owners and operators, so our designs are judged on yield, steam use and uptime, not on equipment sold.</p>
+      <p class="st">Five services, and one accountable engineer from feasibility to the first full season.</p>
       <ul class="acc" data-acc>
         <li><h3><button class="row" type="button" aria-expanded="true" aria-controls="v0"><span class="num">01</span><span class="t">Plant design &amp; layout</span><span class="pm" aria-hidden="true"></span></button></h3>
           <div class="body" id="v0"><p class="mono">Mass balance · P&amp;IDs · general arrangements</p><p>Process design for new plants and expansions, with a budget estimate you can take to the board.</p></div></li>
@@ -406,63 +416,42 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
 <section class="band" id="technology" data-piece="3" aria-labelledby="tech-h">
   <div class="band-grid">
     <div class="drawing">
-      <svg viewBox="0 0 600 520" role="img" aria-labelledby="draw-t">
-        <title id="draw-t">Line drawing of a four-effect COOK falling-film evaporator: preheater, holding tube, four effects, aroma column and flash cooler</title>
-        <g class="stg" data-stage="0">
-          <rect class="ln" x="24" y="250" width="60" height="200" rx="30"/>
-          <path class="ln" d="M24 282H84M24 418H84M40 282V418M49 282V418M59 282V418M68 282V418M54 450V490H112"/>
-        </g>
-        <g class="stg" data-stage="1">
-          <path class="ln" d="M112 490V300A15 15 0 0 1 142 300V420A15 15 0 0 0 172 420V290H196"/>
-        </g>
-        <g class="stg" data-stage="2">
-          <rect class="ln" x="196" y="60" width="48" height="380" rx="24"/>
-          <rect class="ln" x="258" y="90" width="48" height="350" rx="24"/>
-          <rect class="ln" x="320" y="120" width="48" height="320" rx="24"/>
-          <rect class="ln" x="382" y="150" width="48" height="290" rx="24"/>
-          <path class="ln" d="M196 100H244M196 400H244M258 130H306M258 400H306M320 160H368M320 400H368M382 190H430M382 400H430"/>
-          <path class="ln" d="M208 100V400M216 100V400M224 100V400M232 100V400M270 130V400M278 130V400M286 130V400M294 130V400M332 160V400M340 160V400M348 160V400M356 160V400M394 190V400M402 190V400M410 190V400M418 190V400"/>
-          <path class="film" d="M208 100V400M224 100V400M270 130V400M286 130V400M332 160V400M348 160V400M394 190V400M410 190V400"/>
-          <path class="ln" d="M220 60V36H282V90M282 90V66H344V120M344 120V96H406V150M220 440V490H406V440M282 440V490M344 440V490"/>
-        </g>
-        <g class="stg" data-stage="3">
-          <path class="ln" d="M220 36V18H476V80"/>
-          <rect class="ln" x="456" y="80" width="40" height="220" rx="20"/>
-          <path class="ln" d="M456 120H496M456 260H496M460 130L492 150L460 170L492 190L460 210L492 230L460 250"/>
-        </g>
-        <g class="stg" data-stage="4">
-          <rect class="ln" x="520" y="340" width="64" height="100" rx="32"/>
-          <path class="ln" d="M534 370H570M534 410H570M552 440V510M406 490H430V420H520"/>
-        </g>
-      </svg>
-      <div class="brix" id="brix-tech" data-value="12" aria-hidden="true"></div>
-      <p class="note mono">Drawing shows a four-effect unit. COOK builds 4 to 7 effects.</p>
+      <img class="render" src="assets/evaporator-render.jpg" alt="COOK four-effect falling-film juice evaporator, isolated three-quarter view" loading="lazy">
+      <div class="brix" id="brix-tech" data-value="45" aria-hidden="true"></div>
+      <p class="note mono">Shown: a four-effect unit. COOK builds 4 to 7 effects.</p>
       <p class="sr" id="brix-sr" aria-live="polite"></p>
     </div>
 
     <div class="acc-col">
       <h2 class="label" id="tech-h">Technology</h2>
       <p class="st">Five stages, one continuous film, from single-strength juice to frozen concentrate.</p>
-      <ul class="acc" id="acc" data-acc>
+      <p class="mono specline">2–25&nbsp;t/h · 4–7 effects · optional TVR · 316L · CIP</p>
+      <ul class="acc" id="acc" data-acc data-open="2">
         <li>
-          <h3><button class="row" type="button" aria-expanded="true" aria-controls="s0" data-brix="12"><span class="num">01</span><span class="t">Feed &amp; preheat</span><span class="meta">12&nbsp;°Brix</span><span class="pm" aria-hidden="true"></span></button></h3>
-          <div class="body" id="s0"><p class="mono">Single-strength juice in</p><p>Juice is preheated with vapour recovered from the effects, so heat that leaves one stage warms the feed for the next.</p></div>
+          <h3><button class="row" type="button" aria-expanded="false" aria-controls="s0" data-brix="12"><span class="num">01</span><span class="t">Feed &amp; preheat</span><span class="meta">12&nbsp;°Brix</span><span class="pm" aria-hidden="true"></span></button></h3>
+          <div class="body" id="s0" hidden><p class="mono">Single-strength juice in</p><p>Recovered vapour preheats the incoming juice.</p></div>
         </li>
         <li>
           <h3><button class="row" type="button" aria-expanded="false" aria-controls="s1" data-brix="12"><span class="num">02</span><span class="t">Pasteurisation</span><span class="meta">12&nbsp;°Brix</span><span class="pm" aria-hidden="true"></span></button></h3>
-          <div class="body" id="s1" hidden><p class="mono">Short high-temperature hold</p><p>A brief hold inactivates pectin methylesterase and spoilage organisms, so the finished concentrate keeps a stable cloud.</p></div>
+          <div class="body" id="s1" hidden><p class="mono">Short high-temperature hold</p><p>Inactivates enzymes so the concentrate keeps a stable cloud.</p></div>
         </li>
         <li>
-          <h3><button class="row" type="button" aria-expanded="false" aria-controls="s2" data-brix="45"><span class="num">03</span><span class="t">Falling-film effects</span><span class="meta">45&nbsp;°Brix</span><span class="pm" aria-hidden="true"></span></button></h3>
-          <div class="body" id="s2" hidden><p class="mono">4–7 effects · optional TVR</p><p>Juice runs as a thin film down the tube walls of each effect. Residence time stays short and the temperature drops effect by effect, which protects flavour and colour.</p></div>
+          <h3><button class="row" type="button" aria-expanded="true" aria-controls="s2" data-brix="45"><span class="num">03</span><span class="t">Falling-film effects</span><span class="meta">45&nbsp;°Brix</span><span class="pm" aria-hidden="true"></span></button></h3>
+          <div class="body" id="s2"><p class="mono">4–7 effects · optional TVR</p>
+            <svg class="tubes" viewBox="0 0 180 120" role="img" aria-label="Juice running as a thin film down the evaporator tubes">
+              <path class="ln" d="M10 10H170M10 110H170M10 10V110M170 10V110"/>
+              <path class="ln" d="M30 10V110M50 10V110M70 10V110M90 10V110M110 10V110M130 10V110M150 10V110"/>
+              <path class="film" d="M33 10V110M53 10V110M73 10V110M93 10V110M113 10V110M133 10V110M153 10V110"/>
+            </svg>
+            <p>Juice runs as a thin film down the tube walls; short residence protects flavour and colour.</p></div>
         </li>
         <li>
           <h3><button class="row" type="button" aria-expanded="false" aria-controls="s3" data-brix="58"><span class="num">04</span><span class="t">Aroma recovery</span><span class="meta">58&nbsp;°Brix</span><span class="pm" aria-hidden="true"></span></button></h3>
-          <div class="body" id="s3" hidden><p class="mono">Essence column</p><p>Volatiles stripped from the first-effect vapour are condensed and rectified into an essence that can be added back or sold separately, while the last effects finish the juice.</p></div>
+          <div class="body" id="s3" hidden><p class="mono">Essence column</p><p>Volatiles are condensed into an essence to add back or sell.</p></div>
         </li>
         <li>
           <h3><button class="row" type="button" aria-expanded="false" aria-controls="s4" data-brix="65"><span class="num">05</span><span class="t">Flash cooling</span><span class="meta">65&nbsp;°Brix</span><span class="pm" aria-hidden="true"></span></button></h3>
-          <div class="body" id="s4" hidden><p class="mono">Concentrate out</p><p>Concentrate is flash-cooled under vacuum and pumped to blending or drumming, ready for frozen storage.</p></div>
+          <div class="body" id="s4" hidden><p class="mono">Concentrate out</p><p>Cooled under vacuum and pumped to blending or drumming.</p></div>
         </li>
       </ul>
     </div>
@@ -488,11 +477,6 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
       <div class="stat"><b>40+</b><span class="mono">Plants and evaporators commissioned</span></div>
       <div class="stat"><b>180&nbsp;t/h</b><span class="mono">Water evaporation installed</span></div>
       <div class="stat"><b>65&nbsp;°Brix</b><span class="mono">Concentrate from 12&nbsp;°Brix juice</span></div>
-      <ul class="spec mono">
-        <li>2–25&nbsp;t/h per evaporator</li>
-        <li>4–7 effects, optional TVR</li>
-        <li>316L product contact, CIP throughout</li>
-      </ul>
     </div>
   </div>
 
@@ -582,7 +566,7 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
     for (var v=0; v<=65; v+=5){
       var maj = (v%10===0)||v===65;
       h += '<span class="t'+(maj?' maj':'')+'" style="left:'+pct(v)+'"></span>';
-      if (maj && v!==60) h += '<span class="n'+(v===0?' first':v===65?' last':'')+'" style="left:'+pct(v)+'">'+v+'</span>';
+      if (maj) h +='<span class="n'+(v===0?' first':v===65?' last':'')+'" style="left:'+pct(v)+'">'+v+'</span>';
     }
     h += '<span class="mk"></span><span class="v"></span>';
     el.innerHTML = h;
@@ -632,7 +616,7 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
   });});
 
   /* ---- Accordions (one row open at a time) ---- */
-  var stages = document.querySelectorAll('.drawing .stg'), bt = document.getElementById('brix-tech'), sr = document.getElementById('brix-sr');
+  var bt = document.getElementById('brix-tech'), sr = document.getElementById('brix-sr');
   document.querySelectorAll('[data-acc]').forEach(function(acc){
     var rows = acc.querySelectorAll('button.row'), tech = acc.id === 'acc';
     function openRow(i){
@@ -640,7 +624,6 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
         var on = j === i;
         r.setAttribute('aria-expanded', on);
         document.getElementById(r.getAttribute('aria-controls')).hidden = !on;
-        if (tech) stages[j].classList.toggle('on', on);
       });
       if (tech){
         var r = rows[i];
@@ -651,8 +634,13 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
     rows.forEach(function(r, i){ r.addEventListener('click', function(){
       if (r.getAttribute('aria-expanded') !== 'true') openRow(i);
     });});
-    openRow(0);
+    openRow(+(acc.dataset.open || 0));
   });
+
+  /* ---- Logo: compact glass pill once the hero has scrolled away ---- */
+  var logo = document.querySelector('.logo'), hero = document.getElementById('top');
+  function logoState(){ logo.classList.toggle('compact', hero.getBoundingClientRect().bottom < 120); }
+  window.addEventListener('scroll', logoState, {passive:true}); logoState();
 
   /* ---- Statistics divider: marker concentrates as the figures scroll past ---- */
   var bc = document.getElementById('brix-co'), stats = document.getElementById('stats');
