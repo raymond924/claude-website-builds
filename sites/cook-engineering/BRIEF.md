@@ -77,6 +77,11 @@ Everything below is a believable placeholder. Replace before launch.
 - [ ] Countries and regions served
 - [ ] Logo (currently a typed "COOK" wordmark)
 - [ ] Contact form destination (form currently does not send)
+- [ ] Homepage statistics: 40+ plants and evaporators commissioned, 180 t/h water evaporation installed, 7 countries
+- [ ] Location tiles: Sundays River Valley (citrus) and Walvis Bay (fish) as representative sites
+- [ ] Hero case study line: concentrate output doubled on the existing boiler, Sundays River Valley
+- [ ] Stage Brix values in the technology accordion (12, 12, 45, 58, 65 °Brix)
+- [ ] Insights articles (four titles and dates are placeholders, no article pages exist)
 
 ## Photo shot list
 

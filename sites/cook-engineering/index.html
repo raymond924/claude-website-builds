@@ -4,482 +4,703 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>COOK Engineering</title>
-<meta name="description" content="COOK Engineering designs, supplies and commissions citrus and fish processing plants and juice evaporators across southern Africa.">
+<meta name="description" content="COOK Engineering designs, supplies and commissions citrus and fish processing plants, and builds its own falling-film juice evaporators, across southern Africa.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400&family=Geist+Mono:wght@400&display=swap">
 <style>
-/* Reference lock: T1 Energy (Refero). Vellum canvas, carbon text, whisper-light 300 display,
-   floating dark pill nav, 80px-radius image portholes, 4px square section labels,
-   no accent colour, no shadows, onyx footer. Single light theme by design. */
+/* Design system: "Concentrate" (sites/cook-engineering/design-system.md).
+   Stainless interface, colour only from photography, peel orange only on the Brix marker. */
 :root{
-  --vellum:#f0efe9;        /* page canvas */
-  --paper:#ffffff;         /* elevated surfaces, hairlines on light */
-  --carbon:#322d2a;        /* text, borders, filled buttons, nav pill */
-  --onyx:#0f0e12;          /* footer only */
-  --mercury:#8b8b8b;       /* muted text */
-  --slot:#dcdad3;          /* photo placeholder on vellum (mercury layered on vellum) */
-  --slot-dark:#4a4440;     /* hero photo placeholder (carbon tone) */
-  --sans:"Inter","Söhne",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --gutter:clamp(16px,4vw,48px);
-  --max:1200px;
-  --section:clamp(72px,9vw,120px);
+  --steel:#ffffff;
+  --pulp:#f2f1ec;
+  --ink:#2b2a28;
+  --muted:#86847f;
+  --onyx:#0f0f10;
+  --glass:rgba(24,24,24,.5);
+  --peel:#e8731a;
+  --hair:rgba(43,42,40,.16);
+  --sans:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --gutter:48px;
+  --edge:8px;
+  --r:64px;
+  --pad:120px;
   color-scheme:light;
 }
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
-body{margin:0;background:var(--vellum);color:var(--carbon);font:400 16px/1.4 var(--sans);letter-spacing:.01em}
-img{max-width:100%;display:block}
-a{color:inherit}
-:focus-visible{outline:2px solid var(--carbon);outline-offset:3px}
-h1,h2,h3,p{margin:0}
-h1,h2{font-weight:300;line-height:1;letter-spacing:.01em;text-wrap:balance}
-p{text-wrap:pretty}
-.wrap{max-width:calc(var(--max) + 2*var(--gutter));margin-inline:auto;padding-inline:var(--gutter)}
-.display{font-size:clamp(36px,5vw,52px)}
-.heading{font-size:clamp(26px,3vw,32px);font-weight:300;line-height:1.2}
-.sub{font-size:22px;line-height:1.3;font-weight:400}
-.small{font-size:14px;line-height:1.3}
-.muted{color:var(--mercury)}
-.num{font-variant-numeric:tabular-nums}
+body{margin:0;background:var(--steel);color:var(--ink);font:400 14px/1.45 var(--sans);overflow-x:hidden}
+img,video,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+h1,h2,h3,p,ul,ol,dl,dd,figure{margin:0;padding:0}
+ul,ol{list-style:none}
+h1,h2,h3{font-weight:300}
+:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:16px;top:-60px;z-index:100;background:var(--steel);color:var(--ink);padding:10px 16px;border-radius:999px}
+.skip:focus{top:16px}
 
-/* Section label: 4px carbon square + uppercase 12px */
-.label{display:inline-flex;align-items:center;gap:8px;font-size:12px;line-height:1.3;letter-spacing:.12em;text-transform:uppercase}
+/* ---------- Type roles ---------- */
+.label{display:flex;align-items:center;gap:8px;font:400 12px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase}
 .label::before{content:"";width:4px;height:4px;background:currentColor;flex:none}
+.mono{font:400 12px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.st{font-weight:300;font-size:32px;line-height:1.2;letter-spacing:-.005em}
+.st-s{font-weight:300;font-size:24px;line-height:1.25}
+.st + .st{margin-top:1.2em}
 
-/* Buttons: matched pill pair */
-.btn{display:inline-flex;align-items:center;gap:8px;border-radius:100px;padding:18px 22px;font:400 14px/1 var(--sans);letter-spacing:.01em;text-decoration:none;cursor:pointer;border:1px solid var(--carbon);transition:background .2s,color .2s}
-.btn-fill{background:var(--carbon);color:var(--paper)}
-.btn-fill:hover{background:var(--onyx);border-color:var(--onyx)}
-.btn-ghost{background:transparent;color:var(--carbon)}
-.btn-ghost:hover{background:var(--carbon);color:var(--paper)}
-.actions{display:flex;flex-wrap:wrap;gap:8px}
+/* ---------- Buttons ---------- */
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:50px;padding:0 22px;border-radius:999px;border:1px solid var(--ink);font-size:14px;line-height:1;background:transparent;cursor:pointer;transition:background .2s,color .2s}
+.pill:hover{background:var(--ink);color:var(--steel)}
+.pill-fill{background:var(--steel);color:var(--ink);border-color:var(--steel)}
+.pill-fill:hover{background:transparent;color:var(--steel)}
 
-/* Photo placeholders: keep the 80px porthole and aspect ratio, describe the shot */
-.ph{position:relative;background:var(--slot);border-radius:80px;overflow:hidden;max-width:100%;display:flex;align-items:center;justify-content:center;padding:48px}
-.ph figcaption{max-width:32ch;text-align:center;font-size:12px;line-height:1.4;letter-spacing:.08em;text-transform:uppercase;color:var(--carbon);opacity:.7}
-.ph figcaption b{display:block;font-weight:400;margin-bottom:6px;opacity:.6}
-@media (max-width:700px){.ph{border-radius:48px}}
+/* ---------- Split grammar ---------- */
+.split{display:grid;grid-template-columns:1fr 1fr;padding:var(--pad) var(--gutter)}
+.split > .label{padding-top:12px;align-self:start}
+.split-body{max-width:640px}
+.split-body .pill{margin-top:48px}
 
-/* Header: logo left, floating dark pill right (over the hero) */
-.site-head{position:absolute;inset:0 0 auto 0;z-index:5;padding-top:calc(env(safe-area-inset-top,0px) + 28px)}
-.site-head .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:none}
-.logo{display:flex;align-items:baseline;gap:10px;text-decoration:none;color:var(--paper)}
-.logo b{font-weight:400;font-size:30px;letter-spacing:.14em;line-height:1}
-.logo span{font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.8}
-.pill{display:flex;align-items:center;gap:24px;background:rgba(50,45,42,.92);color:var(--paper);border-radius:16px;padding:14px 24px}
-.pill a{font-size:14px;text-decoration:none;white-space:nowrap}
-.pill a:hover{text-decoration:underline;text-underline-offset:4px}
-.pill .links{display:flex;gap:24px}
-.menu-btn{display:none;background:none;border:0;color:var(--paper);font:400 14px var(--sans);cursor:pointer;padding:0}
+/* ---------- Brix scale ---------- */
+.brix{position:relative;height:44px;--c:var(--ink)}
+.brix .rule{position:absolute;left:0;right:0;top:18px;height:1px;background:var(--c)}
+.brix .t{position:absolute;top:18px;width:1px;height:5px;background:var(--c);transform:translateX(-.5px)}
+.brix .t.maj{height:9px}
+.brix .n{position:absolute;top:30px;transform:translateX(-50%);font:400 10px/1 var(--mono);letter-spacing:.04em;color:var(--c);opacity:.75}
+.brix .mk{position:absolute;top:6px;width:2px;height:21px;background:var(--peel);transform:translateX(-1px);transition:left .7s cubic-bezier(.3,.7,.2,1)}
+.brix .v{position:absolute;top:-12px;transform:translateX(-50%);font:400 11px/1 var(--mono);letter-spacing:.06em;color:var(--c);white-space:nowrap;transition:left .7s cubic-bezier(.3,.7,.2,1)}
+.brix.live .mk,.brix.live .v{transition:none}
+.brix-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:22px}
+
+/* ---------- Header / nav ---------- */
+.logo{position:absolute;top:34px;left:var(--gutter);z-index:20;color:#fff;display:flex;flex-direction:column;gap:6px}
+.logo .wm{font:300 40px/1 var(--sans);letter-spacing:.06em}
+.logo .sub{font:400 10px/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;opacity:.85;padding-left:2px}
+.nav{position:fixed;top:36px;right:36px;z-index:50;display:flex;align-items:center;gap:0;height:44px;padding:0 6px;border-radius:14px;background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:#fff}
+.nav .mini{display:flex;align-items:center;width:0;overflow:hidden;opacity:0;font:300 20px/1 var(--sans);letter-spacing:.06em;transition:width .35s,opacity .35s,padding .35s;white-space:nowrap}
+.nav.scrolled .mini{width:92px;opacity:1;padding-left:12px}
+.nav ul{display:flex}
+.nav ul a{display:block;padding:14px 22px;font-size:14px;line-height:16px;border-radius:10px}
+.nav ul a:hover{background:rgba(255,255,255,.1)}
+.nav .menu{display:none;background:none;border:0;cursor:pointer;height:44px;padding:0 16px;font-size:14px}
+
+/* ---------- 1 Hero ---------- */
+.hero{position:relative;height:100vh;height:100svh;min-height:640px;border-radius:0 0 var(--r) var(--r);overflow:hidden;background:#3a3936;color:#fff;isolation:isolate}
+.hero video,.hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.hero::after{content:"";position:absolute;inset:0;background:rgba(15,15,16,.34);z-index:-1}
+.hero-in{position:absolute;left:var(--gutter);right:var(--gutter);bottom:56px;display:grid;grid-template-columns:1fr auto;align-items:end;gap:48px}
+.hero h1{font-size:56px;line-height:1;letter-spacing:-.01em;max-width:12.5em}
+.hero .acts{display:flex;align-items:center;gap:24px;margin-top:36px}
+.hero .brix{--c:#fff;width:min(460px,100%);margin-top:52px}
+.hero .brix-cap{margin-top:6px;opacity:.8}
+.case{display:grid;grid-template-columns:1fr 104px;gap:20px;align-items:center;width:400px;padding:16px 16px 16px 20px;border-radius:24px;background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:#fff}
+.case .label{margin-bottom:12px}
+.case p{font-size:14px;line-height:1.35}
+.case img{width:104px;height:104px;object-fit:cover;border-radius:16px}
+.case:hover{background:rgba(24,24,24,.62)}
+
+/* ---------- 2 Mission / tiles / product / services ---------- */
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 var(--edge)}
+.tile{position:relative;aspect-ratio:708/800;border-radius:var(--r);overflow:hidden;background:var(--pulp)}
+.tile img{width:100%;height:100%;object-fit:cover}
+.loc{position:absolute;top:110px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:20px;height:56px;padding:0 6px 0 22px;border-radius:999px;background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:#fff;font-size:14px;white-space:nowrap}
+.loc .arr{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.18);transition:background .2s}
+.loc:hover .arr{background:rgba(255,255,255,.32)}
+.loc .arr svg{width:16px;height:16px}
+
+.product{display:grid;grid-template-columns:1fr 1fr;padding:8px var(--edge) 0 0}
+.product-copy{padding:100px var(--gutter) 0;max-width:calc(560px + var(--gutter)*2)}
+.product-copy .st{margin-top:56px}
+.product-copy .facts{margin-top:40px;display:grid;gap:10px;color:var(--muted)}
+.product-copy .pill{margin-top:44px}
+.panel{position:relative;aspect-ratio:712/880;border-radius:var(--r);overflow:hidden;background:var(--pulp)}
+.panel figure{position:absolute;inset:0}
+.panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .45s}
+.panel img[hidden]{display:block;opacity:0;visibility:hidden}
+.seg{position:absolute;left:50%;bottom:48px;transform:translateX(-50%);display:flex;padding:4px;border-radius:14px;background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.seg button{height:38px;padding:0 20px;min-width:110px;border:0;border-radius:10px;background:transparent;color:#fff;font-size:14px;cursor:pointer;transition:background .2s,color .2s}
+.seg button[aria-pressed="true"]{background:var(--steel);color:var(--ink)}
+.seg button:focus-visible{outline-color:#fff}
+
+.svc{margin-top:56px;border-top:1px solid var(--hair)}
+.svc li{display:grid;grid-template-columns:48px 1fr;gap:0 16px;padding:20px 0;border-bottom:1px solid var(--hair)}
+.svc .mono{color:var(--muted);padding-top:7px}
+.svc h3{font-size:24px;line-height:1.25}
+.svc p{grid-column:2;margin-top:6px;color:var(--muted);max-width:52ch}
+
+/* ---------- 3 Technology band ---------- */
+.band{margin:0 var(--edge);border-radius:var(--r);background:var(--pulp);padding:var(--pad) var(--gutter) 72px}
+.band-grid{display:grid;grid-template-columns:1fr 1fr;align-items:start}
+.drawing{padding-right:80px}
+.drawing svg{width:100%;height:auto;max-width:600px}
+.drawing svg .ln{fill:none;stroke:var(--ink);stroke-width:1;vector-effect:non-scaling-stroke}
+.drawing svg .stg{opacity:.3;transition:opacity .45s}
+.drawing svg .stg.on{opacity:1}
+.drawing svg .film{fill:none;stroke:var(--ink);stroke-width:1.6;stroke-dasharray:3 12;vector-effect:non-scaling-stroke;animation:fall 1.6s linear infinite}
+.drawing svg text{font:400 10px var(--mono);letter-spacing:.06em;fill:var(--ink)}
+.drawing svg text.mu{fill:var(--muted)}
+@keyframes fall{to{stroke-dashoffset:-15}}
+.drawing .brix{margin-top:56px;max-width:600px}
+.acc-col{max-width:560px}
+.acc-col .st{margin-top:40px}
+.acc{margin-top:48px}
+.acc li + li{margin-top:4px}
+.acc h3{font:inherit}
+.acc button.row{display:flex;width:100%;align-items:center;justify-content:space-between;gap:16px;padding:10px 0;border:0;background:none;text-align:left;cursor:pointer;font-weight:300;font-size:22px;line-height:1.2;color:var(--ink)}
+.acc button.row .t{opacity:.6;transition:opacity .2s}
+.acc button.row[aria-expanded="true"] .t,.acc button.row:hover .t{opacity:1}
+.acc .num{font:400 12px var(--mono);letter-spacing:.08em;color:var(--muted);margin-right:16px}
+.pm{position:relative;flex:none;width:40px;height:40px;border-radius:50%;background:var(--steel)}
+.pm::before,.pm::after{content:"";position:absolute;left:50%;top:50%;width:14px;height:1px;background:var(--ink);transform:translate(-50%,-50%)}
+.pm::after{transform:translate(-50%,-50%) rotate(90deg);transition:transform .25s}
+[aria-expanded="true"] .pm::after{transform:translate(-50%,-50%) rotate(0)}
+.acc .body{padding:4px 56px 22px 0}
+.acc .body .mono{color:var(--ink)}
+.acc .body p:last-child{margin-top:12px;color:var(--muted);font-size:14px;line-height:1.55}
+.specs{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:96px;padding-top:28px;border-top:1px solid var(--hair)}
+.specs dt{font-weight:300;font-size:32px;line-height:1.1}
+.specs dd{margin-top:10px;color:var(--muted)}
+
+/* ---------- 4 Company / stats / insights / contact / footer ---------- */
+.company{padding-bottom:0}
+.stats-wrap{display:grid;grid-template-columns:1fr 1fr;padding:96px var(--gutter) var(--pad)}
+.shop{width:min(360px,100%);aspect-ratio:1;border-radius:var(--r);overflow:hidden;align-self:end;background:var(--pulp)}
+.shop img{width:100%;height:100%;object-fit:cover}
+.stats .brix{max-width:560px;margin-bottom:72px}
+.stat + .stat{margin-top:72px}
+.stat b{display:block;font-weight:300;font-size:96px;line-height:1;letter-spacing:-.02em}
+.stat .mono{display:block;margin-top:14px}
+
+.news-head{padding-bottom:56px}
+.news{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 var(--edge)}
+.news img{width:100%;aspect-ratio:350/440;object-fit:cover;background:var(--pulp)}
+.news time{display:block;margin-top:28px;color:var(--muted)}
+.news h3{margin-top:22px;font-size:24px;line-height:1.3;max-width:15em;padding-right:16px}
+
+.contact .lead{margin-top:20px;color:var(--muted);font-size:16px;max-width:48ch}
+.contact dl{display:grid;grid-template-columns:auto 1fr;gap:10px 24px;margin-top:40px}
+.contact dt{color:var(--muted)}
+form{display:grid;grid-template-columns:1fr 1fr;gap:28px 24px;margin-top:56px}
+.field{display:grid;gap:8px}
+.field.full{grid-column:1/-1}
+.field label{color:var(--muted)}
+.field input,.field select,.field textarea{width:100%;font:300 18px/1.3 var(--sans);color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--ink);border-radius:0;padding:8px 0;appearance:none;-webkit-appearance:none}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%232b2a28'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 2px center;padding-right:24px}
+.field textarea{min-height:96px;resize:vertical}
+.field input:focus-visible,.field select:focus-visible,.field textarea:focus-visible{outline:none;border-bottom-width:2px;padding-bottom:7px}
+.form-foot{grid-column:1/-1;display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:8px}
+.form-foot .pill{margin-top:0}
+#f-status{color:var(--muted)}
+
+footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(--gutter) 48px}
+.index{display:grid;grid-template-columns:repeat(4,minmax(0,240px));gap:32px}
+.index li{display:grid;grid-template-columns:54px 1fr;padding:4px 0}
+.index li span{color:rgba(255,255,255,.5)}
+.index a:hover{text-decoration:underline;text-underline-offset:3px}
+.foot-base{display:grid;grid-template-columns:1fr 1fr;align-items:end;gap:32px;margin-top:160px}
+.mark{width:100%;max-width:680px;height:auto;color:#fff}
+.legal{display:grid;grid-template-columns:54px 1fr;gap:4px 0;align-self:end;padding-bottom:6px}
+.legal span{color:rgba(255,255,255,.5)}
+.legal span:first-child{white-space:nowrap}
+
+/* ---------- Phone ---------- */
+@media (max-width:1100px){
+  :root{--pad:96px}
+  .nav ul a{padding:14px 14px}
+  .case{width:340px}
+  .drawing{padding-right:40px}
+  .stat b{font-size:80px}
+}
 @media (max-width:860px){
-  .pill{gap:16px;padding:12px 18px;position:relative}
-  .pill .links{display:none}
-  .menu-btn{display:block}
-  .pill.open .links{display:flex;flex-direction:column;gap:14px;position:absolute;right:0;top:calc(100% + 8px);background:var(--carbon);border-radius:16px;padding:20px 24px;min-width:200px}
+  :root{--gutter:16px;--pad:72px;--r:40px}
+  .logo{top:24px}
+  .logo .wm{font-size:30px}
+  .nav{top:20px;right:16px;flex-wrap:wrap;justify-content:flex-end;height:auto;min-height:44px;max-width:calc(100vw - 32px)}
+  .nav .menu{display:block}
+  .nav ul{display:none;flex-basis:100%;flex-direction:column;padding:4px 0 8px}
+  .nav.open ul{display:flex}
+  .nav.open{border-radius:20px}
+  .nav ul a{padding:12px 14px;font-size:16px}
+  .nav.scrolled .mini{width:76px;font-size:18px}
+  .hero-in{grid-template-columns:1fr;gap:28px;bottom:24px}
+  .hero h1{font-size:40px}
+  .hero .acts{margin-top:24px}
+  .hero .brix{margin-top:36px}
+  .case{width:100%;grid-template-columns:1fr 72px}
+  .case img{width:72px;height:72px;border-radius:12px}
+  .split,.stats-wrap{grid-template-columns:1fr}
+  .split > .label{padding-top:0;margin-bottom:28px}
+  .st{font-size:24px}
+  .split-body .pill{margin-top:32px}
+  .tiles{grid-template-columns:1fr}
+  .loc{top:32px}
+  .product{grid-template-columns:1fr;padding:0 var(--edge)}
+  .product-copy{padding:72px var(--gutter) 40px}
+  .product-copy .st{margin-top:28px}
+  .seg{bottom:24px}
+  .seg button{min-width:0;padding:0 16px}
+  .svc h3{font-size:20px}
+  .svc li{grid-template-columns:36px 1fr}
+  .band{padding:72px 16px 48px}
+  .band-grid{grid-template-columns:1fr}
+  .drawing{padding-right:0;order:2;margin-top:48px}
+  .drawing .brix{margin-top:40px}
+  .acc button.row{font-size:20px}
+  .acc .body{padding-right:0}
+  .specs{grid-template-columns:1fr 1fr;gap:32px 16px;margin-top:64px}
+  .specs dt{font-size:28px}
+  .stats-wrap{padding-top:56px}
+  .shop{order:2;margin-top:64px;width:min(280px,100%)}
+  .stat b{font-size:64px}
+  .stat + .stat{margin-top:48px}
+  .stats .brix{margin-bottom:56px}
+  .news{grid-template-columns:1fr 1fr;row-gap:40px}
+  .news time{margin-top:16px}
+  .news h3{font-size:18px;margin-top:12px}
+  form{grid-template-columns:1fr}
+  footer{padding:64px var(--gutter) 32px}
+  .index{grid-template-columns:1fr 1fr;gap:28px 16px}
+  .index li{grid-template-columns:40px 1fr}
+  .foot-base{grid-template-columns:1fr;margin-top:80px}
+  .legal{grid-template-columns:64px 1fr}
+}
+@media (max-width:420px){
+  .hero h1{font-size:36px}
+  .loc{height:48px;padding-left:18px;gap:14px}
+  .loc .arr{width:36px;height:36px}
 }
 
-/* Hero: full-bleed photo slot, headline bottom-left, case-study card bottom-right */
-.hero{position:relative;min-height:min(92vh,900px);background:var(--slot-dark);color:var(--paper);display:flex;align-items:flex-end;overflow:hidden}
-.hero .note{position:absolute;top:clamp(120px,22%,220px);left:50%;transform:translateX(-50%);width:min(36ch,80%);text-align:center;font-size:12px;line-height:1.5;letter-spacing:.08em;text-transform:uppercase;opacity:.45}
-.hero .wrap{width:100%;max-width:none;padding-block:0 clamp(32px,5vw,96px);display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;position:relative}
-.hero-copy{display:flex;flex-direction:column;gap:36px;flex:1 1 520px;max-width:680px}
-.hero h1{font-size:clamp(40px,5.4vw,64px)}
-.hero .btn-fill{border-color:var(--carbon);align-self:flex-start}
-.case{display:flex;gap:16px;align-items:stretch;background:var(--carbon);border-radius:12px;padding:16px;max-width:360px;text-decoration:none;color:var(--paper)}
-.case .txt{display:flex;flex-direction:column;gap:10px;justify-content:space-between}
-.case p{font-size:14px;line-height:1.3}
-.case .thumb{flex:none;width:96px;border-radius:8px;background:var(--paper);display:flex;align-items:center;justify-content:center}
-.case .thumb svg{width:72px;height:72px}
-@media (max-width:640px){.case{max-width:none;width:100%}}
-
-/* Sections */
-section{padding-block:var(--section) 0}
-.intro{display:grid;grid-template-columns:1fr;gap:36px;max-width:980px}
-.intro p.sub{max-width:52ch}
-.pair{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:48px}
-.pair .ph{aspect-ratio:1/1}
-@media (max-width:760px){.pair{grid-template-columns:1fr}.pair .ph{aspect-ratio:4/3}}
-
-/* Services list */
-.split{display:grid;grid-template-columns:5fr 7fr;gap:48px;align-items:start}
-.split > *{min-width:0}
-@media (max-width:900px){.split{grid-template-columns:1fr}}
-.split-head{display:flex;flex-direction:column;gap:24px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 32px)}
-@media (max-width:900px){.split-head{position:static}}
-.svc{list-style:none;margin:0;padding:0;border-top:1px solid var(--carbon)}
-.svc li{display:grid;grid-template-columns:1fr 1.3fr;gap:24px;padding:24px 0;border-bottom:1px solid var(--carbon)}
-.svc h3{font-size:22px;font-weight:400;line-height:1.3}
-.svc p{font-size:16px;line-height:1.4}
-.svc .tags{grid-column:2;display:flex;flex-wrap:wrap;gap:8px}
-.tag{font-size:12px;line-height:1;padding:8px 12px;border-radius:100px;background:var(--paper)}
-@media (max-width:560px){.svc li{grid-template-columns:1fr;gap:12px}.svc .tags{grid-column:1}}
-
-/* Evaporators: product render left, accordion right */
-.evap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-top:48px}
-.evap > *{min-width:0}
-.evap .ph{aspect-ratio:1/1;background:transparent;border:1px dashed var(--mercury)}
-@media (max-width:900px){.evap{grid-template-columns:1fr}.evap .ph{aspect-ratio:4/3}}
-.acc{border-top:1px solid var(--carbon)}
-.acc details{border-bottom:1px solid var(--carbon)}
-.acc summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0;cursor:pointer;font-size:22px;line-height:1.3}
-.acc summary::-webkit-details-marker{display:none}
-.acc .step{font-size:12px;letter-spacing:.12em;color:var(--mercury);margin-right:16px;font-variant-numeric:tabular-nums}
-.acc .ic{flex:none;width:40px;height:40px;border-radius:100px;border:1px solid var(--carbon);background:var(--paper);position:relative}
-.acc .ic::before,.acc .ic::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1px;background:var(--carbon);transform:translate(-50%,-50%)}
-.acc .ic::after{transform:translate(-50%,-50%) rotate(90deg);transition:transform .2s}
-.acc details[open] .ic::after{transform:translate(-50%,-50%) rotate(0deg)}
-.acc .body{padding:0 56px 24px 0;font-size:16px;line-height:1.4;color:var(--carbon)}
-.acc .body p + p{margin-top:8px}
-.specs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:48px}
-.spec{background:var(--paper);border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0}
-.spec .v{font-size:32px;font-weight:300;line-height:1.2}
-.spec .v small{font-size:14px;margin-left:4px}
-@media (max-width:900px){.specs{grid-template-columns:1fr 1fr}}
-
-/* Industries */
-.inds{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:48px}
-.ind{display:flex;flex-direction:column;gap:24px;min-width:0}
-.ind .ph{aspect-ratio:16/11}
-.ind .meta{display:flex;flex-direction:column;gap:16px;padding-inline:22px}
-.ind ul{margin:0;padding:0;list-style:none;border-top:1px solid var(--carbon)}
-.ind li{padding:12px 0;border-bottom:1px solid var(--carbon);font-size:14px;line-height:1.3;display:flex;justify-content:space-between;gap:16px}
-.ind li span:last-child{color:var(--mercury);text-align:right}
-@media (max-width:760px){.inds{grid-template-columns:1fr}.ind .meta{padding-inline:0}}
-
-/* Projects */
-.proj-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
-.projects{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
-.proj{display:flex;flex-direction:column;gap:16px;min-width:0}
-.proj .ph{aspect-ratio:1/1;padding:32px}
-.proj h3{font-size:22px;font-weight:400;line-height:1.3}
-.proj dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:14px;line-height:1.3}
-.proj dt{color:var(--mercury)}
-.proj dd{margin:0}
-@media (max-width:900px){.projects{grid-template-columns:1fr 1fr}}
-@media (max-width:600px){.projects{grid-template-columns:1fr}}
-
-/* Process */
-.steps{list-style:none;margin:48px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
-.steps li{background:var(--paper);border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0}
-.steps .n{font-size:12px;letter-spacing:.12em;color:var(--mercury)}
-.steps h3{font-size:22px;font-weight:400;line-height:1.3}
-.steps p{font-size:14px;line-height:1.3}
-@media (max-width:1000px){.steps{grid-template-columns:1fr 1fr}}
-@media (max-width:520px){.steps{grid-template-columns:1fr}}
-
-/* Region */
-.region{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
-.region > *{min-width:0}
-.region .ph{aspect-ratio:1/1}
-.countries{list-style:none;margin:24px 0 0;padding:0;border-top:1px solid var(--carbon)}
-.countries li{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--carbon);font-size:16px}
-.countries li span:last-child{color:var(--mercury);font-size:14px;text-align:right}
-@media (max-width:860px){.region{grid-template-columns:1fr}}
-
-/* Contact */
-.contact{background:var(--paper);border-radius:80px;padding:clamp(32px,6vw,80px);display:grid;grid-template-columns:5fr 7fr;gap:48px}
-.contact > *{min-width:0}
-@media (max-width:900px){.contact{grid-template-columns:1fr;border-radius:48px}}
-.contact address{font-style:normal;display:grid;gap:16px;margin-top:36px}
-.contact address div{display:flex;flex-direction:column;gap:4px;font-size:16px}
-.contact address .label{color:var(--mercury)}
-form{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.field{display:flex;flex-direction:column;gap:8px;min-width:0}
-.field.full{grid-column:1/-1}
-.field label{font-size:12px;letter-spacing:.12em;text-transform:uppercase}
-input,select,textarea{font:400 16px/1.4 var(--sans);color:var(--carbon);background:var(--vellum);border:1px solid transparent;border-radius:12px;padding:14px 16px;width:100%}
-input:focus,select:focus,textarea:focus{outline:none;border-color:var(--carbon)}
-textarea{min-height:140px;resize:vertical}
-.form-foot{grid-column:1/-1;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.status{font-size:14px;color:var(--mercury)}
-@media (max-width:560px){form{grid-template-columns:1fr}}
-
-/* Footer: onyx terminator */
-footer{background:var(--onyx);color:var(--paper);margin-top:var(--section);padding-block:72px calc(30px + env(safe-area-inset-bottom,0px))}
-.foot{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px}
-.foot > *{min-width:0}
-.foot h2{font-size:clamp(28px,3vw,40px)}
-.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;font-size:14px}
-.foot a{text-decoration:none;opacity:.85}
-.foot a:hover{opacity:1;text-decoration:underline}
-.foot .label{opacity:.6;margin-bottom:16px}
-.legal{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:72px;padding-top:24px;border-top:1px solid var(--carbon);font-size:12px;opacity:.6}
-@media (max-width:860px){.foot{grid-template-columns:1fr 1fr}.foot > :first-child{grid-column:1/-1}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
-<header class="site-head">
-  <div class="wrap">
-    <a class="logo" href="#top" aria-label="COOK Engineering home"><b>COOK</b><span>Engineering</span></a>
-    <nav class="pill" id="pill" aria-label="Primary">
-      <div class="links" id="nav-links">
-        <a href="#services">Services</a>
-        <a href="#evaporators">Evaporators</a>
-        <a href="#industries">Industries</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-      </div>
-      <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav-links">Menu</button>
-    </nav>
-  </div>
+<header>
+  <a class="logo" href="#top" aria-label="COOK Engineering, home">
+    <span class="wm" aria-hidden="true">COOK</span>
+    <span class="sub" aria-hidden="true">Engineering</span>
+  </a>
+  <nav class="nav" id="nav" aria-label="Main">
+    <a class="mini" href="#top" aria-label="COOK Engineering, back to top" tabindex="-1">COOK</a>
+    <button class="menu" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
+    <ul id="nav-links">
+      <li><a href="#evaporators">Evaporators</a></li>
+      <li><a href="#technology">Technology</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#company">Company</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
 </header>
 
-<main id="top">
-  <div class="hero">
-    <p class="note" aria-hidden="true">Photo · Full-bleed, landscape. Stainless-steel evaporator or citrus extraction line inside a working plant, natural light, no people posed for camera.</p>
-    <div class="wrap">
-      <div class="hero-copy">
-        <h1>Process engineering for citrus and fish factories</h1>
-        <a class="btn btn-fill" href="#services">Discover</a>
+<main id="main">
+
+<!-- ================= 1 HERO ================= -->
+<section class="hero" id="top" data-piece="1" aria-labelledby="hero-h">
+  <video id="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/hero-poster.jpg" aria-hidden="true">
+    <source src="assets/hero.mp4" type="video/mp4">
+  </video>
+  <div class="hero-in">
+    <div>
+      <h1 id="hero-h">Process engineering for citrus and fish factories</h1>
+      <div class="acts">
+        <a class="pill pill-fill" href="#mission">Discover</a>
       </div>
-      <a class="case" href="#projects">
-        <div class="txt">
-          <span class="label">Case study</span>
-          <p>Doubling concentrate output at a Sundays River Valley juice plant without adding a boiler.</p>
-        </div>
-        <div class="thumb" aria-hidden="true">
-          <svg viewBox="0 0 72 72" fill="none" stroke="#322d2a" stroke-width="1">
-            <path d="M10 22 L22 12 L40 10 L58 16 L64 30 L60 46 L48 58 L30 62 L16 54 L8 38 Z"/>
-            <path d="M18 30 C28 26 36 34 46 30 S58 36 62 34" stroke-dasharray="2 3"/>
-            <circle cx="44" cy="50" r="3" fill="#322d2a"/>
-          </svg>
-        </div>
+      <div class="brix-wrap" aria-hidden="true">
+        <div class="brix live" id="brix-hero" data-value="12"></div>
+        <p class="mono brix-cap">Feed to concentrate, °Brix</p>
+      </div>
+    </div>
+    <a class="case" href="#company" aria-label="Case study: concentrate output doubled on the existing boiler, Sundays River Valley">
+      <div>
+        <p class="label">Case study</p>
+        <p>Concentrate output doubled on the existing boiler, Sundays River Valley.</p>
+      </div>
+      <img src="assets/tile-citrus.jpg" alt="" width="104" height="104">
+    </a>
+  </div>
+</section>
+
+<!-- ================= 2 MISSION / LOCATIONS / PRODUCT / SERVICES ================= -->
+<div data-piece="2">
+  <section class="split" id="mission" aria-labelledby="mission-h">
+    <h2 class="label" id="mission-h">Mission</h2>
+    <div class="split-body">
+      <p class="st">COOK Engineering designs, supplies and commissions the plants that turn southern Africa's citrus harvests and pelagic catches into export product.</p>
+      <p class="st">We take responsibility for the whole process: the mass balance, the equipment, the installation and the first season of production.</p>
+      <a class="pill" href="#services">Learn more</a>
+    </div>
+  </section>
+
+  <div class="tiles">
+    <figure class="tile">
+      <img src="assets/tile-citrus.jpg" alt="Citrus orchards and a juice plant in the Sundays River Valley" width="1600" height="1600">
+      <a class="loc" href="#technology" aria-label="Sundays River Valley: citrus juice plants and evaporators">
+        <span>Sundays River Valley</span>
+        <span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 8h12M9 3l5 5-5 5"/></svg></span>
       </a>
+    </figure>
+    <figure class="tile">
+      <img src="assets/tile-fish.jpg" alt="Fishmeal plant and trawlers on the quay at Walvis Bay" width="1600" height="1600">
+      <a class="loc" href="#services" aria-label="Walvis Bay: fishmeal and fish oil plants">
+        <span>Walvis Bay</span>
+        <span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 8h12M9 3l5 5-5 5"/></svg></span>
+      </a>
+    </figure>
+  </div>
+
+  <section class="product" id="evaporators" aria-labelledby="evap-h">
+    <div class="product-copy">
+      <h2 class="label" id="evap-h">Evaporators</h2>
+      <p class="st">COOK builds its own citrus juice concentrators: falling-film evaporators that take single-strength juice to 65 °Brix while keeping its colour, flavour and aroma.</p>
+      <ul class="facts mono">
+        <li>12 → 65 °Brix</li>
+        <li>2–25 t/h water evaporation</li>
+        <li>4–7 effects, optional TVR</li>
+        <li>316L stainless, CIP throughout</li>
+      </ul>
+      <a class="pill" href="#technology">See the five stages</a>
+    </div>
+    <div class="panel" aria-label="Product view">
+      <figure>
+        <img id="img-evap" src="assets/evaporator-render.jpg" alt="COOK falling-film juice evaporator, isolated three-quarter view">
+        <img id="img-conc" src="assets/concentrate.jpg" alt="Citrus juice concentrate at 65 °Brix" hidden>
+      </figure>
+      <div class="seg" role="group" aria-label="Show">
+        <button type="button" aria-pressed="true" data-show="img-evap">Evaporator</button>
+        <button type="button" aria-pressed="false" data-show="img-conc">Concentrate</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="split" id="services" aria-labelledby="svc-h">
+    <h2 class="label" id="svc-h">Supply &amp; services</h2>
+    <div class="split-body">
+      <p class="st">We work for owners and operators, so our designs are judged on yield, steam use and uptime, not on equipment sold.</p>
+      <ol class="svc">
+        <li><span class="mono">01</span><div><h3>Plant design &amp; layout</h3><p>Mass and energy balances, P&amp;IDs and general arrangements for new plants and expansions.</p></div></li>
+        <li><span class="mono">02</span><div><h3>Juice evaporators</h3><p>Our own concentrators with aroma recovery, as a full package or an upgrade to an existing line.</p></div></li>
+        <li><span class="mono">03</span><div><h3>Project engineering</h3><p>Specification, tender evaluation, site supervision and contractor coordination to handover.</p></div></li>
+        <li><span class="mono">04</span><div><h3>Plant audits &amp; optimisation</h3><p>Measured yield, steam, water and power, with improvements ranked by payback.</p></div></li>
+        <li><span class="mono">05</span><div><h3>Operator training &amp; season support</h3><p>Shift training, start-of-season checks and on-call help when the fruit or fish arrives.</p></div></li>
+      </ol>
+      <a class="pill" href="#contact">Talk to an engineer</a>
+    </div>
+  </section>
+</div>
+
+<!-- ================= 3 TECHNOLOGY BAND ================= -->
+<section class="band" id="technology" data-piece="3" aria-labelledby="tech-h">
+  <div class="band-grid">
+    <div class="drawing">
+      <svg viewBox="0 0 600 560" role="img" aria-labelledby="draw-t">
+        <title id="draw-t">Line drawing of a COOK falling-film evaporator: preheater, holding tube, four falling-film effects, aroma column and flash cooler</title>
+        <!-- product manifold -->
+        <path class="ln" d="M0 490H600" opacity=".35"/>
+        <text x="0" y="512" class="mu">12 °BRIX IN</text>
+        <text x="600" y="512" text-anchor="end" class="mu">65 °BRIX OUT</text>
+
+        <g class="stg" data-stage="0">
+          <rect class="ln" x="24" y="250" width="60" height="200" rx="30"/>
+          <path class="ln" d="M24 282H84M24 418H84M40 282V418M49 282V418M59 282V418M68 282V418M54 450V490"/>
+          <text x="54" y="540" text-anchor="middle">01</text>
+        </g>
+
+        <g class="stg" data-stage="1">
+          <path class="ln" d="M112 490V300A15 15 0 0 1 142 300V420A15 15 0 0 0 172 420V290"/>
+          <path class="ln" d="M172 290H196"/>
+          <text x="142" y="540" text-anchor="middle">02</text>
+        </g>
+
+        <g class="stg" data-stage="2">
+          <rect class="ln" x="196" y="60" width="48" height="380" rx="24"/>
+          <rect class="ln" x="258" y="90" width="48" height="350" rx="24"/>
+          <rect class="ln" x="320" y="120" width="48" height="320" rx="24"/>
+          <rect class="ln" x="382" y="150" width="48" height="290" rx="24"/>
+          <path class="ln" d="M196 100H244M196 400H244M258 130H306M258 400H306M320 160H368M320 400H368M382 190H430M382 400H430"/>
+          <path class="ln" d="M208 100V400M216 100V400M224 100V400M232 100V400M270 130V400M278 130V400M286 130V400M294 130V400M332 160V400M340 160V400M348 160V400M356 160V400M394 190V400M402 190V400M410 190V400M418 190V400"/>
+          <path class="film" d="M208 100V400M224 100V400M270 130V400M286 130V400M332 160V400M348 160V400M394 190V400M410 190V400"/>
+          <path class="ln" d="M220 60V36H282V90M282 90V66H344V120M344 120V96H406V150M220 440V490M282 440V490M344 440V490M406 440V490"/>
+          <text x="220" y="462" text-anchor="middle" class="mu">E1</text>
+          <text x="282" y="462" text-anchor="middle" class="mu">E2</text>
+          <text x="344" y="462" text-anchor="middle" class="mu">E3</text>
+          <text x="406" y="462" text-anchor="middle" class="mu">E4</text>
+          <text x="313" y="540" text-anchor="middle">03</text>
+        </g>
+
+        <g class="stg" data-stage="3">
+          <path class="ln" d="M220 36V18H476V80"/>
+          <rect class="ln" x="456" y="80" width="40" height="220" rx="20"/>
+          <path class="ln" d="M456 120H496M456 260H496M460 130L492 150L460 170L492 190L460 210L492 230L460 250"/>
+          <path class="ln" d="M476 300V330"/>
+          <text x="476" y="540" text-anchor="middle">04</text>
+        </g>
+
+        <g class="stg" data-stage="4">
+          <rect class="ln" x="520" y="340" width="64" height="100" rx="32"/>
+          <path class="ln" d="M534 370H570M534 410H570M552 440V490M430 420H520"/>
+          <text x="552" y="540" text-anchor="middle">05</text>
+        </g>
+      </svg>
+      <div class="brix-head"><span class="mono">Stage concentration</span><span class="mono" id="stage-name">01 Feed &amp; preheat</span></div>
+      <div class="brix" id="brix-tech" data-value="12" aria-hidden="true"></div>
+      <p class="sr" id="brix-sr" aria-live="polite"></p>
+    </div>
+
+    <div class="acc-col">
+      <h2 class="label" id="tech-h">Technology</h2>
+      <p class="st">Five stages, one continuous film. Every COOK evaporator follows the same short, gentle path from fruit to frozen concentrate.</p>
+      <ul class="acc" id="acc">
+        <li>
+          <h3><button class="row" type="button" aria-expanded="true" aria-controls="s0" data-brix="12"><span class="t"><span class="num">01</span>Feed &amp; preheat</span><span class="pm" aria-hidden="true"></span></button></h3>
+          <div class="body" id="s0"><p class="mono">12 °Brix single-strength juice in</p><p>Juice is preheated with vapour recovered from the effects, so heat that leaves one stage warms the feed for the next.</p></div>
+        </li>
+        <li>
+          <h3><button class="row" type="button" aria-expanded="false" aria-controls="s1" data-brix="12"><span class="t"><span class="num">02</span>Pasteurisation</span><span class="pm" aria-hidden="true"></span></button></h3>
+          <div class="body" id="s1" hidden><p class="mono">Short high-temperature hold</p><p>A brief hold inactivates pectin methylesterase and spoilage organisms, so the finished concentrate keeps a stable cloud.</p></div>
+        </li>
+        <li>
+          <h3><button class="row" type="button" aria-expanded="false" aria-controls="s2" data-brix="45"><span class="t"><span class="num">03</span>Falling-film effects</span><span class="pm" aria-hidden="true"></span></button></h3>
+          <div class="body" id="s2" hidden><p class="mono">4–7 effects · optional TVR · 12 → 45 °Brix</p><p>Juice runs as a thin film down the tube walls of each effect. Residence time stays short and the temperature drops effect by effect, which protects flavour and colour.</p></div>
+        </li>
+        <li>
+          <h3><button class="row" type="button" aria-expanded="false" aria-controls="s3" data-brix="58"><span class="t"><span class="num">04</span>Aroma recovery</span><span class="pm" aria-hidden="true"></span></button></h3>
+          <div class="body" id="s3" hidden><p class="mono">Essence column · finishing to 58 °Brix</p><p>Volatiles stripped from the first-effect vapour are condensed and rectified into an essence that can be added back or sold separately, while the last effects finish the juice.</p></div>
+        </li>
+        <li>
+          <h3><button class="row" type="button" aria-expanded="false" aria-controls="s4" data-brix="65"><span class="t"><span class="num">05</span>Flash cooling</span><span class="pm" aria-hidden="true"></span></button></h3>
+          <div class="body" id="s4" hidden><p class="mono">65 °Brix concentrate out</p><p>Concentrate is flash-cooled under vacuum and pumped to blending or drumming, ready for frozen storage.</p></div>
+        </li>
+      </ul>
     </div>
   </div>
 
-  <section aria-labelledby="mission">
-    <div class="wrap">
-      <div class="intro">
-        <span class="label">Mission</span>
-        <h2 id="mission" class="display">We design, supply and commission the plants that turn southern Africa's harvests and catches into export product.</h2>
-        <p class="sub muted">From a single juice evaporator to a complete fishmeal line, COOK Engineering takes responsibility for the process: the mass balance, the equipment, the installation and the first season of production.</p>
-        <div class="actions">
-          <a class="btn btn-fill" href="#contact">Talk to an engineer</a>
-          <a class="btn btn-ghost" href="#evaporators">Our evaporators</a>
-        </div>
-      </div>
-      <div class="pair">
-        <figure class="ph" style="margin:0"><figcaption><b>Photo</b>Citrus fruit on an inspection conveyor, overhead view, orange against stainless steel</figcaption></figure>
-        <figure class="ph" style="margin:0"><figcaption><b>Photo</b>Fishmeal plant cooker and twin-screw press, wide interior shot</figcaption></figure>
-      </div>
+  <dl class="specs">
+    <div><dt>65 °Brix</dt><dd class="mono">Concentrate from 12 °Brix juice</dd></div>
+    <div><dt>2–25 t/h</dt><dd class="mono">Water evaporation</dd></div>
+    <div><dt>4–7</dt><dd class="mono">Effects, optional TVR</dd></div>
+    <div><dt>316L</dt><dd class="mono">Product contact, CIP throughout</dd></div>
+  </dl>
+</section>
+
+<!-- ================= 4 COMPANY / STATS / INSIGHTS / CONTACT / FOOTER ================= -->
+<div data-piece="4">
+  <section class="split company" id="company" aria-labelledby="co-h">
+    <h2 class="label" id="co-h">Company</h2>
+    <div class="split-body">
+      <p class="st">COOK is a South African engineering firm working across South Africa, Namibia, Eswatini, Zimbabwe, Mozambique, Botswana and Lesotho.</p>
+      <a class="pill" href="#contact">Learn more</a>
     </div>
   </section>
 
-  <section id="services" aria-labelledby="svc-h">
-    <div class="wrap split">
-      <div class="split-head">
-        <span class="label">Services</span>
-        <h2 id="svc-h" class="display">One team from feasibility to first production</h2>
-        <p class="muted">We work for owners and operators, so our designs are judged on yield, steam use and uptime, not on equipment sold.</p>
-      </div>
-      <ul class="svc">
-        <li><h3>Plant design &amp; layout</h3><p>Process flow diagrams, mass and energy balances, P&amp;IDs and general arrangements for new plants and expansions.</p>
-          <div class="tags"><span class="tag">PFD &amp; P&amp;ID</span><span class="tag">Mass balance</span><span class="tag">GA drawings</span></div></li>
-        <li><h3>Juice evaporators</h3><p>Our own falling-film concentrators with aroma recovery, designed and built for citrus. Supplied as a full package or as an upgrade to an existing line.</p>
-          <div class="tags"><span class="tag">Design &amp; supply</span><span class="tag">Aroma recovery</span><span class="tag">Retrofits</span></div></li>
-        <li><h3>Project engineering</h3><p>Equipment specification, tender evaluation, site supervision and contractor coordination through to handover.</p>
-          <div class="tags"><span class="tag">Tender packages</span><span class="tag">Site supervision</span><span class="tag">Commissioning</span></div></li>
-        <li><h3>Plant audits &amp; optimisation</h3><p>Measured audits of yield, steam, water and electricity, with a costed list of improvements ranked by payback.</p>
-          <div class="tags"><span class="tag">Steam economy</span><span class="tag">Water reuse</span><span class="tag">Yield loss</span></div></li>
-        <li><h3>Operator training &amp; support</h3><p>Hands-on training for your shift teams, start-of-season checks and on-call support during the season.</p>
-          <div class="tags"><span class="tag">Season start-up</span><span class="tag">SOPs</span><span class="tag">On-call</span></div></li>
-      </ul>
+  <div class="stats-wrap" aria-label="COOK in numbers">
+    <figure class="shop">
+      <img src="assets/workshop.jpg" alt="Stainless-steel evaporator tubes in the COOK workshop">
+    </figure>
+    <div class="stats">
+      <div class="brix" id="brix-co" data-value="65" aria-hidden="true"></div>
+      <div class="stat"><b>40+</b><span class="mono">Plants and evaporators commissioned</span></div>
+      <div class="stat"><b>180 t/h</b><span class="mono">Water evaporation installed</span></div>
+      <div class="stat"><b>7</b><span class="mono">Countries in southern Africa</span></div>
+    </div>
+  </div>
+
+  <section id="insights" aria-labelledby="ins-h">
+    <div class="split news-head">
+      <h2 class="label" id="ins-h">Insights</h2>
+      <div class="split-body"><p class="st">Notes from the plant floor, the drawing office and the season.</p></div>
+    </div>
+    <div class="news">
+      <article>
+        <img src="assets/news-lemons.jpg" alt="Lemons on a juice line">
+        <time class="mono" datetime="2026-09-22">22.09.2026</time>
+        <h3>Lemon season 2026: what we changed on three juice lines</h3>
+      </article>
+      <article>
+        <img src="assets/news-tubes.jpg" alt="Close view of evaporator tube ends">
+        <time class="mono" datetime="2026-09-03">03.09.2026</time>
+        <h3>Why tube wetting decides how long an evaporator runs between cleans</h3>
+      </article>
+      <article>
+        <img src="assets/news-catch.jpg" alt="Pelagic catch being landed">
+        <time class="mono" datetime="2026-08-18">18.08.2026</time>
+        <h3>Designing a fishmeal plant for a catch that changes every week</h3>
+      </article>
+      <article>
+        <img src="assets/news-drawing.jpg" alt="Process drawing of a juice plant">
+        <time class="mono" datetime="2026-07-29">29.07.2026</time>
+        <h3>From mass balance to general arrangement in six weeks</h3>
+      </article>
     </div>
   </section>
 
-  <section id="evaporators" aria-labelledby="evap-h">
-    <div class="wrap">
-      <div class="intro">
-        <span class="label">Evaporators</span>
-        <h2 id="evap-h" class="display">Juice concentrators built for citrus</h2>
-        <p class="sub muted">Gentle, short-residence evaporation that takes single-strength juice to frozen concentrate while protecting colour, flavour and aroma.</p>
-      </div>
-      <div class="evap">
-        <figure class="ph" style="margin:0"><figcaption><b>Product render</b>COOK falling-film evaporator, isolated three-quarter view on a plain vellum background, no backdrop</figcaption></figure>
-        <div>
-          <div class="acc" id="acc">
-            <details open><summary><span><span class="step">01</span>Feed &amp; preheat</span><span class="ic" aria-hidden="true"></span></summary>
-              <div class="body"><p>Single-strength juice is preheated with recovered vapour, so the energy that leaves one effect warms the feed for the next.</p></div></details>
-            <details><summary><span><span class="step">02</span>Pasteurisation</span><span class="ic" aria-hidden="true"></span></summary>
-              <div class="body"><p>A short high-temperature hold inactivates pectin methylesterase and spoilage organisms before concentration, giving a stable cloud in the finished concentrate.</p></div></details>
-            <details><summary><span><span class="step">03</span>Falling-film effects</span><span class="ic" aria-hidden="true"></span></summary>
-              <div class="body"><p>Juice runs as a thin film down the tube walls of each effect. Residence time stays short and temperatures drop effect by effect, which protects flavour and colour.</p><p>Thermal vapour recompression cuts live-steam demand further on larger units.</p></div></details>
-            <details><summary><span><span class="step">04</span>Aroma recovery</span><span class="ic" aria-hidden="true"></span></summary>
-              <div class="body"><p>Volatile aromas stripped in the first effect are condensed and rectified into an essence that can be added back to reconstituted juice or sold separately.</p></div></details>
-            <details><summary><span><span class="step">05</span>Flash cooling &amp; discharge</span><span class="ic" aria-hidden="true"></span></summary>
-              <div class="body"><p>Concentrate is flash-cooled under vacuum and pumped to blending or drumming, ready for frozen storage.</p></div></details>
-          </div>
-        </div>
-      </div>
-      <div class="specs" role="list" aria-label="Typical evaporator specification">
-        <div class="spec" role="listitem"><span class="label">Concentrate</span><span class="v num">65<small>°Brix</small></span><span class="small muted">From 10–12 °Brix single-strength juice</span></div>
-        <div class="spec" role="listitem"><span class="label">Evaporation rate</span><span class="v num">2–25<small>t/h</small></span><span class="small muted">Water removed, sized to your fruit intake</span></div>
-        <div class="spec" role="listitem"><span class="label">Effects</span><span class="v num">4–7</span><span class="small muted">With optional thermal vapour recompression</span></div>
-        <div class="spec" role="listitem"><span class="label">Construction</span><span class="v">316L</span><span class="small muted">Stainless steel product contact, CIP throughout</span></div>
-      </div>
+  <section class="split contact" id="contact" aria-labelledby="ct-h">
+    <h2 class="label" id="ct-h">Contact</h2>
+    <div class="split-body">
+      <p class="st">Tell us about your plant.</p>
+      <p class="lead">An engineer, not a salesperson, replies within two working days.</p>
+      <dl class="mono">
+        <dt>Office</dt><dd>[Street address], [Town], South Africa</dd>
+        <dt>Phone</dt><dd>+27 (0)00 000 0000</dd>
+        <dt>Email</dt><dd>info@cookengineering.co.za</dd>
+      </dl>
+      <form id="enq" novalidate>
+        <div class="field"><label class="mono" for="f-name">Name</label><input id="f-name" name="name" autocomplete="name" required></div>
+        <div class="field"><label class="mono" for="f-company">Company</label><input id="f-company" name="company" autocomplete="organization"></div>
+        <div class="field"><label class="mono" for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+        <div class="field"><label class="mono" for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel"></div>
+        <div class="field full"><label class="mono" for="f-type">I'm interested in</label>
+          <select id="f-type" name="type"><option>Juice evaporator</option><option>Citrus plant project</option><option>Fish plant project</option><option>Plant audit</option><option>Something else</option></select></div>
+        <div class="field full"><label class="mono" for="f-msg">Project details</label><textarea id="f-msg" name="msg" placeholder="Fruit or fish intake, current equipment, timeline"></textarea></div>
+        <div class="form-foot"><button class="pill" type="submit">Send enquiry</button><span class="mono" id="f-status" role="status"></span></div>
+      </form>
     </div>
   </section>
-
-  <section id="industries" aria-labelledby="ind-h">
-    <div class="wrap">
-      <div class="intro">
-        <span class="label">Industries</span>
-        <h2 id="ind-h" class="display">Two industries, understood in detail</h2>
-      </div>
-      <div class="inds">
-        <article class="ind">
-          <figure class="ph" style="margin:0"><figcaption><b>Photo</b>Citrus juice extractors in a row, fruit entering from above</figcaption></figure>
-          <div class="meta">
-            <h3 class="sub">Citrus processing</h3>
-            <p class="muted">Juice plants, packhouse by-product lines and concentrate facilities for oranges, soft citrus, lemons and grapefruit.</p>
-            <ul>
-              <li><span>Juice extraction &amp; finishing</span><span>Pulp control, yield</span></li>
-              <li><span>Concentration</span><span>FCOJ, NFC, essence</span></li>
-              <li><span>Peel &amp; by-products</span><span>Cold-pressed oil, pulp wash</span></li>
-              <li><span>Utilities</span><span>Steam, cooling water, CIP</span></li>
-            </ul>
-          </div>
-        </article>
-        <article class="ind">
-          <figure class="ph" style="margin:0"><figcaption><b>Photo</b>Fishmeal dryer and conveyors inside a West Coast plant</figcaption></figure>
-          <div class="meta">
-            <h3 class="sub">Fish processing</h3>
-            <p class="muted">Fishmeal and fish oil plants and pelagic processing for anchovy, pilchard and by-catch along the Atlantic coast.</p>
-            <ul>
-              <li><span>Cooking &amp; pressing</span><span>Cookers, twin-screw presses</span></li>
-              <li><span>Drying &amp; milling</span><span>Indirect steam dryers</span></li>
-              <li><span>Oil recovery</span><span>Decanters, separators</span></li>
-              <li><span>Odour &amp; effluent</span><span>Scrubbers, DAF</span></li>
-            </ul>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="projects" aria-labelledby="proj-h">
-    <div class="wrap">
-      <div class="proj-head">
-        <div class="intro" style="gap:24px">
-          <span class="label">Projects</span>
-          <h2 id="proj-h" class="display">Recent work</h2>
-        </div>
-        <a class="btn btn-ghost" href="#contact">Request references</a>
-      </div>
-      <div class="projects">
-        <article class="proj">
-          <figure class="ph" style="margin:0"><figcaption><b>Photo</b>New five-effect evaporator, installed</figcaption></figure>
-          <span class="label">Case study</span>
-          <h3>Evaporator upgrade, Sundays River Valley</h3>
-          <dl><dt>Scope</dt><dd>Five-effect evaporator with TVR and aroma recovery</dd><dt>Result</dt><dd>Concentrate output doubled on the existing boiler</dd><dt>Year</dt><dd class="num">2025</dd></dl>
-        </article>
-        <article class="proj">
-          <figure class="ph" style="margin:0"><figcaption><b>Photo</b>Fishmeal plant exterior at dusk, stacks and silos</figcaption></figure>
-          <span class="label">Fish</span>
-          <h3>Fishmeal plant expansion, Western Cape</h3>
-          <dl><dt>Scope</dt><dd>Second cooking and pressing line, stickwater handling</dd><dt>Result</dt><dd>Raw fish capacity increased by half</dd><dt>Year</dt><dd class="num">2024</dd></dl>
-        </article>
-        <article class="proj">
-          <figure class="ph" style="margin:0"><figcaption><b>Photo</b>Lemon juice line, finishers and pulp tanks</figcaption></figure>
-          <span class="label">Citrus</span>
-          <h3>Lemon juice plant, Limpopo</h3>
-          <dl><dt>Scope</dt><dd>Full plant design, extraction to drumming</dd><dt>Result</dt><dd>Commissioned in time for the first harvest</dd><dt>Year</dt><dd class="num">2023</dd></dl>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section aria-labelledby="proc-h">
-    <div class="wrap">
-      <div class="intro">
-        <span class="label">How we work</span>
-        <h2 id="proc-h" class="display">Five stages, one accountable engineer</h2>
-      </div>
-      <ol class="steps">
-        <li><span class="n">STAGE 1</span><h3>Assess</h3><p>Site visit, current mass balance and a clear statement of what has to improve.</p></li>
-        <li><span class="n">STAGE 2</span><h3>Design</h3><p>Process design, layouts and a budget estimate you can take to the board.</p></li>
-        <li><span class="n">STAGE 3</span><h3>Supply</h3><p>Our evaporators plus specified third-party equipment, checked at the factory.</p></li>
-        <li><span class="n">STAGE 4</span><h3>Install &amp; commission</h3><p>Site supervision, water trials, then product trials with your operators.</p></li>
-        <li><span class="n">STAGE 5</span><h3>Support</h3><p>Season start-up checks, training and on-call help when the fruit or fish arrives.</p></li>
-      </ol>
-    </div>
-  </section>
-
-  <section aria-labelledby="reg-h">
-    <div class="wrap region">
-      <figure class="ph" style="margin:0"><figcaption><b>Photo or map</b>Aerial view of citrus orchards in a river valley, or a simple line map of southern Africa</figcaption></figure>
-      <div>
-        <span class="label">Where we work</span>
-        <h2 id="reg-h" class="display" style="margin-top:24px">South Africa and its neighbours</h2>
-        <ul class="countries">
-          <li><span>South Africa</span><span>Eastern &amp; Western Cape, Limpopo, Mpumalanga</span></li>
-          <li><span>Namibia</span><span>Walvis Bay, Lüderitz</span></li>
-          <li><span>Eswatini</span><span>Citrus estates</span></li>
-          <li><span>Zimbabwe</span><span>Citrus estates</span></li>
-          <li><span>Mozambique</span><span>Citrus &amp; fisheries</span></li>
-          <li><span>Botswana &amp; Lesotho</span><span>On request</span></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact" aria-labelledby="ct-h">
-    <div class="wrap">
-      <div class="contact">
-        <div>
-          <span class="label">Contact</span>
-          <h2 id="ct-h" class="display" style="margin-top:24px">Tell us about your plant</h2>
-          <p class="muted" style="margin-top:24px">An engineer, not a salesperson, replies within two working days.</p>
-          <address>
-            <div><span class="label">Office</span><span>[Street address], [Town], South Africa</span></div>
-            <div><span class="label">Phone</span><span class="num">+27 (0)00 000 0000</span></div>
-            <div><span class="label">Email</span><span>info@cookengineering.co.za</span></div>
-          </address>
-        </div>
-        <form id="enq" novalidate>
-          <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" autocomplete="name"></div>
-          <div class="field"><label for="f-company">Company</label><input id="f-company" name="company" autocomplete="organization"></div>
-          <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email"></div>
-          <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel"></div>
-          <div class="field full"><label for="f-type">I'm interested in</label>
-            <select id="f-type" name="type"><option>Juice evaporator</option><option>Citrus plant project</option><option>Fish plant project</option><option>Plant audit</option><option>Something else</option></select></div>
-          <div class="field full"><label for="f-msg">Project details</label><textarea id="f-msg" name="msg" placeholder="Fruit or fish intake, current equipment, timeline"></textarea></div>
-          <div class="form-foot"><button class="btn btn-fill" type="submit">Send enquiry</button><span class="status" id="f-status" role="status"></span></div>
-        </form>
-      </div>
-    </div>
-  </section>
+</div>
 </main>
 
-<footer>
-  <div class="wrap">
-    <div class="foot">
-      <div><h2>COOK Engineering</h2><p class="small" style="margin-top:16px;opacity:.7;max-width:36ch">Process engineering and juice evaporators for citrus and fish factories in southern Africa.</p></div>
-      <div><p class="label">Services</p><ul><li><a href="#services">Plant design</a></li><li><a href="#evaporators">Evaporators</a></li><li><a href="#services">Audits</a></li><li><a href="#services">Training</a></li></ul></div>
-      <div><p class="label">Industries</p><ul><li><a href="#industries">Citrus</a></li><li><a href="#industries">Fish</a></li></ul></div>
-      <div><p class="label">Company</p><ul><li><a href="#projects">Projects</a></li><li><a href="#contact">Contact</a></li></ul></div>
-    </div>
-    <div class="legal"><span>© 2026 COOK Engineering</span><span>Draft homepage · photos and figures to be confirmed</span></div>
+<footer data-piece="4" aria-label="Site index">
+  <nav class="index mono" aria-label="Footer">
+    <ul>
+      <li><span>1.1</span><a href="#top">Home</a></li>
+      <li><span>1.2</span><a href="#mission">Mission</a></li>
+      <li><span>1.3</span><a href="#evaporators">Evaporators</a></li>
+      <li><span>1.4</span><a href="#technology">Technology</a></li>
+      <li><span>1.5</span><a href="#services">Services</a></li>
+    </ul>
+    <ul>
+      <li><span>2.1</span><a href="#company">Company</a></li>
+      <li><span>2.2</span><a href="#insights">Insights</a></li>
+      <li><span>2.3</span><a href="#contact">Enquiry</a></li>
+    </ul>
+    <ul>
+      <li><span>3.1</span><a href="mailto:info@cookengineering.co.za">Email</a></li>
+      <li><span>3.2</span><a href="tel:+27000000000">Phone</a></li>
+    </ul>
+  </nav>
+  <div class="foot-base">
+    <svg class="mark" id="mark" viewBox="0 0 750 200" role="img" aria-label="COOK"></svg>
+    <p class="legal mono"><span>© 2026</span><span>COOK Engineering (Pty) Ltd.<br>[Street address], [Town], South Africa</span></p>
   </div>
 </footer>
 
 <script>
 (function(){
-  var pill=document.getElementById('pill'),btn=document.getElementById('menu-btn');
-  btn.addEventListener('click',function(){var o=pill.classList.toggle('open');btn.setAttribute('aria-expanded',o);btn.textContent=o?'Close':'Menu';});
-  document.querySelectorAll('#nav-links a').forEach(function(a){a.addEventListener('click',function(){pill.classList.remove('open');btn.setAttribute('aria-expanded','false');btn.textContent='Menu';});});
-  // Accordion: one item open at a time
-  var items=document.querySelectorAll('#acc details');
-  items.forEach(function(d){d.addEventListener('toggle',function(){if(d.open)items.forEach(function(o){if(o!==d)o.open=false;});});});
-  document.getElementById('enq').addEventListener('submit',function(e){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* ---- Brix scale (0–65, ticks every 5) ---- */
+  function pct(v){ return (v/65*100).toFixed(3)+'%'; }
+  function buildBrix(el){
+    var h = '<div class="rule"></div>';
+    for (var v=0; v<=65; v+=5){
+      var maj = (v%10===0)||v===65;
+      h += '<span class="t'+(maj?' maj':'')+'" style="left:'+pct(v)+'"></span>';
+      if (maj && v!==60) h += '<span class="n" style="left:'+pct(v)+'">'+v+'</span>';
+    }
+    h += '<span class="mk"></span><span class="v"></span>';
+    el.innerHTML = h;
+    setBrix(el, +el.dataset.value);
+  }
+  function setBrix(el, v){
+    v = Math.max(0, Math.min(65, v));
+    var p = pct(v);
+    el.querySelector('.mk').style.left = p;
+    var lab = el.querySelector('.v');
+    lab.style.left = p;
+    lab.textContent = Math.round(v)+' °Brix';
+    lab.style.transform = v > 56 ? 'translateX(calc(-100% + 1px))' : v < 6 ? 'translateX(-1px)' : 'translateX(-50%)';
+  }
+  document.querySelectorAll('.brix').forEach(buildBrix);
+
+  /* ---- Nav ---- */
+  var nav = document.getElementById('nav'), btn = document.getElementById('menu-btn'), hero = document.getElementById('top');
+  btn.addEventListener('click', function(){
+    var o = nav.classList.toggle('open');
+    btn.setAttribute('aria-expanded', o); btn.textContent = o ? 'Close' : 'Menu';
+  });
+  nav.querySelectorAll('ul a').forEach(function(a){ a.addEventListener('click', function(){
+    nav.classList.remove('open'); btn.setAttribute('aria-expanded','false'); btn.textContent='Menu';
+  });});
+  var mini = nav.querySelector('.mini');
+  function onScroll(){
+    var s = window.scrollY > hero.offsetHeight - 120;
+    nav.classList.toggle('scrolled', s);
+    mini.tabIndex = s ? 0 : -1;
+  }
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  /* ---- Hero video + Brix progress ---- */
+  var vid = document.getElementById('hero-video'), bh = document.getElementById('brix-hero');
+  function applyMotion(){
+    if (reduce.matches){ vid.pause(); vid.removeAttribute('autoplay'); try{ vid.currentTime = 0; }catch(e){} setBrix(bh, 65); }
+    else { var p = vid.play(); if (p && p.catch) p.catch(function(){}); }
+  }
+  vid.addEventListener('timeupdate', function(){
+    if (reduce.matches || !vid.duration) return;
+    setBrix(bh, 12 + 53*(vid.currentTime/vid.duration));
+  });
+  applyMotion();
+  if (reduce.addEventListener) reduce.addEventListener('change', applyMotion);
+
+  /* ---- Product toggle ---- */
+  var segBtns = document.querySelectorAll('.seg button');
+  segBtns.forEach(function(b){ b.addEventListener('click', function(){
+    segBtns.forEach(function(o){
+      var on = o === b;
+      o.setAttribute('aria-pressed', on);
+      document.getElementById(o.dataset.show).hidden = !on;
+    });
+  });});
+
+  /* ---- Accordion drives drawing + Brix ---- */
+  var rows = document.querySelectorAll('#acc button.row'), stages = document.querySelectorAll('.drawing .stg'),
+      bt = document.getElementById('brix-tech'), sn = document.getElementById('stage-name'), sr = document.getElementById('brix-sr');
+  function openRow(i){
+    rows.forEach(function(r, j){
+      var on = j === i;
+      r.setAttribute('aria-expanded', on);
+      document.getElementById(r.getAttribute('aria-controls')).hidden = !on;
+      stages[j].classList.toggle('on', on);
+    });
+    var r = rows[i], name = r.querySelector('.t').textContent.replace(/^(\d+)/, '$1 ');
+    setBrix(bt, +r.dataset.brix);
+    sn.textContent = name;
+    sr.textContent = name + ': ' + r.dataset.brix + ' degrees Brix';
+  }
+  rows.forEach(function(r, i){ r.addEventListener('click', function(){
+    if (r.getAttribute('aria-expanded') === 'true') return;
+    openRow(i);
+  });});
+  openRow(0);
+
+  /* ---- Footer mark: COOK drawn from vertical tubes ---- */
+  (function(){
+    var svg = document.getElementById('mark'), ns = 'http://www.w3.org/2000/svg';
+    // Letter shapes as thick strokes in a mask; tubes are vertical rounded bars showing through.
+    var shapes =
+      '<path d="M150 50A70 70 0 1 0 150 150" fill="none" stroke="#fff" stroke-width="44"/>' +
+      '<rect x="218" y="22" width="120" height="156" rx="60" fill="none" stroke="#fff" stroke-width="44"/>' +
+      '<rect x="396" y="22" width="120" height="156" rx="60" fill="none" stroke="#fff" stroke-width="44"/>' +
+      '<path d="M574 0V200M700 0L596 100L712 200" fill="none" stroke="#fff" stroke-width="44"/>';
+    var tubes = '';
+    for (var x = 2; x < 750; x += 11){
+      tubes += '<rect x="'+x+'" y="0" width="7" height="200" rx="3.5"/>';
+    }
+    svg.innerHTML = '<defs><mask id="mk" maskUnits="userSpaceOnUse" x="0" y="0" width="750" height="200"><rect width="750" height="200" fill="#000"/>'+shapes+'</mask></defs>' +
+      '<g mask="url(#mk)" fill="currentColor">'+tubes+'</g>';
+  })();
+
+  /* ---- Contact form (draft: does not send) ---- */
+  document.getElementById('enq').addEventListener('submit', function(e){
     e.preventDefault();
-    var s=document.getElementById('f-status'),n=document.getElementById('f-name').value.trim(),m=document.getElementById('f-email').value;
-    if(!n||!/^\S+@\S+\.\S+$/.test(m)){s.textContent='Add your name and a valid email address so we can reply.';return;}
-    s.textContent='Enquiry ready. This draft site does not send messages yet.';
+    var s = document.getElementById('f-status'), n = document.getElementById('f-name').value.trim(), m = document.getElementById('f-email').value.trim();
+    if (!n || !/^\S+@\S+\.\S+$/.test(m)){ s.textContent = 'Add your name and a valid email address so we can reply.'; return; }
+    s.textContent = 'Thank you. This draft site does not send messages yet; please email us instead.';
   });
 })();
 </script>
