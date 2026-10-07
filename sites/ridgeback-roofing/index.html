@@ -1,0 +1,765 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ridgeback Roofing</title>
+<meta name="description" content="Ridgeback Roofing re-roofs, repairs and waterproofs homes and buildings across Gauteng. Hail-rated materials, one crew from inspection to handover, and a 15-year workmanship guarantee.">
+<script>document.documentElement.classList.add("js")</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap">
+<style>
+/* Reference lock: Autarq (autarq.com). Ink #101920 on white, sun yellow #fff365 as the only accent
+   (CTAs, highlights, shimmer), pastel gradients only on audience cards, 999px pills, 8px media radius,
+   glass nav, weight 500 with tight negative tracking. TT Firs Neue (proprietary) → Manrope. */
+:root{
+  --ink:#101920;
+  --ink-92:#101920e6;
+  --canvas:#ffffff;
+  --mist:#f4f5f2;
+  --sun:#fff365;
+  --sun-pale:#f9f399;
+  --grey-10:#6666661a;
+  --grey-20:#66666633;
+  --muted:#5b636a;
+  --line:#10192014;
+  --glass:#ffffffcc;
+  --grad-rose:linear-gradient(45deg,#fbacb3 0%,#f9f399 100%);
+  --grad-dusk:linear-gradient(45deg,#b7c7d6 0%,#e5c7c7 100%);
+  --grad-sage:linear-gradient(45deg,#c9d8c5 0%,#f9f399 100%);
+  --shimmer:linear-gradient(to right,#f9f399 30%,#fff365 40%,#f9f399 50%);
+  --sans:"Manrope",Helvetica,system-ui,sans-serif;
+  --r:8px;
+  --pill:999px;
+  --gutter:clamp(16px,4vw,56px);
+  --max:1360px;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--canvas);color:var(--ink);font:500 16px/1.4 var(--sans);letter-spacing:-.01em;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3,h4,p{margin:0}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* type */
+.display{font-size:clamp(44px,7.4vw,108px);line-height:1;letter-spacing:-.035em;font-weight:500}
+.h2{font-size:clamp(32px,4.2vw,56px);line-height:1.05;letter-spacing:-.03em;font-weight:500}
+.h3{font-size:clamp(22px,2.2vw,28px);line-height:1.15;letter-spacing:-.02em;font-weight:500}
+.lead{font-size:clamp(18px,1.6vw,22px);line-height:1.35;letter-spacing:-.02em}
+.small{font-size:14px;line-height:1.4}
+.muted{color:var(--muted)}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:var(--pill);background:var(--grey-10);font-size:14px;letter-spacing:-.01em}
+.chip .dot{width:8px;height:8px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 2px var(--ink) inset}
+.on-dark .chip{background:#ffffff26;color:#fff}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 22px;border-radius:var(--pill);border:0;font:600 15px/1 var(--sans);letter-spacing:-.01em;text-decoration:none;cursor:pointer;transition:transform .2s ease,background-color .2s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn-sun{background:var(--sun);color:var(--ink)}
+.btn-sun:hover{background:var(--shimmer);background-size:300% 100%;animation:shimmer 1.6s linear infinite}
+.btn-ink{background:var(--ink);color:#fff}
+.btn-ghost{background:var(--grey-10);color:var(--ink)}
+.btn-glass{background:#ffffff26;color:#fff;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.btn .arr{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:var(--sun);font-size:13px}
+.btn-ink .arr{background:var(--sun);color:var(--ink)}
+@keyframes shimmer{from{background-position:100% 0}to{background-position:-100% 0}}
+
+/* nav */
+.nav{position:fixed;inset:12px var(--gutter) auto;z-index:50;display:flex;align-items:center;gap:16px;max-width:calc(var(--max) - 2*var(--gutter));margin:0 auto;padding:8px 8px 8px 20px;border-radius:var(--pill);background:var(--glass);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);box-shadow:0 1px 0 var(--line)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;font-size:18px;letter-spacing:-.03em;white-space:nowrap}
+.logo svg{flex:none}
+.nav-links{display:flex;gap:4px;margin:0 auto;padding:0;list-style:none}
+.nav-links a{display:block;padding:10px 14px;border-radius:var(--pill);text-decoration:none;font-size:15px}
+.nav-links a:hover{background:var(--grey-10)}
+.nav-cta{display:flex;align-items:center;gap:8px}
+.nav-tel{font-size:15px;text-decoration:none;padding:10px 12px;white-space:nowrap}
+.menu-btn{display:none;width:44px;height:44px;border-radius:50%;border:0;background:var(--grey-10);cursor:pointer;place-items:center}
+.menu-btn span{display:block;width:16px;height:1.5px;background:var(--ink);position:relative}
+.menu-btn span::before,.menu-btn span::after{content:"";position:absolute;left:0;width:16px;height:1.5px;background:var(--ink)}
+.menu-btn span::before{top:-5px}.menu-btn span::after{top:5px}
+.drawer{display:none}
+
+/* hero */
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;color:#fff;overflow:hidden;background:var(--ink)}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 60%;transform:scale(1.06);animation:settle 2.4s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes settle{to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#10192066 0%,#10192000 30%,#10192000 45%,#101920cc 100%)}
+.hero-inner{position:relative;z-index:1;width:100%;padding-bottom:clamp(28px,5vw,64px)}
+.hero h1{max-width:12ch}
+.rot{display:inline-grid;vertical-align:bottom;overflow:hidden;height:1em;line-height:1}
+.rot span{grid-area:1/1;transform:translateY(105%);transition:transform .8s cubic-bezier(.7,0,.2,1)}
+.rot span.on{transform:none}
+.rot span.off{transform:translateY(-105%)}
+.rot .hl{color:var(--sun)}
+.hero-row{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-top:clamp(24px,3vw,40px)}
+.hero-row p{max-width:440px;font-size:18px;line-height:1.4;color:#ffffffe0}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:10px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px;padding-top:20px;border-top:1px solid #ffffff33}
+
+/* sections */
+section{scroll-margin-top:90px}
+.sec{padding:clamp(72px,10vw,140px) 0}
+.sec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:clamp(32px,4vw,56px)}
+.sec-head > div{flex:1 1 520px}
+.sec-head .chip{margin-bottom:20px}
+
+/* intro */
+.intro{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(32px,6vw,96px);align-items:start}
+.intro .h2 em{font-style:normal;background:linear-gradient(transparent 62%,var(--sun) 62%)}
+.intro-copy .lead{margin-bottom:40px}
+.values{display:grid;gap:0;border-top:1px solid var(--line)}
+.value{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:22px 0;border-bottom:1px solid var(--line)}
+.value .ico{width:44px;height:44px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.value h3{font-size:20px;letter-spacing:-.02em;font-weight:500;margin-bottom:4px}
+.value p{color:var(--muted);font-size:16px}
+
+/* services grid */
+.services{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.svc{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:3/4;color:#fff;text-decoration:none;background:var(--ink);isolation:isolate}
+.svc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.svc:hover img{transform:scale(1.05)}
+.svc::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#10192000 40%,#101920d9 100%);z-index:0}
+.svc-body{position:absolute;inset:auto 0 0 0;z-index:1;padding:20px}
+.svc .chip{position:absolute;top:14px;left:14px;z-index:1;background:var(--glass);color:var(--ink);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.svc h3{font-size:24px;letter-spacing:-.02em;font-weight:500;margin-bottom:6px}
+.svc p{font-size:15px;color:#ffffffcc;line-height:1.35}
+
+/* audience */
+.aud{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.aud-card{border-radius:var(--r);padding:28px;min-height:360px;display:flex;flex-direction:column;justify-content:space-between;text-decoration:none}
+.aud-card:nth-child(1){background:var(--grad-rose)}
+.aud-card:nth-child(2){background:var(--grad-dusk)}
+.aud-card:nth-child(3){background:var(--grad-sage)}
+.aud-card .for{font-size:14px;opacity:.7;margin-bottom:6px}
+.aud-card h3{font-size:clamp(28px,3vw,40px);letter-spacing:-.03em;font-weight:500;line-height:1.05}
+.aud-card ul{list-style:none;padding:0;margin:24px 0;display:grid;gap:8px}
+.aud-card li{display:flex;gap:10px;font-size:16px}
+.aud-card li::before{content:"";flex:none;width:6px;height:6px;margin-top:8px;border-radius:50%;background:var(--ink)}
+.aud-card .go{display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid #10192026;font-weight:600}
+.aud-card .go b{width:36px;height:36px;border-radius:50%;background:var(--ink);color:var(--sun);display:grid;place-items:center;transition:transform .25s}
+.aud-card:hover .go b{transform:translateX(4px)}
+
+/* estimator */
+.est{border-radius:var(--r);background:var(--mist);display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
+.est-form{padding:clamp(28px,4vw,56px)}
+.est-form .h2{margin:18px 0 14px}
+.est-form > p{color:var(--muted);max-width:44ch;margin-bottom:32px}
+fieldset{border:0;padding:0;margin:0 0 26px}
+legend{font-size:14px;color:var(--muted);margin-bottom:10px;padding:0}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg label{position:relative}
+.seg input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.seg span{display:block;padding:10px 16px;border-radius:var(--pill);background:#fff;font-size:15px;box-shadow:0 0 0 1px var(--line) inset;transition:background .2s}
+.seg input:checked + span{background:var(--ink);color:#fff;box-shadow:none}
+.seg input:focus-visible + span{outline:2px solid var(--ink);outline-offset:2px}
+.range-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.range-row output{font-size:22px;letter-spacing:-.02em}
+input[type=range]{width:100%;appearance:none;-webkit-appearance:none;height:6px;border-radius:var(--pill);background:linear-gradient(90deg,var(--ink) var(--p,30%),var(--grey-20) var(--p,30%));outline-offset:6px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:var(--sun);border:2px solid var(--ink);cursor:grab}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--sun);border:2px solid var(--ink);cursor:grab}
+.est-out{background:var(--ink);color:#fff;padding:clamp(28px,4vw,56px);display:flex;flex-direction:column;justify-content:space-between;gap:32px}
+.phone{background:#fff;color:var(--ink);border-radius:28px;padding:24px;max-width:380px;width:100%;margin:0 auto;box-shadow:0 30px 60px -20px #000a}
+.phone .top{border-radius:16px;padding:18px;background:linear-gradient(160deg,var(--sun-pale),var(--sun));margin-bottom:18px}
+.phone .top p{font-size:14px}
+.phone .top .price{font-size:clamp(30px,3.4vw,40px);letter-spacing:-.03em;line-height:1.05;margin-top:6px;font-variant-numeric:tabular-nums}
+.bar{height:10px;border-radius:var(--pill);background:var(--grey-10);overflow:hidden;margin:8px 0 4px}
+.bar i{display:block;height:100%;width:50%;border-radius:inherit;background:var(--shimmer);background-size:300% 100%;animation:shimmer 2.4s linear infinite;transition:width .6s cubic-bezier(.2,.7,.2,1)}
+.rows{display:grid;gap:10px;font-size:14px;margin-top:14px}
+.rows div{display:flex;justify-content:space-between;gap:12px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.rows div:last-child{border:0}
+.rows b{font-weight:600;font-variant-numeric:tabular-nums}
+.est-note{font-size:13px;color:#ffffff99;max-width:48ch}
+
+/* materials */
+.mat{display:grid;grid-template-columns:1.1fr 1fr;gap:12px}
+.mat-img{border-radius:var(--r);overflow:hidden;min-height:520px;position:relative}
+.mat-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.mat-list{display:grid;gap:12px;grid-template-rows:repeat(4,auto) 1fr}
+.mat-item{display:grid;grid-template-columns:88px 1fr auto;gap:18px;align-items:center;padding:12px;border-radius:var(--r);background:var(--mist)}
+.mat-item img{width:88px;height:72px;object-fit:cover;border-radius:6px}
+.mat-item h3{font-size:19px;font-weight:500;letter-spacing:-.02em}
+.mat-item p{font-size:14px;color:var(--muted)}
+.mat-item .tag{font-size:13px;padding:5px 10px;border-radius:var(--pill);background:#fff;white-space:nowrap}
+.mat-cta{border-radius:var(--r);background:var(--sun);padding:24px;display:flex;flex-direction:column;justify-content:space-between;gap:18px}
+
+/* process */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;counter-reset:s}
+.step{border-top:2px solid var(--ink);padding-top:20px}
+.step .n{font-size:14px;color:var(--muted);margin-bottom:28px;display:flex;justify-content:space-between}
+.step h3{font-size:24px;font-weight:500;letter-spacing:-.02em;margin-bottom:10px}
+.step p{color:var(--muted);font-size:16px}
+.step .when{display:inline-block;margin-top:16px;font-size:13px;padding:5px 10px;border-radius:var(--pill);background:var(--sun)}
+
+/* storm (dark) */
+.storm{background:var(--ink);color:#fff}
+.storm-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.storm-img{border-radius:var(--r);overflow:hidden;position:relative;min-height:560px}
+.storm-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.storm-img .chip{position:absolute;left:16px;top:16px;background:var(--sun);color:var(--ink)}
+.storm-copy{padding:clamp(8px,3vw,40px) clamp(0px,2vw,32px);display:flex;flex-direction:column;justify-content:space-between;gap:40px}
+.storm-copy .h2 .hl{background:var(--shimmer);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 4s linear infinite}
+.storm-copy .lead{color:#ffffffcc;margin-top:20px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.stat{border-radius:var(--r);background:#ffffff12;padding:20px}
+.stat b{display:block;font-size:clamp(30px,3.2vw,44px);font-weight:500;letter-spacing:-.03em;line-height:1}
+.stat span{display:block;font-size:14px;color:#ffffffaa;margin-top:8px}
+.checks{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.checks li{display:flex;gap:12px;align-items:flex-start}
+.checks li::before{content:"";flex:none;width:20px;height:20px;margin-top:1px;border-radius:50%;background:var(--sun) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6 10.5l2.5 2.5L14 7.5' fill='none' stroke='%23101920' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/20px no-repeat}
+
+/* projects */
+.proj{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
+.pj{position:relative;border-radius:var(--r);overflow:hidden;background:var(--mist);margin:0}
+.pj img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.pj:hover img{transform:scale(1.04)}
+.pj figcaption{position:absolute;left:12px;bottom:12px;right:12px;display:flex;flex-wrap:wrap;gap:6px}
+.pj figcaption span{padding:6px 12px;border-radius:var(--pill);background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-size:14px}
+.pj-a{grid-column:span 7;aspect-ratio:4/3}
+.pj-b{grid-column:span 5;aspect-ratio:auto}
+.pj-c{grid-column:span 4;aspect-ratio:1/1}
+.pj-d{grid-column:span 4;aspect-ratio:1/1}
+.pj-e{grid-column:span 4;aspect-ratio:1/1}
+
+/* plan */
+.plan{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:stretch}
+.plan-img{border-radius:var(--r);overflow:hidden;position:relative;min-height:440px}
+.plan-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.plan-card{border-radius:var(--r);background:var(--mist);padding:clamp(28px,4vw,48px);display:flex;flex-direction:column;gap:24px;justify-content:space-between}
+.plan-price{display:flex;align-items:baseline;gap:8px}
+.plan-price b{font-size:clamp(40px,4.4vw,60px);font-weight:500;letter-spacing:-.04em;line-height:1}
+
+/* faq */
+.faq{display:grid;grid-template-columns:1fr 1.4fr;gap:clamp(32px,6vw,96px)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq details:first-child{border-top:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0;font-size:19px;letter-spacing:-.02em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary i{flex:none;width:32px;height:32px;border-radius:50%;background:var(--grey-10);position:relative;transition:background .2s,transform .3s}
+.faq summary i::before,.faq summary i::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;background:var(--ink);transform:translate(-50%,-50%)}
+.faq summary i::after{transform:translate(-50%,-50%) rotate(90deg)}
+.faq details[open] summary i{background:var(--sun);transform:rotate(45deg)}
+.faq details p{padding:0 0 22px;color:var(--muted);max-width:62ch}
+
+/* contact */
+.contact{padding-bottom:12px}
+.cta{border-radius:var(--r);overflow:hidden;position:relative;color:#fff;background:var(--ink)}
+.cta > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55}
+.cta-inner{position:relative;display:grid;grid-template-columns:1fr minmax(320px,460px);gap:40px;padding:clamp(28px,5vw,72px);align-items:end}
+.cta .display{font-size:clamp(40px,6vw,88px)}
+.cta-inner > div > p{margin-top:20px;color:#ffffffd9;max-width:40ch;font-size:18px}
+#lead{background:#fff;color:var(--ink);border-radius:var(--r);padding:24px;display:grid;gap:12px}
+#lead h3{font-size:20px;font-weight:500;letter-spacing:-.02em}
+.field{display:grid;gap:6px}
+.field label{font-size:14px;color:var(--muted)}
+.field input,.field select,.field textarea{font:500 16px/1.3 var(--sans);color:var(--ink);padding:13px 16px;border-radius:12px;border:0;background:var(--mist);box-shadow:0 0 0 1px transparent inset;width:100%}
+.field textarea{min-height:84px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;box-shadow:0 0 0 2px var(--ink) inset}
+.field [aria-invalid=true]{box-shadow:0 0 0 2px #c2353f inset}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-msg{font-size:14px;min-height:1.4em}
+#lead .btn{justify-content:space-between;width:100%}
+
+/* footer */
+footer{padding:64px 0 32px}
+.foot{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:32px;padding-bottom:48px;border-bottom:1px solid var(--line)}
+.foot h4{font-size:14px;color:var(--muted);font-weight:500;margin-bottom:14px}
+.foot ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.foot a{text-decoration:none}
+.foot a:hover{text-decoration:underline}
+.foot .logo{margin-bottom:16px}
+.foot-base{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;padding-top:24px;font-size:14px;color:var(--muted)}
+.demo-flag{display:inline-flex;gap:8px;align-items:center}
+
+/* reveal */
+.js .rv{opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+  .hero img{transform:none}
+}
+
+/* ---------- responsive (after base rules) ---------- */
+@media (max-width:1100px){
+  .nav-links{display:none}
+  .nav-tel{display:none}
+  .menu-btn{display:grid}
+  .nav{justify-content:space-between}
+  .nav-cta{margin-left:auto}
+  .drawer{position:fixed;inset:72px var(--gutter) auto;z-index:49;border-radius:24px;background:#fff;box-shadow:0 20px 60px -20px #10192066;padding:12px}
+  .drawer.open{display:block}
+  .drawer a{display:block;padding:14px 16px;border-radius:14px;text-decoration:none;font-size:18px}
+  .drawer a:hover{background:var(--mist)}
+  .services{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:repeat(2,1fr);row-gap:40px}
+  .foot{grid-template-columns:1fr 1fr}
+}
+@media (max-width:860px){
+  .intro,.est,.mat,.storm-grid,.plan,.faq,.cta-inner{grid-template-columns:1fr}
+  .aud{grid-template-columns:1fr}
+  .aud-card{min-height:0}
+  .mat-img,.storm-img{min-height:340px}
+  .plan-img{min-height:300px}
+  .pj-a,.pj-b{grid-column:span 12}
+  .pj-b{aspect-ratio:4/3}
+  .pj-c,.pj-d,.pj-e{grid-column:span 6}
+  .pj-e{grid-column:span 12;aspect-ratio:16/9}
+}
+@media (max-width:560px){
+  .nav{padding-left:16px}
+  .nav-cta .btn{height:44px;padding:0 16px}
+  .nav-cta .btn .arr{display:none}
+  .services{grid-template-columns:1fr}
+  .svc{aspect-ratio:4/3}
+  .steps{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr}
+  .stat{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+  .stat span{margin:0;text-align:right}
+  .mat-item{grid-template-columns:64px 1fr}
+  .mat-item img{width:64px;height:64px}
+  .mat-item .tag{grid-column:2;justify-self:start}
+  .two{grid-template-columns:1fr}
+  .foot{grid-template-columns:1fr}
+  .hero-row .btn{flex:1 1 auto;justify-content:center}
+  .hero::after{background:linear-gradient(180deg,#10192066 0%,#10192022 22%,#101920b3 48%,#101920f0 100%)}
+  .hero img{object-position:62% 40%}
+  .pj-c,.pj-d{grid-column:span 12;aspect-ratio:4/3}
+}
+</style>
+</head>
+<body>
+
+<a class="sr" href="#main">Skip to content</a>
+
+<header>
+  <nav class="nav" aria-label="Main">
+    <a class="logo" href="#top" aria-label="Ridgeback Roofing, home">
+      <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="15" fill="#101920"/><path d="M6 19.5 15 10l9 9.5" fill="none" stroke="#fff365" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 21.5 15 16.2l5 5.3" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Ridgeback
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#estimate">Estimate</a></li>
+      <li><a href="#storm">Hail &amp; storm</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a class="nav-tel" href="tel:+27000000000">+27 (0)00 000 0000</a>
+      <a class="btn btn-sun" href="#contact">Free inspection <span class="arr" aria-hidden="true">→</span></a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="drawer" aria-label="Open menu"><span></span></button>
+    </div>
+  </nav>
+  <div class="drawer" id="drawer">
+    <a href="#services">Services</a>
+    <a href="#estimate">Estimate</a>
+    <a href="#storm">Hail &amp; storm</a>
+    <a href="#projects">Projects</a>
+    <a href="#faq">FAQ</a>
+    <a href="tel:+27000000000">Call +27 (0)00 000 0000</a>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <img src="assets/hero.jpg" alt="A steep-pitched house at dusk with lit windows under a dark tiled roof" fetchpriority="high">
+  <div class="wrap hero-inner">
+    <h1 class="display" id="hero-title">Roofs built for <span class="rot" aria-hidden="true"><span class="hl on">hail.</span><span class="hl">summers.</span><span class="hl">generations.</span></span><span class="sr">hail, summers and generations.</span></h1>
+    <div class="hero-row">
+      <p>Re-roofing, repairs and waterproofing across Gauteng. One crew from first inspection to final handover, and a 15-year workmanship guarantee.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-sun" href="#contact">Book a free roof inspection <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn btn-glass" href="#estimate">Estimate my roof</a>
+      </div>
+    </div>
+    <div class="hero-meta">
+      <span class="chip"><span class="dot"></span>Johannesburg · Pretoria · East Rand</span>
+      <span class="chip">Drone inspection report in 48 h</span>
+      <span class="chip">Insurance claim support</span>
+    </div>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="sec" aria-labelledby="intro-title">
+  <div class="wrap intro">
+    <div class="rv">
+      <span class="chip"><span class="dot"></span>We are Ridgeback</span>
+      <h2 class="h2" id="intro-title" style="margin-top:20px">The roof is the one part of your home that <em>takes every storm</em> for you.</h2>
+    </div>
+    <div class="intro-copy rv">
+      <p class="lead">We're a Gauteng roofing team that builds for Highveld weather: summer hail, 40&nbsp;mm downpours and winter frost. We inspect, quote, strip, build and guarantee with our own crew, so there's one number to call and one team answerable for the result.</p>
+      <div class="values">
+        <div class="value">
+          <span class="ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 20 20"><path d="M10 2 3 5v5c0 4 3 7 7 8 4-1 7-4 7-8V5l-7-3Z" fill="none" stroke="#101920" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
+          <div><h3>Hail-rated materials</h3><p>Tiles and sheeting specified for impact, with fixings and underlay to SANS&nbsp;10400 requirements.</p></div>
+        </div>
+        <div class="value">
+          <span class="ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 20 20"><circle cx="7" cy="7" r="3" fill="none" stroke="#101920" stroke-width="1.8"/><circle cx="14" cy="8" r="2.4" fill="none" stroke="#101920" stroke-width="1.8"/><path d="M2 17c.6-3 2.6-5 5-5s4.4 2 5 5M12 13.2c.6-.5 1.3-.8 2-.8 2 0 3.4 1.6 4 4.6" fill="none" stroke="#101920" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+          <div><h3>One crew, start to finish</h3><p>No subcontracted strangers on your roof. The foreman who quotes is the foreman who builds.</p></div>
+        </div>
+        <div class="value">
+          <span class="ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 20 20"><path d="M4 10.5 8 14.5 16 5.5" fill="none" stroke="#101920" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div><h3>15-year workmanship guarantee</h3><p>In writing, on every full re-roof, on top of the manufacturer's material warranty.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="sec" id="services" aria-labelledby="svc-title" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><span class="chip"><span class="dot"></span>Services</span><h2 class="h2" id="svc-title">Everything above the ceiling.</h2></div>
+      <a class="btn btn-ghost" href="#contact">Talk to a roofer</a>
+    </div>
+    <div class="services">
+      <a class="svc rv" href="#contact">
+        <img src="assets/crew-tiles.jpg" alt="Two roofers re-laying tiles on battens beside a brick chimney" loading="lazy">
+        <span class="chip">From R 650 / m²</span>
+        <div class="svc-body"><h3>Re-roofing</h3><p>Strip, re-batten and re-tile or re-sheet. Concrete, clay, slate and metal.</p></div>
+      </a>
+      <a class="svc rv" href="#storm">
+        <img src="assets/storm.jpg" alt="A tiled roof torn open by storm damage, exposing the underlay" loading="lazy">
+        <span class="chip">24 h call-out</span>
+        <div class="svc-body"><h3>Hail &amp; storm repairs</h3><p>Emergency covers, broken tiles, lifted sheets and a report your insurer accepts.</p></div>
+      </a>
+      <a class="svc rv" href="#contact">
+        <img src="assets/gutter-rain.jpg" alt="Rainwater running off a gutter during a downpour" loading="lazy">
+        <span class="chip">Torch-on &amp; liquid</span>
+        <div class="svc-body"><h3>Waterproofing &amp; gutters</h3><p>Flat roofs, parapets, valleys and seamless aluminium gutters sized for summer storms.</p></div>
+      </a>
+      <a class="svc rv" href="#contact">
+        <img src="assets/solar.jpg" alt="Solar panels mounted on a dark tiled roof of a brick house" loading="lazy">
+        <span class="chip">Load-shedding ready</span>
+        <div class="svc-body"><h3>Solar-ready roofs</h3><p>We fix the roof before the panels go on, and leave sealed mounting points for your installer.</p></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCE -->
+<section class="sec" aria-labelledby="aud-title" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><span class="chip"><span class="dot"></span>Ridgeback for</span><h2 class="h2" id="aud-title">Whoever signs off the roof.</h2></div>
+    </div>
+    <div class="aud">
+      <a class="aud-card rv" href="#contact">
+        <div><p class="for">Ridgeback for</p><h3>Homeowners</h3>
+          <ul><li>Free drone inspection with photos</li><li>Fixed-price quote, no surprise extras</li><li>Daily clean-up, nails swept with magnets</li></ul></div>
+        <span class="go">Book an inspection <b aria-hidden="true">→</b></span>
+      </a>
+      <a class="aud-card rv" href="#contact">
+        <div><p class="for">Ridgeback for</p><h3>Estates &amp; body corporates</h3>
+          <ul><li>Phased programmes across many units</li><li>Trustee-ready condition reports</li><li>Annual maintenance contracts</li></ul></div>
+        <span class="go">Request a site survey <b aria-hidden="true">→</b></span>
+      </a>
+      <a class="aud-card rv" href="#contact">
+        <div><p class="for">Ridgeback for</p><h3>Commercial &amp; industrial</h3>
+          <ul><li>IBR and concealed-fix re-sheeting</li><li>Skylight and roof-sheet replacement</li><li>Work scheduled around operating hours</li></ul></div>
+        <span class="go">Talk to our project lead <b aria-hidden="true">→</b></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ESTIMATOR -->
+<section class="sec" id="estimate" aria-labelledby="est-title" style="padding-top:0">
+  <div class="wrap">
+    <div class="est rv">
+      <form class="est-form" id="est" novalidate onsubmit="return false" aria-label="Roof estimator">
+        <span class="chip"><span class="dot"></span>Roof estimator</span>
+        <h2 class="h2" id="est-title">What would a new roof cost?</h2>
+        <p>Three questions, one honest range. A site inspection turns it into a fixed price.</p>
+        <fieldset>
+          <legend>What's on the roof now, or what do you want?</legend>
+          <div class="seg">
+            <label><input type="radio" name="mat" value="concrete" checked><span>Concrete tile</span></label>
+            <label><input type="radio" name="mat" value="clay"><span>Clay tile</span></label>
+            <label><input type="radio" name="mat" value="metal"><span>IBR / metal sheet</span></label>
+            <label><input type="radio" name="mat" value="slate"><span>Slate</span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Roof pitch</legend>
+          <div class="seg">
+            <label><input type="radio" name="pitch" value="1" ><span>Low (under 17°)</span></label>
+            <label><input type="radio" name="pitch" value="1.08" checked><span>Standard</span></label>
+            <label><input type="radio" name="pitch" value="1.2"><span>Steep (over 35°)</span></label>
+          </div>
+        </fieldset>
+        <fieldset style="margin:0">
+          <div class="range-row"><label for="area" class="small muted">Roof area</label><output id="area-out" for="area">220 m²</output></div>
+          <input type="range" id="area" min="60" max="600" step="10" value="220">
+          <p class="small muted" style="margin-top:10px">A typical 3-bedroom house is 180–260&nbsp;m² of roof.</p>
+        </fieldset>
+      </form>
+      <div class="est-out on-dark">
+        <div class="phone" aria-live="polite">
+          <div class="top">
+            <p>Indicative price for your roof</p>
+            <p class="price" id="price">R 160k – R 230k</p>
+          </div>
+          <p class="small">Lifespan vs. budget</p>
+          <div class="bar"><i id="bar"></i></div>
+          <p class="small muted" id="life">Expected life: 40–50 years</p>
+          <div class="rows">
+            <div><span>Strip &amp; dispose old roof</span><b>Included</b></div>
+            <div><span>New battens &amp; underlay</span><b>Included</b></div>
+            <div><span>Workmanship guarantee</span><b>15 years</b></div>
+            <div><span>Typical build time</span><b id="days">8–10 working days</b></div>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;justify-content:space-between">
+          <p class="est-note">Demo figures based on 2026 Gauteng rates, including VAT. Your fixed quote follows a free on-site inspection.</p>
+          <a class="btn btn-sun" href="#contact">Get my fixed quote <span class="arr" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MATERIALS -->
+<section class="sec" aria-labelledby="mat-title" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><span class="chip"><span class="dot"></span>Materials</span><h2 class="h2" id="mat-title">Four roofs we build. Each one specified for the Highveld.</h2></div>
+    </div>
+    <div class="mat">
+      <div class="mat-img rv"><img src="assets/tile-colours.jpg" alt="Rows of clay and concrete roof tiles in terracotta, brown, charcoal and black" loading="lazy"></div>
+      <div class="mat-list">
+        <div class="mat-item rv"><img src="assets/project-gable.jpg" alt="" loading="lazy"><div><h3>Concrete tile</h3><p>The Gauteng standard. Tough, quiet in hail, many profiles.</p></div><span class="tag">40–50 yrs</span></div>
+        <div class="mat-item rv"><img src="assets/tile-colours.jpg" alt="" loading="lazy" style="object-position:20% 50%"><div><h3>Clay tile</h3><p>Colour that never fades. Heavier, so we check the trusses first.</p></div><span class="tag">60+ yrs</span></div>
+        <div class="mat-item rv"><img src="assets/metal.jpg" alt="" loading="lazy"><div><h3>IBR &amp; metal sheeting</h3><p>Light, fast, ideal for low pitches. Insulated to stop drumming.</p></div><span class="tag">30–40 yrs</span></div>
+        <div class="mat-item rv"><img src="assets/slate.jpg" alt="" loading="lazy"><div><h3>Natural slate</h3><p>Hand-laid, for heritage homes and statement roofs.</p></div><span class="tag">80+ yrs</span></div>
+        <div class="mat-cta rv">
+          <p class="h3">Not sure what your trusses can carry? We check before we quote.</p>
+          <a class="btn btn-ink" href="#contact" style="align-self:flex-start">Book a structural check <span class="arr" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="sec" aria-labelledby="proc-title" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><span class="chip"><span class="dot"></span>How it works</span><h2 class="h2" id="proc-title">From first call to final sweep.</h2></div>
+    </div>
+    <ol class="steps" style="list-style:none;padding:0;margin:0">
+      <li class="step rv"><p class="n"><span>01</span><span>Inspect</span></p><h3>Drone &amp; roof-space check</h3><p>We fly the roof, then climb into the ceiling to check trusses, underlay and leaks from the inside.</p><span class="when">Within 48 h</span></li>
+      <li class="step rv"><p class="n"><span>02</span><span>Quote</span></p><h3>A fixed price, in writing</h3><p>Photo report, material options and one fixed figure. What's on the quote is what you pay.</p><span class="when">2 working days</span></li>
+      <li class="step rv"><p class="n"><span>03</span><span>Build</span></p><h3>Weather-tight every night</h3><p>We strip only what we can close the same day, so your home is never open overnight.</p><span class="when">Most homes 1–2 weeks</span></li>
+      <li class="step rv"><p class="n"><span>04</span><span>Guarantee</span></p><h3>Handover &amp; paperwork</h3><p>Final drone photos, compliance certificate and your 15-year workmanship guarantee.</p><span class="when">On completion</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- STORM -->
+<section class="sec storm on-dark" id="storm" aria-labelledby="storm-title">
+  <div class="wrap storm-grid">
+    <div class="storm-img rv"><img src="assets/roofer.jpg" alt="A roofer in a hard hat and harness hammering roof boards" loading="lazy"><span class="chip">Hail season: Oct – Mar</span></div>
+    <div class="storm-copy rv">
+      <div>
+        <span class="chip"><span class="dot"></span>Hail &amp; storm damage</span>
+        <h2 class="h2" id="storm-title" style="margin-top:20px">Insurance claims, <span class="hl">handled.</span></h2>
+        <p class="lead">After a Highveld hailstorm we cover your roof within 24 hours, document every broken tile, and send your insurer the report and quote they ask for. You deal with one person, not three.</p>
+      </div>
+      <ul class="checks">
+        <li>Emergency tarping and temporary sheeting, day or night</li>
+        <li>Assessor-ready photo report with tile counts and drone images</li>
+        <li>We meet your assessor on site and work to the approved scope</li>
+      </ul>
+      <div class="stats">
+        <div class="stat"><b>24 h</b><span>Emergency cover</span></div>
+        <div class="stat"><b>48 h</b><span>Claim report delivered</span></div>
+        <div class="stat"><b>1</b><span>Point of contact</span></div>
+      </div>
+      <div><a class="btn btn-sun" href="tel:+27000000000">Call the storm line <span class="arr" aria-hidden="true">→</span></a></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="sec" id="projects" aria-labelledby="proj-title">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><span class="chip"><span class="dot"></span>Seeing is believing</span><h2 class="h2" id="proj-title">Recent roofs.</h2></div>
+      <p class="muted" style="max-width:36ch">A selection from this year. Ask us for addresses near you; most owners are happy to show you their roof.</p>
+    </div>
+    <div class="proj">
+      <figure class="pj pj-a rv"><img src="assets/project-gable.jpg" alt="A modern gabled house with a dark standing-seam roof and skylights" loading="lazy"><figcaption><span>Standing-seam re-roof</span><span>Parkhurst</span></figcaption></figure>
+      <figure class="pj pj-b rv"><img src="assets/crew-tiles.jpg" alt="Roofers re-tiling a pitched roof" loading="lazy" style="object-position:30% 50%"><figcaption><span>Concrete tile, 240 m²</span><span>Centurion</span></figcaption></figure>
+      <figure class="pj pj-c rv"><img src="assets/slate.jpg" alt="Slate-clad dormer windows" loading="lazy"><figcaption><span>Slate dormers</span><span>Westcliff</span></figcaption></figure>
+      <figure class="pj pj-d rv"><img src="assets/project-edge.jpg" alt="A crisp metal roof edge against a blue evening sky" loading="lazy"><figcaption><span>Fascia &amp; flashing</span><span>Waterkloof</span></figcaption></figure>
+      <figure class="pj pj-e rv"><img src="assets/metal.jpg" alt="Corrugated metal roof sheets" loading="lazy"><figcaption><span>IBR re-sheet, warehouse</span><span>Kempton Park</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- PLAN -->
+<section class="sec" aria-labelledby="plan-title" style="padding-top:0">
+  <div class="wrap plan">
+    <div class="plan-img rv"><img src="assets/tools.jpg" alt="A roofer's tool belt and hammer resting on a shingle roof" loading="lazy"></div>
+    <div class="plan-card rv">
+      <div>
+        <span class="chip"><span class="dot"></span>Roof Care Plan</span>
+        <h2 class="h2" id="plan-title" style="margin:20px 0 16px">Two visits a year. No more surprise leaks.</h2>
+        <p class="muted lead">Before the rains and after hail season we clear gutters and valleys, re-point ridges, replace cracked tiles and send you a photo report.</p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px">
+        <div class="plan-price"><b>R 1 950</b><span class="muted">per visit, typical home</span></div>
+        <a class="btn btn-ink" href="#contact">Join the plan <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec" id="faq" aria-labelledby="faq-title" style="padding-top:0">
+  <div class="wrap faq">
+    <div class="rv">
+      <span class="chip"><span class="dot"></span>Questions</span>
+      <h2 class="h2" id="faq-title" style="margin-top:20px">Straight answers.</h2>
+      <p class="muted" style="margin-top:16px;max-width:34ch">Something else on your mind? Call us; a roofer answers, not a call centre.</p>
+    </div>
+    <div class="rv">
+      <details open><summary>Do I need a new roof, or will a repair do?<i aria-hidden="true"></i></summary><p>Most roofs we inspect need a repair, not a replacement. If the trusses and underlay are sound we'll replace broken tiles, re-point the ridges and fix the flashings. We only quote a re-roof when the photos show it's needed.</p></details>
+      <details><summary>Will my insurance pay for hail damage?<i aria-hidden="true"></i></summary><p>Sudden storm and hail damage is covered by most South African home-owner policies; wear and tear isn't. Our report separates the two clearly, which is what assessors look for.</p></details>
+      <details><summary>Can you work while I'm living in the house?<i aria-hidden="true"></i></summary><p>Yes. We open only the section we can close the same day and cover it with sheeting overnight, so the house stays dry and liveable throughout.</p></details>
+      <details><summary>Do you need council approval for a re-roof?<i aria-hidden="true"></i></summary><p>Like-for-like replacements usually don't. Changing the material or the roof structure may need approved plans; we'll tell you at the inspection and can manage the submission.</p></details>
+      <details><summary>Which areas do you cover?<i aria-hidden="true"></i></summary><p>Johannesburg, Pretoria, Centurion, Midrand and the East and West Rand. Further afield for larger commercial and estate projects.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec contact" id="contact" aria-labelledby="cta-title" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta rv">
+      <img src="assets/project-edge.jpg" alt="" loading="lazy">
+      <div class="cta-inner">
+        <div>
+          <span class="chip"><span class="dot"></span>Free roof inspection</span>
+          <h2 class="display" id="cta-title" style="margin-top:20px">Let's look at your roof.</h2>
+          <p>Tell us where you are and what's happening. We'll book a drone inspection and send the photos, free.</p>
+        </div>
+        <form id="lead" novalidate>
+          <h3>Book an inspection</h3>
+          <div class="two">
+            <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" autocomplete="name" required></div>
+            <div class="field"><label for="f-tel">Mobile</label><input id="f-tel" name="tel" type="tel" autocomplete="tel" inputmode="tel" required placeholder="082 000 0000"></div>
+          </div>
+          <div class="field"><label for="f-sub">Suburb</label><input id="f-sub" name="suburb" autocomplete="address-level2" required></div>
+          <div class="field"><label for="f-need">What do you need?</label>
+            <select id="f-need" name="need"><option>Leak or repair</option><option>Hail or storm damage</option><option>New roof / re-roof</option><option>Waterproofing or gutters</option><option>Roof Care Plan</option></select></div>
+          <button class="btn btn-sun" type="submit">Request my inspection <span class="arr" aria-hidden="true">→</span></button>
+          <p class="form-msg" id="form-msg" role="status"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a class="logo" href="#top" aria-label="Ridgeback Roofing, home">
+          <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="15" fill="#101920"/><path d="M6 19.5 15 10l9 9.5" fill="none" stroke="#fff365" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 21.5 15 16.2l5 5.3" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Ridgeback Roofing
+        </a>
+        <p class="muted" style="max-width:32ch">Roofing, repairs and waterproofing for Gauteng homes, estates and businesses.</p>
+      </div>
+      <div><h4>Services</h4><ul><li><a href="#services">Re-roofing</a></li><li><a href="#storm">Hail &amp; storm repairs</a></li><li><a href="#services">Waterproofing</a></li><li><a href="#services">Solar-ready roofs</a></li></ul></div>
+      <div><h4>Ridgeback for</h4><ul><li><a href="#contact">Homeowners</a></li><li><a href="#contact">Estates &amp; body corporates</a></li><li><a href="#contact">Commercial</a></li></ul></div>
+      <div><h4>Contact</h4><ul><li><a href="tel:+27000000000">+27 (0)00 000 0000</a></li><li><a href="mailto:hello@example.co.za">hello@example.co.za</a></li><li>[Street address], Johannesburg</li><li>Mon–Fri 07:00–17:00 · Sat 08:00–12:00</li></ul></div>
+    </div>
+    <div class="foot-base">
+      <span>Ridgeback Roofing © 2026 · Demo concept, fictional company</span>
+      <span class="demo-flag">Photos: CC0 from rawpixel and StockSnap</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// hero word rotator
+(() => {
+  const words = [...document.querySelectorAll('.rot span')];
+  if (!words.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let i = 0;
+  setInterval(() => {
+    const cur = words[i], next = words[(i + 1) % words.length];
+    cur.classList.remove('on'); cur.classList.add('off');
+    next.classList.remove('off'); next.classList.add('on');
+    setTimeout(() => cur.classList.remove('off'), 900);
+    i = (i + 1) % words.length;
+  }, 2600);
+})();
+
+// phone menu
+(() => {
+  const btn = document.querySelector('.menu-btn'), drawer = document.getElementById('drawer');
+  const set = open => { drawer.classList.toggle('open', open); btn.setAttribute('aria-expanded', open); btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu'); };
+  btn.addEventListener('click', () => set(!drawer.classList.contains('open')));
+  drawer.addEventListener('click', e => { if (e.target.closest('a')) set(false); });
+  addEventListener('keydown', e => { if (e.key === 'Escape') set(false); });
+})();
+
+// scroll reveal
+(() => {
+  const els = document.querySelectorAll('.rv');
+  if (!('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('in')); return; }
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+  els.forEach(e => io.observe(e));
+})();
+
+// estimator (indicative 2026 Gauteng rates per m², incl. VAT)
+(() => {
+  const RATES = { concrete:[650,950,'40–50',55], clay:[1100,1600,'60+',75], metal:[550,850,'30–40',40], slate:[1800,2800,'80+',95] };
+  const f = document.getElementById('est'), area = document.getElementById('area');
+  const fmt = n => n >= 1e6 ? 'R ' + (n / 1e6).toFixed(2).replace(/\.?0+$/, '') + 'm' : 'R ' + Math.round(n / 1000) + 'k';
+  const run = () => {
+    const m = f.mat.value, p = +f.pitch.value, a = +area.value, [lo, hi, life, bar] = RATES[m];
+    document.getElementById('area-out').textContent = a + ' m²';
+    area.style.setProperty('--p', ((a - area.min) / (area.max - area.min) * 100) + '%');
+    document.getElementById('price').textContent = fmt(lo * a * p) + ' – ' + fmt(hi * a * p);
+    document.getElementById('life').textContent = 'Expected life: ' + life + ' years';
+    document.getElementById('bar').style.width = bar + '%';
+    const d = Math.max(3, Math.round(a / 28 * p * (m === 'slate' ? 1.6 : m === 'metal' ? .7 : 1)));
+    document.getElementById('days').textContent = d + '–' + (d + 2) + ' working days';
+  };
+  f.addEventListener('input', run); run();
+})();
+
+// lead form (demo: does not send)
+(() => {
+  const form = document.getElementById('lead'), msg = document.getElementById('form-msg');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    let bad = null;
+    form.querySelectorAll('[required]').forEach(el => {
+      const ok = el.value.trim() && (el.type !== 'tel' || el.value.replace(/\D/g, '').length >= 9);
+      el.setAttribute('aria-invalid', !ok);
+      if (!ok && !bad) bad = el;
+    });
+    if (bad) { msg.textContent = 'Please fill in your name, a valid mobile number and your suburb.'; bad.focus(); return; }
+    msg.textContent = 'Thanks! This is a demo site, so nothing was sent. On the live site this books your inspection.';
+    form.reset();
+  });
+})();
+</script>
+</body>
+</html>

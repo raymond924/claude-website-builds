@@ -158,8 +158,19 @@ style and the live site. Mark the selected style. Style the page in the selected
 - **Budget the loop:** the user prefers a few focused rounds over constant re-checking. After two critic rounds,
   finish the named fixes and do one screenshot check instead of another 12-critic round unless asked.
 
+## 9. Reference is a live site, not Refero (learned on Ridgeback, 2026-10-07)
+
+- Chromium screenshots of external sites can fail through the proxy ("upstream request failed"). `curl -A "Mozilla/5.0"`
+  on the page works (slow; give it 80 s); grep the HTML for inline `font-family`, hex colours, `border-radius`,
+  `letter-spacing` counts to recover the tokens. Download its images (`/uploads/...`) to look at the photo style.
+- If Higgsfield can't be installed, free photos: the **Openverse API** (`api.openverse.org/v1/images/?q=…&license=cc0,pdm`)
+  works from the sandbox (Unsplash/Pexels search pages are bot-walled, Wikimedia rate-limits). Prefer
+  `source=stocksnap,rawpixel`. Rawpixel `image_1300` renditions are **watermarked**; use `editor_1024`.
+- Full-page QA screenshots: force `.rv` reveal classes and `img.loading='eager'` first, or sections come out blank.
+
 ## Project log
 
 | Date | Client | Primary reference | Alternatives | Notes |
 |---|---|---|---|---|
+| 2026-10-07 | Ridgeback Roofing (fictional demo roofer, Gauteng) | Autarq (live site) | none | Homepage with live roof estimator; CC0 stock via Openverse. |
 | 2026-10-07 | COOK Engineering (citrus + fish factory engineering, juice evaporators; South Africa) | T1 Energy | ON.energy, teenage engineering | v1 with placeholders; v2 "Concentrate" system via /design-loop (3 rounds, 5/12 → fixes) with Higgsfield video + 11 images (8.7 of 10 credits). |
