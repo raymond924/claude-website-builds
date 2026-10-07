@@ -72,27 +72,35 @@ Token commitments: see :root in index.html.
 ## Content to confirm (if a real roofer adopts this)
 
 - [ ] Company name, logo, phone, email, address, hours (all placeholders now)
-- [ ] Estimator rates per m² (demo: concrete R650–950, clay R1 100–1 600, metal R550–850, slate R1 800–2 800, incl. VAT)
+- [ ] Estimator rates (R/m² excl. VAT, supply and fit incl. battens, underlay, ridges, flashings): concrete R550–850,
+      clay R650–1 000, IBR/metal R450–750, slate R1 100–1 700; strip R50–100; site costs R6k–18k; insulation R45–120;
+      timber repairs R240–450 on 25% of roof; steep pitch ×1.2; VAT 15%. Sources: 2025–26 Gauteng guides
+      (buildingcostpersquaremeterpretoria.co.za, rswarehouse.co.za, roofing-guarantee.co.za). Floor→roof area ×1.15/1.3/1.55 by pitch.
 - [ ] Guarantee length (15 years), response times (24 h / 48 h), Roof Care Plan price (R1 950)
 - [ ] Project captions and suburbs (illustrative only)
 - [ ] Accreditations / memberships to show (none claimed in the demo)
+
+## Performance
+
+All photos are WebP; the hero ships 900/1600/2400 px via `srcset` and is preloaded; material thumbnails are 200 px.
+Audit (Playwright, local): LCP 0.24–0.48 s, CLS ≤0.002, about 1 MB on first load, no console errors, no horizontal scroll at 390/768/1280/1440.
 
 ## Photos
 
 All CC0 (public domain) via [Openverse](https://openverse.org), from rawpixel and StockSnap; sources in
 `assets/credits.json`. Rawpixel's 1300px renditions carry a watermark, so only the clean 1024px renditions are used
-(the hero is upscaled to 1920 px). Two slots are AI-generated with Higgsfield Seedream 5.0 Flash (2K, 0.5 credits each, free plan): `hero.jpg` and `hail-repair.jpg`. The rest stay CC0 stock until more credits are available.
+(the hero is upscaled to 1920 px). Two slots are AI-generated with Higgsfield Seedream 5.0 Flash (2K, 0.5 credits each, free plan): `hero-*.webp` and `hail-repair-*.webp`. The rest stay CC0 stock until more credits are available.
 
 | Slot | File | Shot |
 |---|---|---|
-| Hero (AI) | hero.jpg | Face-brick Joburg home, charcoal tile roof, storm and lightning at blue hour |
-| Re-roofing, project | crew-tiles.jpg | Two roofers re-tiling beside a chimney |
-| Storm repairs | storm.jpg | Tiled roof torn open |
-| Waterproofing | gutter-rain.jpg | Gutter in a downpour |
-| Solar-ready | solar.jpg | Panels on a dark tiled roof |
-| Materials | tile-colours.jpg, metal.jpg, slate.jpg, project-gable.jpg | Material close-ups |
-| Storm band (AI) | hail-repair.jpg | Roofer in harness replacing a hail-cracked tile, hailstones in gutter, skyline |
-| Projects / CTA | project-gable.jpg, project-edge.jpg | Modern roofs |
-| Care plan | tools.jpg | Tool belt on a roof |
+| Hero (AI) | hero-*.webp | Face-brick Joburg home, charcoal tile roof, storm and lightning at blue hour |
+| Re-roofing, project | crew-tiles.webp | Two roofers re-tiling beside a chimney |
+| Storm repairs | storm.webp | Tiled roof torn open |
+| Waterproofing | gutter-rain.webp | Gutter in a downpour |
+| Solar-ready | solar.webp | Panels on a dark tiled roof |
+| Materials | tile-colours.webp, metal.webp, slate.webp, project-gable.webp | Material close-ups |
+| Storm band (AI) | hail-repair-*.webp | Roofer in harness replacing a hail-cracked tile, hailstones in gutter, skyline |
+| Projects / CTA | project-gable.webp, project-edge.webp | Modern roofs |
+| Care plan | tools.webp | Tool belt on a roof |
 
 Best upgrade for a real client: their own drone shots of finished roofs and crew portraits.
