@@ -81,17 +81,17 @@ Token commitments: see :root in index.html.
 
 All CC0 (public domain) via [Openverse](https://openverse.org), from rawpixel and StockSnap; sources in
 `assets/credits.json`. Rawpixel's 1300px renditions carry a watermark, so only the clean 1024px renditions are used
-(the hero is upscaled to 1920 px). Higgsfield AI generation was not possible in this session (CLI install blocked).
+(the hero is upscaled to 1920 px). Two slots are AI-generated with Higgsfield Seedream 5.0 Flash (2K, 0.5 credits each, free plan): `hero.jpg` and `hail-repair.jpg`. The rest stay CC0 stock until more credits are available.
 
 | Slot | File | Shot |
 |---|---|---|
-| Hero | hero.jpg | Steep-pitched house at dusk, lit windows |
+| Hero (AI) | hero.jpg | Face-brick Joburg home, charcoal tile roof, storm and lightning at blue hour |
 | Re-roofing, project | crew-tiles.jpg | Two roofers re-tiling beside a chimney |
 | Storm repairs | storm.jpg | Tiled roof torn open |
 | Waterproofing | gutter-rain.jpg | Gutter in a downpour |
 | Solar-ready | solar.jpg | Panels on a dark tiled roof |
 | Materials | tile-colours.jpg, metal.jpg, slate.jpg, project-gable.jpg | Material close-ups |
-| Storm band | roofer.jpg | Roofer in hard hat hammering |
+| Storm band (AI) | hail-repair.jpg | Roofer in harness replacing a hail-cracked tile, hailstones in gutter, skyline |
 | Projects / CTA | project-gable.jpg, project-edge.jpg | Modern roofs |
 | Care plan | tools.jpg | Tool belt on a roof |
 

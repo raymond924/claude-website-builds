@@ -199,7 +199,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
 .storm{background:var(--ink);color:#fff}
 .storm-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .storm-img{border-radius:var(--r);overflow:hidden;position:relative;min-height:560px}
-.storm-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.storm-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:40% 40%}
 .storm-img .chip{position:absolute;left:16px;top:16px;background:var(--sun);color:var(--ink)}
 .storm-copy{padding:clamp(8px,3vw,40px) clamp(0px,2vw,32px);display:flex;flex-direction:column;justify-content:space-between;gap:40px}
 .storm-copy .h2 .hl{background:var(--shimmer);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 4s linear infinite}
@@ -327,7 +327,7 @@ footer{padding:64px 0 32px}
   .foot{grid-template-columns:1fr}
   .hero-row .btn{flex:1 1 auto;justify-content:center}
   .hero::after{background:linear-gradient(180deg,#10192066 0%,#10192022 22%,#101920b3 48%,#101920f0 100%)}
-  .hero img{object-position:62% 40%}
+  .hero img{object-position:58% 50%}
   .pj-c,.pj-d{grid-column:span 12;aspect-ratio:4/3}
 }
 </style>
@@ -369,7 +369,7 @@ footer{padding:64px 0 32px}
 
 <!-- HERO -->
 <section class="hero" id="top" aria-labelledby="hero-title">
-  <img src="assets/hero.jpg" alt="A steep-pitched house at dusk with lit windows under a dark tiled roof" fetchpriority="high">
+  <img src="assets/hero.jpg" alt="A face-brick Johannesburg home with a charcoal tiled roof at dusk, a summer storm building behind it" fetchpriority="high">
   <div class="wrap hero-inner">
     <h1 class="display" id="hero-title">Roofs built for <span class="rot" aria-hidden="true"><span class="hl on">hail.</span><span class="hl">summers.</span><span class="hl">generations.</span></span><span class="sr">hail, summers and generations.</span></h1>
     <div class="hero-row">
@@ -568,7 +568,7 @@ footer{padding:64px 0 32px}
 <!-- STORM -->
 <section class="sec storm on-dark" id="storm" aria-labelledby="storm-title">
   <div class="wrap storm-grid">
-    <div class="storm-img rv"><img src="assets/roofer.jpg" alt="A roofer in a hard hat and harness hammering roof boards" loading="lazy"><span class="chip">Hail season: Oct – Mar</span></div>
+    <div class="storm-img rv"><img src="assets/hail-repair.jpg" alt="A roofer in a harness replacing a hail-cracked tile, hailstones still in the gutter" loading="lazy"><span class="chip">Hail season: Oct – Mar</span></div>
     <div class="storm-copy rv">
       <div>
         <span class="chip"><span class="dot"></span>Hail &amp; storm damage</span>
@@ -689,7 +689,7 @@ footer{padding:64px 0 32px}
     </div>
     <div class="foot-base">
       <span>Ridgeback Roofing © 2026 · Demo concept, fictional company</span>
-      <span class="demo-flag">Photos: CC0 from rawpixel and StockSnap</span>
+      <span class="demo-flag">Hero and hail photos AI-generated with Higgsfield · other photos CC0 from rawpixel and StockSnap</span>
     </div>
   </div>
 </footer>

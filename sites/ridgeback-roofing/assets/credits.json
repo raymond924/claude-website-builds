@@ -1,19 +1,5 @@
 [
  {
-  "name": "hero",
-  "q": "modern house",
-  "id": "b7c20e40-02ee-473b-be7c-5e113a21cc2b",
-  "title": "Free modern house design photo",
-  "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcHg5OTQwNTYtaW1hZ2Uta3d2eDg2MGouanBn.jpg",
-  "thumb": "https://api.openverse.org/v1/images/b7c20e40-02ee-473b-be7c-5e113a21cc2b/thumb/",
-  "lic": "cc0",
-  "creator": null,
-  "land": "https://www.rawpixel.com/image/5919896/photo-image-public-domain-house-interior",
-  "src": "rawpixel",
-  "w": 5616,
-  "h": 3744
- },
- {
   "name": "crew-tiles",
   "q": "roof worker",
   "id": "53ff4d3c-4710-409d-8725-19a624501738",
@@ -26,20 +12,6 @@
   "src": "rawpixel",
   "w": 4608,
   "h": 3456
- },
- {
-  "name": "roofer",
-  "q": "roof worker",
-  "id": "92cecae8-4725-4dab-8c9d-be1a5d5ec5c5",
-  "title": "Worker safety gear uses hammer",
-  "url": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA0L2JzMTQ1Ni1pbWFnZS5qcGc.jpg",
-  "thumb": "https://api.openverse.org/v1/images/92cecae8-4725-4dab-8c9d-be1a5d5ec5c5/thumb/",
-  "lic": "cc0",
-  "creator": null,
-  "land": "https://www.rawpixel.com/image/11515783/photo-image-person-public-domain-man",
-  "src": "rawpixel",
-  "w": 4460,
-  "h": 2973
  },
  {
   "name": "tile-colours",
@@ -166,5 +138,15 @@
   "src": "rawpixel",
   "w": 3008,
   "h": 2000
+ },
+ {
+  "name": "hero",
+  "source": "Higgsfield seedream_5_0_flash",
+  "job": "08e37fe8-526f-4a56-aa69-149d57fd5d75"
+ },
+ {
+  "name": "hail-repair",
+  "source": "Higgsfield seedream_5_0_flash",
+  "job": "1d684dfc-f14f-490c-80de-00fa0e80d5f6"
  }
 ]
