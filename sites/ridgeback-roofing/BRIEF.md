@@ -104,3 +104,14 @@ All CC0 (public domain) via [Openverse](https://openverse.org), from rawpixel an
 | Care plan | tools.webp | Tool belt on a roof |
 
 Best upgrade for a real client: their own drone shots of finished roofs and crew portraits.
+
+## UI/UX Pro Max review (2026-10-07)
+
+Ran [ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) v2.13 (`--design-system` for "roofing contractor
+home services trust", plus `landing` and `ux` domain searches). Its pattern, "Trust & Authority + Conversion", matched the
+page (proof, transparent pricing, low-friction form, visible contact). Its generic palette (blue/orange, Poppins) was not
+adopted because the user's Autarq reference wins. Applied from its rules:
+- Auto-rotating hero word: pause/play button, pauses on hover and when the tab is hidden, off under reduced motion.
+- Forms: inline error under each field (aria-describedby), validation on blur, error count message.
+- Reviews section: aggregate rating + breakdown, featured review, card slider with prev/next (no autoplay), CTA after proof.
+  Reviews are labelled sample content; on a client site they should come from the client's real Google reviews.
