@@ -4,7 +4,7 @@ Client websites built with Claude Code from [Refero Styles](https://styles.refer
 
 | Client | Folder | Reference | Status |
 |---|---|---|---|
-| COOK Engineering | [`sites/cook-engineering`](sites/cook-engineering) | T1 Energy | Draft homepage, photo placeholders |
+| COOK Engineering | [`sites/cook-engineering`](sites/cook-engineering) | T1 Energy | Paused: "Concentrate" homepage built, copy awaiting client details (see `NEXT.md`) |
 
 Each client folder holds:
 - `index.html`: the site, a single self-contained HTML file. Open it in a browser.
