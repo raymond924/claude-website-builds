@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>COOK Engineering</title>
+<meta name="description" content="COOK Engineering designs, supplies and commissions citrus and fish processing plants and juice evaporators across southern Africa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap">
+<style>
+/* Reference lock: T1 Energy (Refero). Vellum canvas, carbon text, whisper-light 300 display,
+   floating dark pill nav, 80px-radius image portholes, 4px square section labels,
+   no accent colour, no shadows, onyx footer. Single light theme by design. */
+:root{
+  --vellum:#f0efe9;        /* page canvas */
+  --paper:#ffffff;         /* elevated surfaces, hairlines on light */
+  --carbon:#322d2a;        /* text, borders, filled buttons, nav pill */
+  --onyx:#0f0e12;          /* footer only */
+  --mercury:#8b8b8b;       /* muted text */
+  --slot:#dcdad3;          /* photo placeholder on vellum (mercury layered on vellum) */
+  --slot-dark:#4a4440;     /* hero photo placeholder (carbon tone) */
+  --sans:"Inter","Söhne",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --gutter:clamp(16px,4vw,48px);
+  --max:1200px;
+  --section:clamp(72px,9vw,120px);
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{margin:0;background:var(--vellum);color:var(--carbon);font:400 16px/1.4 var(--sans);letter-spacing:.01em}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--carbon);outline-offset:3px}
+h1,h2,h3,p{margin:0}
+h1,h2{font-weight:300;line-height:1;letter-spacing:.01em;text-wrap:balance}
+p{text-wrap:pretty}
+.wrap{max-width:calc(var(--max) + 2*var(--gutter));margin-inline:auto;padding-inline:var(--gutter)}
+.display{font-size:clamp(36px,5vw,52px)}
+.heading{font-size:clamp(26px,3vw,32px);font-weight:300;line-height:1.2}
+.sub{font-size:22px;line-height:1.3;font-weight:400}
+.small{font-size:14px;line-height:1.3}
+.muted{color:var(--mercury)}
+.num{font-variant-numeric:tabular-nums}
+
+/* Section label: 4px carbon square + uppercase 12px */
+.label{display:inline-flex;align-items:center;gap:8px;font-size:12px;line-height:1.3;letter-spacing:.12em;text-transform:uppercase}
+.label::before{content:"";width:4px;height:4px;background:currentColor;flex:none}
+
+/* Buttons: matched pill pair */
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:100px;padding:18px 22px;font:400 14px/1 var(--sans);letter-spacing:.01em;text-decoration:none;cursor:pointer;border:1px solid var(--carbon);transition:background .2s,color .2s}
+.btn-fill{background:var(--carbon);color:var(--paper)}
+.btn-fill:hover{background:var(--onyx);border-color:var(--onyx)}
+.btn-ghost{background:transparent;color:var(--carbon)}
+.btn-ghost:hover{background:var(--carbon);color:var(--paper)}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+
+/* Photo placeholders: keep the 80px porthole and aspect ratio, describe the shot */
+.ph{position:relative;background:var(--slot);border-radius:80px;overflow:hidden;max-width:100%;display:flex;align-items:center;justify-content:center;padding:48px}
+.ph figcaption{max-width:32ch;text-align:center;font-size:12px;line-height:1.4;letter-spacing:.08em;text-transform:uppercase;color:var(--carbon);opacity:.7}
+.ph figcaption b{display:block;font-weight:400;margin-bottom:6px;opacity:.6}
+@media (max-width:700px){.ph{border-radius:48px}}
+
+/* Header: logo left, floating dark pill right (over the hero) */
+.site-head{position:absolute;inset:0 0 auto 0;z-index:5;padding-top:calc(env(safe-area-inset-top,0px) + 28px)}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:none}
+.logo{display:flex;align-items:baseline;gap:10px;text-decoration:none;color:var(--paper)}
+.logo b{font-weight:400;font-size:30px;letter-spacing:.14em;line-height:1}
+.logo span{font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.8}
+.pill{display:flex;align-items:center;gap:24px;background:rgba(50,45,42,.92);color:var(--paper);border-radius:16px;padding:14px 24px}
+.pill a{font-size:14px;text-decoration:none;white-space:nowrap}
+.pill a:hover{text-decoration:underline;text-underline-offset:4px}
+.pill .links{display:flex;gap:24px}
+.menu-btn{display:none;background:none;border:0;color:var(--paper);font:400 14px var(--sans);cursor:pointer;padding:0}
+@media (max-width:860px){
+  .pill{gap:16px;padding:12px 18px;position:relative}
+  .pill .links{display:none}
+  .menu-btn{display:block}
+  .pill.open .links{display:flex;flex-direction:column;gap:14px;position:absolute;right:0;top:calc(100% + 8px);background:var(--carbon);border-radius:16px;padding:20px 24px;min-width:200px}
+}
+
+/* Hero: full-bleed photo slot, headline bottom-left, case-study card bottom-right */
+.hero{position:relative;min-height:min(92vh,900px);background:var(--slot-dark);color:var(--paper);display:flex;align-items:flex-end;overflow:hidden}
+.hero .note{position:absolute;top:clamp(120px,22%,220px);left:50%;transform:translateX(-50%);width:min(36ch,80%);text-align:center;font-size:12px;line-height:1.5;letter-spacing:.08em;text-transform:uppercase;opacity:.45}
+.hero .wrap{width:100%;max-width:none;padding-block:0 clamp(32px,5vw,96px);display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;position:relative}
+.hero-copy{display:flex;flex-direction:column;gap:36px;flex:1 1 520px;max-width:680px}
+.hero h1{font-size:clamp(40px,5.4vw,64px)}
+.hero .btn-fill{border-color:var(--carbon);align-self:flex-start}
+.case{display:flex;gap:16px;align-items:stretch;background:var(--carbon);border-radius:12px;padding:16px;max-width:360px;text-decoration:none;color:var(--paper)}
+.case .txt{display:flex;flex-direction:column;gap:10px;justify-content:space-between}
+.case p{font-size:14px;line-height:1.3}
+.case .thumb{flex:none;width:96px;border-radius:8px;background:var(--paper);display:flex;align-items:center;justify-content:center}
+.case .thumb svg{width:72px;height:72px}
+@media (max-width:640px){.case{max-width:none;width:100%}}
+
+/* Sections */
+section{padding-block:var(--section) 0}
+.intro{display:grid;grid-template-columns:1fr;gap:36px;max-width:980px}
+.intro p.sub{max-width:52ch}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:48px}
+.pair .ph{aspect-ratio:1/1}
+@media (max-width:760px){.pair{grid-template-columns:1fr}.pair .ph{aspect-ratio:4/3}}
+
+/* Services list */
+.split{display:grid;grid-template-columns:5fr 7fr;gap:48px;align-items:start}
+.split > *{min-width:0}
+@media (max-width:900px){.split{grid-template-columns:1fr}}
+.split-head{display:flex;flex-direction:column;gap:24px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 32px)}
+@media (max-width:900px){.split-head{position:static}}
+.svc{list-style:none;margin:0;padding:0;border-top:1px solid var(--carbon)}
+.svc li{display:grid;grid-template-columns:1fr 1.3fr;gap:24px;padding:24px 0;border-bottom:1px solid var(--carbon)}
+.svc h3{font-size:22px;font-weight:400;line-height:1.3}
+.svc p{font-size:16px;line-height:1.4}
+.svc .tags{grid-column:2;display:flex;flex-wrap:wrap;gap:8px}
+.tag{font-size:12px;line-height:1;padding:8px 12px;border-radius:100px;background:var(--paper)}
+@media (max-width:560px){.svc li{grid-template-columns:1fr;gap:12px}.svc .tags{grid-column:1}}
+
+/* Evaporators: product render left, accordion right */
+.evap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-top:48px}
+.evap > *{min-width:0}
+.evap .ph{aspect-ratio:1/1;background:transparent;border:1px dashed var(--mercury)}
+@media (max-width:900px){.evap{grid-template-columns:1fr}.evap .ph{aspect-ratio:4/3}}
+.acc{border-top:1px solid var(--carbon)}
+.acc details{border-bottom:1px solid var(--carbon)}
+.acc summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0;cursor:pointer;font-size:22px;line-height:1.3}
+.acc summary::-webkit-details-marker{display:none}
+.acc .step{font-size:12px;letter-spacing:.12em;color:var(--mercury);margin-right:16px;font-variant-numeric:tabular-nums}
+.acc .ic{flex:none;width:40px;height:40px;border-radius:100px;border:1px solid var(--carbon);background:var(--paper);position:relative}
+.acc .ic::before,.acc .ic::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1px;background:var(--carbon);transform:translate(-50%,-50%)}
+.acc .ic::after{transform:translate(-50%,-50%) rotate(90deg);transition:transform .2s}
+.acc details[open] .ic::after{transform:translate(-50%,-50%) rotate(0deg)}
+.acc .body{padding:0 56px 24px 0;font-size:16px;line-height:1.4;color:var(--carbon)}
+.acc .body p + p{margin-top:8px}
+.specs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:48px}
+.spec{background:var(--paper);border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.spec .v{font-size:32px;font-weight:300;line-height:1.2}
+.spec .v small{font-size:14px;margin-left:4px}
+@media (max-width:900px){.specs{grid-template-columns:1fr 1fr}}
+
+/* Industries */
+.inds{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:48px}
+.ind{display:flex;flex-direction:column;gap:24px;min-width:0}
+.ind .ph{aspect-ratio:16/11}
+.ind .meta{display:flex;flex-direction:column;gap:16px;padding-inline:22px}
+.ind ul{margin:0;padding:0;list-style:none;border-top:1px solid var(--carbon)}
+.ind li{padding:12px 0;border-bottom:1px solid var(--carbon);font-size:14px;line-height:1.3;display:flex;justify-content:space-between;gap:16px}
+.ind li span:last-child{color:var(--mercury);text-align:right}
+@media (max-width:760px){.inds{grid-template-columns:1fr}.ind .meta{padding-inline:0}}
+
+/* Projects */
+.proj-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.projects{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+.proj{display:flex;flex-direction:column;gap:16px;min-width:0}
+.proj .ph{aspect-ratio:1/1;padding:32px}
+.proj h3{font-size:22px;font-weight:400;line-height:1.3}
+.proj dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:14px;line-height:1.3}
+.proj dt{color:var(--mercury)}
+.proj dd{margin:0}
+@media (max-width:900px){.projects{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.projects{grid-template-columns:1fr}}
+
+/* Process */
+.steps{list-style:none;margin:48px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.steps li{background:var(--paper);border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.steps .n{font-size:12px;letter-spacing:.12em;color:var(--mercury)}
+.steps h3{font-size:22px;font-weight:400;line-height:1.3}
+.steps p{font-size:14px;line-height:1.3}
+@media (max-width:1000px){.steps{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+
+/* Region */
+.region{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.region > *{min-width:0}
+.region .ph{aspect-ratio:1/1}
+.countries{list-style:none;margin:24px 0 0;padding:0;border-top:1px solid var(--carbon)}
+.countries li{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--carbon);font-size:16px}
+.countries li span:last-child{color:var(--mercury);font-size:14px;text-align:right}
+@media (max-width:860px){.region{grid-template-columns:1fr}}
+
+/* Contact */
+.contact{background:var(--paper);border-radius:80px;padding:clamp(32px,6vw,80px);display:grid;grid-template-columns:5fr 7fr;gap:48px}
+.contact > *{min-width:0}
+@media (max-width:900px){.contact{grid-template-columns:1fr;border-radius:48px}}
+.contact address{font-style:normal;display:grid;gap:16px;margin-top:36px}
+.contact address div{display:flex;flex-direction:column;gap:4px;font-size:16px}
+.contact address .label{color:var(--mercury)}
+form{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{display:flex;flex-direction:column;gap:8px;min-width:0}
+.field.full{grid-column:1/-1}
+.field label{font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+input,select,textarea{font:400 16px/1.4 var(--sans);color:var(--carbon);background:var(--vellum);border:1px solid transparent;border-radius:12px;padding:14px 16px;width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--carbon)}
+textarea{min-height:140px;resize:vertical}
+.form-foot{grid-column:1/-1;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.status{font-size:14px;color:var(--mercury)}
+@media (max-width:560px){form{grid-template-columns:1fr}}
+
+/* Footer: onyx terminator */
+footer{background:var(--onyx);color:var(--paper);margin-top:var(--section);padding-block:72px calc(30px + env(safe-area-inset-bottom,0px))}
+.foot{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px}
+.foot > *{min-width:0}
+.foot h2{font-size:clamp(28px,3vw,40px)}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;font-size:14px}
+.foot a{text-decoration:none;opacity:.85}
+.foot a:hover{opacity:1;text-decoration:underline}
+.foot .label{opacity:.6;margin-bottom:16px}
+.legal{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:72px;padding-top:24px;border-top:1px solid var(--carbon);font-size:12px;opacity:.6}
+@media (max-width:860px){.foot{grid-template-columns:1fr 1fr}.foot > :first-child{grid-column:1/-1}}
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="COOK Engineering home"><b>COOK</b><span>Engineering</span></a>
+    <nav class="pill" id="pill" aria-label="Primary">
+      <div class="links" id="nav-links">
+        <a href="#services">Services</a>
+        <a href="#evaporators">Evaporators</a>
+        <a href="#industries">Industries</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav-links">Menu</button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <p class="note" aria-hidden="true">Photo · Full-bleed, landscape. Stainless-steel evaporator or citrus extraction line inside a working plant, natural light, no people posed for camera.</p>
+    <div class="wrap">
+      <div class="hero-copy">
+        <h1>Process engineering for citrus and fish factories</h1>
+        <a class="btn btn-fill" href="#services">Discover</a>
+      </div>
+      <a class="case" href="#projects">
+        <div class="txt">
+          <span class="label">Case study</span>
+          <p>Doubling concentrate output at a Sundays River Valley juice plant without adding a boiler.</p>
+        </div>
+        <div class="thumb" aria-hidden="true">
+          <svg viewBox="0 0 72 72" fill="none" stroke="#322d2a" stroke-width="1">
+            <path d="M10 22 L22 12 L40 10 L58 16 L64 30 L60 46 L48 58 L30 62 L16 54 L8 38 Z"/>
+            <path d="M18 30 C28 26 36 34 46 30 S58 36 62 34" stroke-dasharray="2 3"/>
+            <circle cx="44" cy="50" r="3" fill="#322d2a"/>
+          </svg>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <section aria-labelledby="mission">
+    <div class="wrap">
+      <div class="intro">
+        <span class="label">Mission</span>
+        <h2 id="mission" class="display">We design, supply and commission the plants that turn southern Africa's harvests and catches into export product.</h2>
+        <p class="sub muted">From a single juice evaporator to a complete fishmeal line, COOK Engineering takes responsibility for the process: the mass balance, the equipment, the installation and the first season of production.</p>
+        <div class="actions">
+          <a class="btn btn-fill" href="#contact">Talk to an engineer</a>
+          <a class="btn btn-ghost" href="#evaporators">Our evaporators</a>
+        </div>
+      </div>
+      <div class="pair">
+        <figure class="ph" style="margin:0"><figcaption><b>Photo</b>Citrus fruit on an inspection conveyor, overhead view, orange against stainless steel</figcaption></figure>
+        <figure class="ph" style="margin:0"><figcaption><b>Photo</b>Fishmeal plant cooker and twin-screw press, wide interior shot</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" aria-labelledby="svc-h">
+    <div class="wrap split">
+      <div class="split-head">
+        <span class="label">Services</span>
+        <h2 id="svc-h" class="display">One team from feasibility to first production</h2>
+        <p class="muted">We work for owners and operators, so our designs are judged on yield, steam use and uptime, not on equipment sold.</p>
+      </div>
+      <ul class="svc">
+        <li><h3>Plant design &amp; layout</h3><p>Process flow diagrams, mass and energy balances, P&amp;IDs and general arrangements for new plants and expansions.</p>
+          <div class="tags"><span class="tag">PFD &amp; P&amp;ID</span><span class="tag">Mass balance</span><span class="tag">GA drawings</span></div></li>
+        <li><h3>Juice evaporators</h3><p>Our own falling-film concentrators with aroma recovery, designed and built for citrus. Supplied as a full package or as an upgrade to an existing line.</p>
+          <div class="tags"><span class="tag">Design &amp; supply</span><span class="tag">Aroma recovery</span><span class="tag">Retrofits</span></div></li>
+        <li><h3>Project engineering</h3><p>Equipment specification, tender evaluation, site supervision and contractor coordination through to handover.</p>
+          <div class="tags"><span class="tag">Tender packages</span><span class="tag">Site supervision</span><span class="tag">Commissioning</span></div></li>
+        <li><h3>Plant audits &amp; optimisation</h3><p>Measured audits of yield, steam, water and electricity, with a costed list of improvements ranked by payback.</p>
+          <div class="tags"><span class="tag">Steam economy</span><span class="tag">Water reuse</span><span class="tag">Yield loss</span></div></li>
+        <li><h3>Operator training &amp; support</h3><p>Hands-on training for your shift teams, start-of-season checks and on-call support during the season.</p>
+          <div class="tags"><span class="tag">Season start-up</span><span class="tag">SOPs</span><span class="tag">On-call</span></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="evaporators" aria-labelledby="evap-h">
+    <div class="wrap">
+      <div class="intro">
+        <span class="label">Evaporators</span>
+        <h2 id="evap-h" class="display">Juice concentrators built for citrus</h2>
+        <p class="sub muted">Gentle, short-residence evaporation that takes single-strength juice to frozen concentrate while protecting colour, flavour and aroma.</p>
+      </div>
+      <div class="evap">
+        <figure class="ph" style="margin:0"><figcaption><b>Product render</b>COOK falling-film evaporator, isolated three-quarter view on a plain vellum background, no backdrop</figcaption></figure>
+        <div>
+          <div class="acc" id="acc">
+            <details open><summary><span><span class="step">01</span>Feed &amp; preheat</span><span class="ic" aria-hidden="true"></span></summary>
+              <div class="body"><p>Single-strength juice is preheated with recovered vapour, so the energy that leaves one effect warms the feed for the next.</p></div></details>
+            <details><summary><span><span class="step">02</span>Pasteurisation</span><span class="ic" aria-hidden="true"></span></summary>
+              <div class="body"><p>A short high-temperature hold inactivates pectin methylesterase and spoilage organisms before concentration, giving a stable cloud in the finished concentrate.</p></div></details>
+            <details><summary><span><span class="step">03</span>Falling-film effects</span><span class="ic" aria-hidden="true"></span></summary>
+              <div class="body"><p>Juice runs as a thin film down the tube walls of each effect. Residence time stays short and temperatures drop effect by effect, which protects flavour and colour.</p><p>Thermal vapour recompression cuts live-steam demand further on larger units.</p></div></details>
+            <details><summary><span><span class="step">04</span>Aroma recovery</span><span class="ic" aria-hidden="true"></span></summary>
+              <div class="body"><p>Volatile aromas stripped in the first effect are condensed and rectified into an essence that can be added back to reconstituted juice or sold separately.</p></div></details>
+            <details><summary><span><span class="step">05</span>Flash cooling &amp; discharge</span><span class="ic" aria-hidden="true"></span></summary>
+              <div class="body"><p>Concentrate is flash-cooled under vacuum and pumped to blending or drumming, ready for frozen storage.</p></div></details>
+          </div>
+        </div>
+      </div>
+      <div class="specs" role="list" aria-label="Typical evaporator specification">
+        <div class="spec" role="listitem"><span class="label">Concentrate</span><span class="v num">65<small>°Brix</small></span><span class="small muted">From 10–12 °Brix single-strength juice</span></div>
+        <div class="spec" role="listitem"><span class="label">Evaporation rate</span><span class="v num">2–25<small>t/h</small></span><span class="small muted">Water removed, sized to your fruit intake</span></div>
+        <div class="spec" role="listitem"><span class="label">Effects</span><span class="v num">4–7</span><span class="small muted">With optional thermal vapour recompression</span></div>
+        <div class="spec" role="listitem"><span class="label">Construction</span><span class="v">316L</span><span class="small muted">Stainless steel product contact, CIP throughout</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="industries" aria-labelledby="ind-h">
+    <div class="wrap">
+      <div class="intro">
+        <span class="label">Industries</span>
+        <h2 id="ind-h" class="display">Two industries, understood in detail</h2>
+      </div>
+      <div class="inds">
+        <article class="ind">
+          <figure class="ph" style="margin:0"><figcaption><b>Photo</b>Citrus juice extractors in a row, fruit entering from above</figcaption></figure>
+          <div class="meta">
+            <h3 class="sub">Citrus processing</h3>
+            <p class="muted">Juice plants, packhouse by-product lines and concentrate facilities for oranges, soft citrus, lemons and grapefruit.</p>
+            <ul>
+              <li><span>Juice extraction &amp; finishing</span><span>Pulp control, yield</span></li>
+              <li><span>Concentration</span><span>FCOJ, NFC, essence</span></li>
+              <li><span>Peel &amp; by-products</span><span>Cold-pressed oil, pulp wash</span></li>
+              <li><span>Utilities</span><span>Steam, cooling water, CIP</span></li>
+            </ul>
+          </div>
+        </article>
+        <article class="ind">
+          <figure class="ph" style="margin:0"><figcaption><b>Photo</b>Fishmeal dryer and conveyors inside a West Coast plant</figcaption></figure>
+          <div class="meta">
+            <h3 class="sub">Fish processing</h3>
+            <p class="muted">Fishmeal and fish oil plants and pelagic processing for anchovy, pilchard and by-catch along the Atlantic coast.</p>
+            <ul>
+              <li><span>Cooking &amp; pressing</span><span>Cookers, twin-screw presses</span></li>
+              <li><span>Drying &amp; milling</span><span>Indirect steam dryers</span></li>
+              <li><span>Oil recovery</span><span>Decanters, separators</span></li>
+              <li><span>Odour &amp; effluent</span><span>Scrubbers, DAF</span></li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" aria-labelledby="proj-h">
+    <div class="wrap">
+      <div class="proj-head">
+        <div class="intro" style="gap:24px">
+          <span class="label">Projects</span>
+          <h2 id="proj-h" class="display">Recent work</h2>
+        </div>
+        <a class="btn btn-ghost" href="#contact">Request references</a>
+      </div>
+      <div class="projects">
+        <article class="proj">
+          <figure class="ph" style="margin:0"><figcaption><b>Photo</b>New five-effect evaporator, installed</figcaption></figure>
+          <span class="label">Case study</span>
+          <h3>Evaporator upgrade, Sundays River Valley</h3>
+          <dl><dt>Scope</dt><dd>Five-effect evaporator with TVR and aroma recovery</dd><dt>Result</dt><dd>Concentrate output doubled on the existing boiler</dd><dt>Year</dt><dd class="num">2025</dd></dl>
+        </article>
+        <article class="proj">
+          <figure class="ph" style="margin:0"><figcaption><b>Photo</b>Fishmeal plant exterior at dusk, stacks and silos</figcaption></figure>
+          <span class="label">Fish</span>
+          <h3>Fishmeal plant expansion, Western Cape</h3>
+          <dl><dt>Scope</dt><dd>Second cooking and pressing line, stickwater handling</dd><dt>Result</dt><dd>Raw fish capacity increased by half</dd><dt>Year</dt><dd class="num">2024</dd></dl>
+        </article>
+        <article class="proj">
+          <figure class="ph" style="margin:0"><figcaption><b>Photo</b>Lemon juice line, finishers and pulp tanks</figcaption></figure>
+          <span class="label">Citrus</span>
+          <h3>Lemon juice plant, Limpopo</h3>
+          <dl><dt>Scope</dt><dd>Full plant design, extraction to drumming</dd><dt>Result</dt><dd>Commissioned in time for the first harvest</dd><dt>Year</dt><dd class="num">2023</dd></dl>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="proc-h">
+    <div class="wrap">
+      <div class="intro">
+        <span class="label">How we work</span>
+        <h2 id="proc-h" class="display">Five stages, one accountable engineer</h2>
+      </div>
+      <ol class="steps">
+        <li><span class="n">STAGE 1</span><h3>Assess</h3><p>Site visit, current mass balance and a clear statement of what has to improve.</p></li>
+        <li><span class="n">STAGE 2</span><h3>Design</h3><p>Process design, layouts and a budget estimate you can take to the board.</p></li>
+        <li><span class="n">STAGE 3</span><h3>Supply</h3><p>Our evaporators plus specified third-party equipment, checked at the factory.</p></li>
+        <li><span class="n">STAGE 4</span><h3>Install &amp; commission</h3><p>Site supervision, water trials, then product trials with your operators.</p></li>
+        <li><span class="n">STAGE 5</span><h3>Support</h3><p>Season start-up checks, training and on-call help when the fruit or fish arrives.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section aria-labelledby="reg-h">
+    <div class="wrap region">
+      <figure class="ph" style="margin:0"><figcaption><b>Photo or map</b>Aerial view of citrus orchards in a river valley, or a simple line map of southern Africa</figcaption></figure>
+      <div>
+        <span class="label">Where we work</span>
+        <h2 id="reg-h" class="display" style="margin-top:24px">South Africa and its neighbours</h2>
+        <ul class="countries">
+          <li><span>South Africa</span><span>Eastern &amp; Western Cape, Limpopo, Mpumalanga</span></li>
+          <li><span>Namibia</span><span>Walvis Bay, Lüderitz</span></li>
+          <li><span>Eswatini</span><span>Citrus estates</span></li>
+          <li><span>Zimbabwe</span><span>Citrus estates</span></li>
+          <li><span>Mozambique</span><span>Citrus &amp; fisheries</span></li>
+          <li><span>Botswana &amp; Lesotho</span><span>On request</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" aria-labelledby="ct-h">
+    <div class="wrap">
+      <div class="contact">
+        <div>
+          <span class="label">Contact</span>
+          <h2 id="ct-h" class="display" style="margin-top:24px">Tell us about your plant</h2>
+          <p class="muted" style="margin-top:24px">An engineer, not a salesperson, replies within two working days.</p>
+          <address>
+            <div><span class="label">Office</span><span>[Street address], [Town], South Africa</span></div>
+            <div><span class="label">Phone</span><span class="num">+27 (0)00 000 0000</span></div>
+            <div><span class="label">Email</span><span>info@cookengineering.co.za</span></div>
+          </address>
+        </div>
+        <form id="enq" novalidate>
+          <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" autocomplete="name"></div>
+          <div class="field"><label for="f-company">Company</label><input id="f-company" name="company" autocomplete="organization"></div>
+          <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email"></div>
+          <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel"></div>
+          <div class="field full"><label for="f-type">I'm interested in</label>
+            <select id="f-type" name="type"><option>Juice evaporator</option><option>Citrus plant project</option><option>Fish plant project</option><option>Plant audit</option><option>Something else</option></select></div>
+          <div class="field full"><label for="f-msg">Project details</label><textarea id="f-msg" name="msg" placeholder="Fruit or fish intake, current equipment, timeline"></textarea></div>
+          <div class="form-foot"><button class="btn btn-fill" type="submit">Send enquiry</button><span class="status" id="f-status" role="status"></span></div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><h2>COOK Engineering</h2><p class="small" style="margin-top:16px;opacity:.7;max-width:36ch">Process engineering and juice evaporators for citrus and fish factories in southern Africa.</p></div>
+      <div><p class="label">Services</p><ul><li><a href="#services">Plant design</a></li><li><a href="#evaporators">Evaporators</a></li><li><a href="#services">Audits</a></li><li><a href="#services">Training</a></li></ul></div>
+      <div><p class="label">Industries</p><ul><li><a href="#industries">Citrus</a></li><li><a href="#industries">Fish</a></li></ul></div>
+      <div><p class="label">Company</p><ul><li><a href="#projects">Projects</a></li><li><a href="#contact">Contact</a></li></ul></div>
+    </div>
+    <div class="legal"><span>© 2026 COOK Engineering</span><span>Draft homepage · photos and figures to be confirmed</span></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pill=document.getElementById('pill'),btn=document.getElementById('menu-btn');
+  btn.addEventListener('click',function(){var o=pill.classList.toggle('open');btn.setAttribute('aria-expanded',o);btn.textContent=o?'Close':'Menu';});
+  document.querySelectorAll('#nav-links a').forEach(function(a){a.addEventListener('click',function(){pill.classList.remove('open');btn.setAttribute('aria-expanded','false');btn.textContent='Menu';});});
+  // Accordion: one item open at a time
+  var items=document.querySelectorAll('#acc details');
+  items.forEach(function(d){d.addEventListener('toggle',function(){if(d.open)items.forEach(function(o){if(o!==d)o.open=false;});});});
+  document.getElementById('enq').addEventListener('submit',function(e){
+    e.preventDefault();
+    var s=document.getElementById('f-status'),n=document.getElementById('f-name').value.trim(),m=document.getElementById('f-email').value;
+    if(!n||!/^\S+@\S+\.\S+$/.test(m)){s.textContent='Add your name and a valid email address so we can reply.';return;}
+    s.textContent='Enquiry ready. This draft site does not send messages yet.';
+  });
+})();
+</script>
+</body>
+</html>
