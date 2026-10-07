@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>COOK Engineering</title>
-<meta name="description" content="COOK Engineering designs, supplies and commissions citrus and fish processing plants, and builds its own falling-film juice evaporators, across southern Africa.">
+<meta name="description" content="COOK Engineering designs citrus and fish processing plants across southern Africa and builds its own falling-film citrus juice evaporators.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400&family=Geist+Mono:wght@400&display=swap">
@@ -19,7 +19,6 @@
   --onyx:#0f0f10;
   --glass:rgba(24,24,24,.5);
   --peel:#e8731a;
-  --hair:rgba(43,42,40,.16);
   --sans:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   --gutter:48px;
@@ -41,218 +40,212 @@ h1,h2,h3{font-weight:300}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .skip{position:absolute;left:16px;top:-60px;z-index:100;background:var(--steel);color:var(--ink);padding:10px 16px;border-radius:999px}
 .skip:focus{top:16px}
+.glass{background:var(--glass);-webkit-backdrop-filter:blur(16px) brightness(.72);backdrop-filter:blur(16px) brightness(.72)}
 
 /* ---------- Type roles ---------- */
 .label{display:flex;align-items:center;gap:8px;font:400 12px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase}
-.label::before{content:"";width:4px;height:4px;background:currentColor;flex:none}
+.label::before{content:"";display:block;width:4px;height:4px;border-radius:0;background:currentColor;flex:none}
 .mono{font:400 12px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase}
 .st{font-weight:300;font-size:32px;line-height:1.2;letter-spacing:-.005em}
-.st-s{font-weight:300;font-size:24px;line-height:1.25}
 .st + .st{margin-top:1.2em}
+.nb{white-space:nowrap}
 
 /* ---------- Buttons ---------- */
-.pill{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:50px;padding:0 22px;border-radius:999px;border:1px solid var(--ink);font-size:14px;line-height:1;background:transparent;cursor:pointer;transition:background .2s,color .2s}
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:50px;padding:0 22px;border-radius:999px;border:1px solid var(--ink);font-size:14px;line-height:1;background:transparent;cursor:pointer;transition:background .2s,color .2s;white-space:nowrap}
 .pill:hover{background:var(--ink);color:var(--steel)}
-.pill-fill{background:var(--steel);color:var(--ink);border-color:var(--steel)}
-.pill-fill:hover{background:transparent;color:var(--steel)}
+.pill-ink{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pill-ink:hover{background:#000;border-color:#000}
+.pill-glass{color:#fff;border-color:rgba(255,255,255,.55)}
+.pill-glass:hover{background:rgba(24,24,24,.7);color:#fff}
 
 /* ---------- Split grammar ---------- */
 .split{display:grid;grid-template-columns:1fr 1fr;padding:var(--pad) var(--gutter)}
 .split > .label{padding-top:12px;align-self:start}
 .split-body{max-width:640px}
-.split-body .pill{margin-top:48px}
+.split-body > .pill{margin-top:48px}
 
 /* ---------- Brix scale ---------- */
-.brix{position:relative;height:44px;--c:var(--ink)}
-.brix .rule{position:absolute;left:0;right:0;top:18px;height:1px;background:var(--c)}
-.brix .t{position:absolute;top:18px;width:1px;height:5px;background:var(--c);transform:translateX(-.5px)}
+.brix{position:relative;height:46px;--c:var(--ink)}
+.brix .rule{position:absolute;left:0;right:0;top:20px;height:1px;background:var(--c)}
+.brix .t{position:absolute;top:20px;width:1px;height:5px;background:var(--c);transform:translateX(-.5px)}
 .brix .t.maj{height:9px}
-.brix .n{position:absolute;top:30px;transform:translateX(-50%);font:400 10px/1 var(--mono);letter-spacing:.04em;color:var(--c);opacity:.75}
-.brix .mk{position:absolute;top:6px;width:2px;height:21px;background:var(--peel);transform:translateX(-1px);transition:left .7s cubic-bezier(.3,.7,.2,1)}
-.brix .v{position:absolute;top:-12px;transform:translateX(-50%);font:400 11px/1 var(--mono);letter-spacing:.06em;color:var(--c);white-space:nowrap;transition:left .7s cubic-bezier(.3,.7,.2,1)}
+.brix .n{position:absolute;top:33px;transform:translateX(-50%);font:400 11px/1 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--c)}
+.brix .n.first{transform:none}
+.brix .n.last{transform:translateX(-100%)}
+.brix .mk{position:absolute;top:8px;width:2px;height:21px;background:var(--peel);transform:translateX(-1px);transition:left .7s cubic-bezier(.3,.7,.2,1)}
+.brix .v{position:absolute;top:-8px;transform:translateX(-50%);font:400 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--c);white-space:nowrap;transition:left .7s cubic-bezier(.3,.7,.2,1)}
 .brix.live .mk,.brix.live .v{transition:none}
-.brix-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:22px}
 
 /* ---------- Header / nav ---------- */
 .logo{position:absolute;top:34px;left:var(--gutter);z-index:20;color:#fff;display:flex;flex-direction:column;gap:6px}
 .logo .wm{font:300 40px/1 var(--sans);letter-spacing:.06em}
-.logo .sub{font:400 10px/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;opacity:.85;padding-left:2px}
-.nav{position:fixed;top:36px;right:36px;z-index:50;display:flex;align-items:center;gap:0;height:44px;padding:0 6px;border-radius:14px;background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:#fff}
-.nav .mini{display:flex;align-items:center;width:0;overflow:hidden;opacity:0;font:300 20px/1 var(--sans);letter-spacing:.06em;transition:width .35s,opacity .35s,padding .35s;white-space:nowrap}
-.nav.scrolled .mini{width:92px;opacity:1;padding-left:12px}
+.logo .sub{font:400 10px/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;padding-left:2px}
+.nav{position:fixed;top:36px;right:36px;z-index:50;display:flex;align-items:center;height:44px;padding:0 6px;border-radius:14px;color:#fff}
 .nav ul{display:flex}
 .nav ul a{display:block;padding:14px 22px;font-size:14px;line-height:16px;border-radius:10px}
-.nav ul a:hover{background:rgba(255,255,255,.1)}
-.nav .menu{display:none;background:none;border:0;cursor:pointer;height:44px;padding:0 16px;font-size:14px}
+.nav ul a:hover{background:rgba(255,255,255,.12)}
+.nav .menu{display:none;background:none;border:0;cursor:pointer;height:44px;padding:0 18px;font-size:14px;color:#fff}
 
 /* ---------- 1 Hero ---------- */
-.hero{position:relative;height:100vh;height:100svh;min-height:640px;border-radius:0 0 var(--r) var(--r);overflow:hidden;background:#3a3936;color:#fff;isolation:isolate}
-.hero video,.hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
-.hero::after{content:"";position:absolute;inset:0;background:rgba(15,15,16,.34);z-index:-1}
-.hero-in{position:absolute;left:var(--gutter);right:var(--gutter);bottom:56px;display:grid;grid-template-columns:1fr auto;align-items:end;gap:48px}
-.hero h1{font-size:56px;line-height:1;letter-spacing:-.01em;max-width:12.5em}
-.hero .acts{display:flex;align-items:center;gap:24px;margin-top:36px}
-.hero .brix{--c:#fff;width:min(460px,100%);margin-top:52px}
-.hero .brix-cap{margin-top:6px;opacity:.8}
-.case{display:grid;grid-template-columns:1fr 104px;gap:20px;align-items:center;width:400px;padding:16px 16px 16px 20px;border-radius:24px;background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:#fff}
-.case .label{margin-bottom:12px}
+.hero{position:relative;height:100vh;height:100svh;min-height:680px;border-radius:0 0 var(--r) var(--r);overflow:hidden;background:#55565a;color:#fff;isolation:isolate}
+.hero .media{position:absolute;inset:0;z-index:-2;overflow:hidden}
+/* Scale from the top-right so the foreground fruit bowl (bottom-left of the footage) leaves the frame */
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:right top;transform:scale(1.36);transform-origin:right top}
+.hero .scrim{position:absolute;inset:auto 0 0 0;height:62%;z-index:-1;background:linear-gradient(to top,rgba(15,15,16,.62),rgba(15,15,16,.28) 55%,rgba(15,15,16,0))}
+.hero-in{position:absolute;left:var(--gutter);right:var(--gutter);bottom:112px;display:grid;grid-template-columns:1fr auto;align-items:end;gap:48px}
+.hero h1{font-size:56px;line-height:1;letter-spacing:-.01em;max-width:13em}
+.hero .acts{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:36px}
+.hero .brix{--c:#fff;position:absolute;left:var(--gutter);right:var(--gutter);bottom:30px}
+.case{display:grid;grid-template-columns:1fr 88px;gap:20px;align-items:center;width:420px;padding:16px;border-radius:12px;color:#fff}
+.case .label{margin-bottom:10px}
 .case p{font-size:14px;line-height:1.35}
-.case img{width:104px;height:104px;object-fit:cover;border-radius:16px}
-.case:hover{background:rgba(24,24,24,.62)}
+.case img{width:88px;height:88px;object-fit:cover;border-radius:8px}
 
 /* ---------- 2 Mission / tiles / product / services ---------- */
 .tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 var(--edge)}
 .tile{position:relative;aspect-ratio:708/800;border-radius:var(--r);overflow:hidden;background:var(--pulp)}
 .tile img{width:100%;height:100%;object-fit:cover}
-.loc{position:absolute;top:110px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:20px;height:56px;padding:0 6px 0 22px;border-radius:999px;background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:#fff;font-size:14px;white-space:nowrap}
-.loc .arr{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.18);transition:background .2s}
-.loc:hover .arr{background:rgba(255,255,255,.32)}
-.loc .arr svg{width:16px;height:16px}
+.loc{position:absolute;top:96px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:20px;padding:8px 8px 8px 22px;border-radius:999px;color:#fff;white-space:nowrap}
+.loc .tx{display:grid;gap:3px}
+.loc .tx b{font-weight:400;font-size:14px;line-height:1.2}
+.loc .tx .mono{font-size:11px;opacity:.85}
+.loc .arr{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.6);flex:none;transition:background .2s}
+.loc:hover .arr{background:rgba(255,255,255,.2)}
+.loc .arr svg{width:14px;height:14px}
+.countries{margin-top:28px;display:flex;flex-wrap:wrap;gap:8px 0;color:var(--muted)}
+.countries li:not(:last-child)::after{content:"·";padding:0 10px}
 
-.product{display:grid;grid-template-columns:1fr 1fr;padding:8px var(--edge) 0 0}
-.product-copy{padding:100px var(--gutter) 0;max-width:calc(560px + var(--gutter)*2)}
-.product-copy .st{margin-top:56px}
-.product-copy .facts{margin-top:40px;display:grid;gap:10px;color:var(--muted)}
-.product-copy .pill{margin-top:44px}
-.panel{position:relative;aspect-ratio:712/880;border-radius:var(--r);overflow:hidden;background:var(--pulp)}
-.panel figure{position:absolute;inset:0}
+.facts{margin-top:40px;display:grid;grid-template-columns:auto 1fr;gap:10px 24px}
+.facts dt{color:var(--muted)}
+.product-row{display:grid;grid-template-columns:1fr 1fr;padding:0 var(--edge) 0 0}
+.panel{grid-column:2;position:relative;aspect-ratio:712/880;border-radius:var(--r);overflow:hidden;background:var(--pulp)}
 .panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .45s}
 .panel img[hidden]{display:block;opacity:0;visibility:hidden}
-.seg{position:absolute;left:50%;bottom:48px;transform:translateX(-50%);display:flex;padding:4px;border-radius:14px;background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
-.seg button{height:38px;padding:0 20px;min-width:110px;border:0;border-radius:10px;background:transparent;color:#fff;font-size:14px;cursor:pointer;transition:background .2s,color .2s}
+.seg{position:absolute;left:50%;bottom:48px;transform:translateX(-50%);display:flex;padding:4px;border-radius:14px}
+.seg button{height:38px;padding:0 20px;min-width:118px;border:0;border-radius:10px;background:transparent;color:#fff;font-size:14px;cursor:pointer;transition:background .2s,color .2s}
 .seg button[aria-pressed="true"]{background:var(--steel);color:var(--ink)}
 .seg button:focus-visible{outline-color:#fff}
 
-.svc{margin-top:56px;border-top:1px solid var(--hair)}
-.svc li{display:grid;grid-template-columns:48px 1fr;gap:0 16px;padding:20px 0;border-bottom:1px solid var(--hair)}
-.svc .mono{color:var(--muted);padding-top:7px}
-.svc h3{font-size:24px;line-height:1.25}
-.svc p{grid-column:2;margin-top:6px;color:var(--muted);max-width:52ch}
-
-/* ---------- 3 Technology band ---------- */
-.band{margin:0 var(--edge);border-radius:var(--r);background:var(--pulp);padding:var(--pad) var(--gutter) 72px}
-.band-grid{display:grid;grid-template-columns:1fr 1fr;align-items:start}
-.drawing{padding-right:80px}
-.drawing svg{width:100%;height:auto;max-width:600px}
-.drawing svg .ln{fill:none;stroke:var(--ink);stroke-width:1;vector-effect:non-scaling-stroke}
-.drawing svg .stg{opacity:.3;transition:opacity .45s}
-.drawing svg .stg.on{opacity:1}
-.drawing svg .film{fill:none;stroke:var(--ink);stroke-width:1.6;stroke-dasharray:3 12;vector-effect:non-scaling-stroke;animation:fall 1.6s linear infinite}
-.drawing svg text{font:400 10px var(--mono);letter-spacing:.06em;fill:var(--ink)}
-.drawing svg text.mu{fill:var(--muted)}
-@keyframes fall{to{stroke-dashoffset:-15}}
-.drawing .brix{margin-top:56px;max-width:600px}
-.acc-col{max-width:560px}
-.acc-col .st{margin-top:40px}
-.acc{margin-top:48px}
-.acc li + li{margin-top:4px}
+/* ---------- Accordion (services + technology) ---------- */
+.acc{margin-top:48px;border-top:1px solid var(--ink)}
+.acc > li{border-bottom:1px solid var(--ink)}
 .acc h3{font:inherit}
-.acc button.row{display:flex;width:100%;align-items:center;justify-content:space-between;gap:16px;padding:10px 0;border:0;background:none;text-align:left;cursor:pointer;font-weight:300;font-size:22px;line-height:1.2;color:var(--ink)}
-.acc button.row .t{opacity:.6;transition:opacity .2s}
-.acc button.row[aria-expanded="true"] .t,.acc button.row:hover .t{opacity:1}
-.acc .num{font:400 12px var(--mono);letter-spacing:.08em;color:var(--muted);margin-right:16px}
-.pm{position:relative;flex:none;width:40px;height:40px;border-radius:50%;background:var(--steel)}
+.acc button.row{display:flex;width:100%;align-items:center;gap:16px;padding:14px 0;border:0;background:none;text-align:left;cursor:pointer;font-weight:300;font-size:22px;line-height:1.2;color:var(--muted)}
+.acc button.row[aria-expanded="true"],.acc button.row:hover{color:var(--ink)}
+.acc .num{flex:none;width:36px;font:400 12px var(--mono);letter-spacing:.08em;color:var(--muted)}
+.acc .t{flex:1}
+.acc .meta{flex:none;font:400 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.pm{position:relative;flex:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--ink)}
 .pm::before,.pm::after{content:"";position:absolute;left:50%;top:50%;width:14px;height:1px;background:var(--ink);transform:translate(-50%,-50%)}
 .pm::after{transform:translate(-50%,-50%) rotate(90deg);transition:transform .25s}
 [aria-expanded="true"] .pm::after{transform:translate(-50%,-50%) rotate(0)}
-.acc .body{padding:4px 56px 22px 0}
+.acc .body{padding:0 56px 22px 52px}
 .acc .body .mono{color:var(--ink)}
-.acc .body p:last-child{margin-top:12px;color:var(--muted);font-size:14px;line-height:1.55}
-.specs{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:96px;padding-top:28px;border-top:1px solid var(--hair)}
-.specs dt{font-weight:300;font-size:32px;line-height:1.1}
-.specs dd{margin-top:10px;color:var(--muted)}
+.acc .body p + p{margin-top:10px;color:var(--muted);font-size:14px;line-height:1.55;max-width:46ch}
+
+/* ---------- 3 Technology band ---------- */
+.band{margin:0 var(--edge);border-radius:var(--r);background:var(--pulp);padding:144px var(--gutter)}
+.band-grid{display:grid;grid-template-columns:1fr 1fr;align-items:start}
+.drawing{max-width:460px}
+.drawing svg{width:100%;height:auto}
+.drawing svg .ln{fill:none;stroke:var(--muted);stroke-width:1;vector-effect:non-scaling-stroke;transition:stroke .45s}
+.drawing svg .stg.on .ln{stroke:var(--ink)}
+.drawing svg .film{fill:none;stroke:var(--ink);stroke-width:1.5;stroke-dasharray:3 12;vector-effect:non-scaling-stroke;animation:fall 1.6s linear infinite;opacity:0;transition:opacity .45s}
+.drawing svg .stg.on .film{opacity:1}
+@keyframes fall{to{stroke-dashoffset:-15}}
+.drawing .brix{margin-top:64px}
+.drawing .note{margin-top:28px;color:var(--muted)}
+.acc-col{max-width:600px}
+.acc-col .st{margin-top:40px}
 
 /* ---------- 4 Company / stats / insights / contact / footer ---------- */
 .company{padding-bottom:0}
-.stats-wrap{display:grid;grid-template-columns:1fr 1fr;padding:96px var(--gutter) var(--pad)}
-.shop{width:min(360px,100%);aspect-ratio:1;border-radius:var(--r);overflow:hidden;align-self:end;background:var(--pulp)}
+.stats-wrap{display:grid;grid-template-columns:1fr 1fr;padding:96px 0 var(--pad)}
+.shop{margin-left:var(--edge);width:min(520px,calc(100% - 48px));aspect-ratio:1;border-radius:var(--r);overflow:hidden;align-self:end;background:var(--pulp)}
 .shop img{width:100%;height:100%;object-fit:cover}
-.stats .brix{max-width:560px;margin-bottom:72px}
+.stats{padding-right:var(--gutter)}
+.stats .brix{max-width:600px;margin-bottom:80px}
 .stat + .stat{margin-top:72px}
-.stat b{display:block;font-weight:300;font-size:96px;line-height:1;letter-spacing:-.02em}
+.stat b{display:block;font-weight:300;font-size:96px;line-height:1;letter-spacing:-.02em;white-space:nowrap}
 .stat .mono{display:block;margin-top:14px}
+.stats .spec{margin-top:72px;display:grid;gap:8px;color:var(--muted)}
 
 .news-head{padding-bottom:56px}
 .news{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 var(--edge)}
-.news img{width:100%;aspect-ratio:350/440;object-fit:cover;background:var(--pulp)}
+.news img{width:100%;height:auto;aspect-ratio:350/440;object-fit:cover;background:var(--pulp)}
 .news time{display:block;margin-top:28px;color:var(--muted)}
 .news h3{margin-top:22px;font-size:24px;line-height:1.3;max-width:15em;padding-right:16px}
 
-.contact .lead{margin-top:20px;color:var(--muted);font-size:16px;max-width:48ch}
-.contact dl{display:grid;grid-template-columns:auto 1fr;gap:10px 24px;margin-top:40px}
-.contact dt{color:var(--muted)}
+.contact .lead{margin-top:24px;font-size:16px;line-height:1.5;max-width:48ch}
+.contact .lead a{text-decoration:underline;text-underline-offset:3px}
+.contact .where{margin-top:8px;color:var(--muted);font-size:16px}
 form{display:grid;grid-template-columns:1fr 1fr;gap:28px 24px;margin-top:56px}
 .field{display:grid;gap:8px}
 .field.full{grid-column:1/-1}
 .field label{color:var(--muted)}
 .field input,.field select,.field textarea{width:100%;font:300 18px/1.3 var(--sans);color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--ink);border-radius:0;padding:8px 0;appearance:none;-webkit-appearance:none}
+.field textarea::placeholder{color:var(--muted)}
 .field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%232b2a28'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 2px center;padding-right:24px}
 .field textarea{min-height:96px;resize:vertical}
 .field input:focus-visible,.field select:focus-visible,.field textarea:focus-visible{outline:none;border-bottom-width:2px;padding-bottom:7px}
 .form-foot{grid-column:1/-1;display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:8px}
-.form-foot .pill{margin-top:0}
 #f-status{color:var(--muted)}
 
 footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(--gutter) 48px}
 .index{display:grid;grid-template-columns:repeat(4,minmax(0,240px));gap:32px}
 .index li{display:grid;grid-template-columns:54px 1fr;padding:4px 0}
-.index li span{color:rgba(255,255,255,.5)}
+.index li span{color:rgba(255,255,255,.6)}
 .index a:hover{text-decoration:underline;text-underline-offset:3px}
 .foot-base{display:grid;grid-template-columns:1fr 1fr;align-items:end;gap:32px;margin-top:160px}
 .mark{width:100%;max-width:680px;height:auto;color:#fff}
-.legal{display:grid;grid-template-columns:54px 1fr;gap:4px 0;align-self:end;padding-bottom:6px}
-.legal span{color:rgba(255,255,255,.5)}
-.legal span:first-child{white-space:nowrap}
+.legal{display:grid;grid-template-columns:64px 1fr;gap:4px 0;align-self:end;padding-bottom:6px}
+.legal span:first-child{color:rgba(255,255,255,.6);white-space:nowrap}
 
-/* ---------- Phone ---------- */
+/* ---------- Narrower ---------- */
 @media (max-width:1100px){
   :root{--pad:96px}
   .nav ul a{padding:14px 14px}
-  .case{width:340px}
-  .drawing{padding-right:40px}
+  .case{width:360px}
+  .hero h1{font-size:48px}
   .stat b{font-size:80px}
 }
 @media (max-width:860px){
   :root{--gutter:16px;--pad:72px;--r:40px}
   .logo{top:24px}
   .logo .wm{font-size:30px}
-  .nav{top:20px;right:16px;flex-wrap:wrap;justify-content:flex-end;height:auto;min-height:44px;max-width:calc(100vw - 32px)}
+  .nav{top:20px;right:16px;flex-wrap:wrap;justify-content:flex-end;height:auto;min-height:44px;max-width:calc(100vw - 140px);padding:0}
   .nav .menu{display:block}
-  .nav ul{display:none;flex-basis:100%;flex-direction:column;padding:4px 0 8px}
+  .nav ul{display:none;flex-basis:100%;flex-direction:column;padding:0 6px 8px}
   .nav.open ul{display:flex}
-  .nav.open{border-radius:20px}
+  .nav.open{border-radius:20px;max-width:calc(100vw - 32px);min-width:200px}
   .nav ul a{padding:12px 14px;font-size:16px}
-  .nav.scrolled .mini{width:76px;font-size:18px}
-  .hero-in{grid-template-columns:1fr;gap:28px;bottom:24px}
-  .hero h1{font-size:40px}
+  .hero{min-height:720px}
+  .hero-in{grid-template-columns:1fr;gap:28px;bottom:96px}
+  .hero h1{font-size:38px}
   .hero .acts{margin-top:24px}
-  .hero .brix{margin-top:36px}
-  .case{width:100%;grid-template-columns:1fr 72px}
-  .case img{width:72px;height:72px;border-radius:12px}
+  .hero .brix{bottom:26px}
+  .case{width:100%;grid-template-columns:1fr 64px}
+  .case img{width:64px;height:64px}
   .split,.stats-wrap{grid-template-columns:1fr}
   .split > .label{padding-top:0;margin-bottom:28px}
   .st{font-size:24px}
-  .split-body .pill{margin-top:32px}
+  .split-body > .pill{margin-top:32px}
   .tiles{grid-template-columns:1fr}
-  .loc{top:32px}
-  .product{grid-template-columns:1fr;padding:0 var(--edge)}
-  .product-copy{padding:72px var(--gutter) 40px}
-  .product-copy .st{margin-top:28px}
+  .loc{top:28px}
+  .product-row{grid-template-columns:1fr;padding:0 var(--edge)}
+  .panel{grid-column:1}
   .seg{bottom:24px}
   .seg button{min-width:0;padding:0 16px}
-  .svc h3{font-size:20px}
-  .svc li{grid-template-columns:36px 1fr}
-  .band{padding:72px 16px 48px}
+  .acc button.row{font-size:20px;gap:10px}
+  .acc .num{width:28px}
+  .acc .body{padding:0 0 20px 38px}
+  .band{padding:72px 16px}
   .band-grid{grid-template-columns:1fr}
-  .drawing{padding-right:0;order:2;margin-top:48px}
-  .drawing .brix{margin-top:40px}
-  .acc button.row{font-size:20px}
-  .acc .body{padding-right:0}
-  .specs{grid-template-columns:1fr 1fr;gap:32px 16px;margin-top:64px}
-  .specs dt{font-size:28px}
-  .stats-wrap{padding-top:56px}
-  .shop{order:2;margin-top:64px;width:min(280px,100%)}
-  .stat b{font-size:64px}
+  .drawing{order:2;margin:64px auto 0;max-width:420px}
+  .drawing .brix{margin-top:48px}
+  .stats-wrap{padding:56px var(--gutter) var(--pad)}
+  .shop{order:2;margin:64px 0 0 calc(var(--edge) - var(--gutter));width:min(320px,90%)}
+  .stat b{font-size:72px}
   .stat + .stat{margin-top:48px}
   .stats .brix{margin-bottom:56px}
   .news{grid-template-columns:1fr 1fr;row-gap:40px}
@@ -263,14 +256,12 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
   .index{grid-template-columns:1fr 1fr;gap:28px 16px}
   .index li{grid-template-columns:40px 1fr}
   .foot-base{grid-template-columns:1fr;margin-top:80px}
-  .legal{grid-template-columns:64px 1fr}
 }
 @media (max-width:420px){
-  .hero h1{font-size:36px}
-  .loc{height:48px;padding-left:18px;gap:14px}
-  .loc .arr{width:36px;height:36px}
+  .hero h1{font-size:34px}
+  .pill{padding:0 18px}
+  .acc .meta{font-size:11px}
 }
-
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{transition:none!important;animation:none!important}
@@ -285,8 +276,7 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
     <span class="wm" aria-hidden="true">COOK</span>
     <span class="sub" aria-hidden="true">Engineering</span>
   </a>
-  <nav class="nav" id="nav" aria-label="Main">
-    <a class="mini" href="#top" aria-label="COOK Engineering, back to top" tabindex="-1">COOK</a>
+  <nav class="nav glass" id="nav" aria-label="Main">
     <button class="menu" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
     <ul id="nav-links">
       <li><a href="#evaporators">Evaporators</a></li>
@@ -302,28 +292,29 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
 
 <!-- ================= 1 HERO ================= -->
 <section class="hero" id="top" data-piece="1" aria-labelledby="hero-h">
-  <video id="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/hero-poster.jpg" aria-hidden="true">
-    <source src="assets/hero.mp4" type="video/mp4">
-  </video>
+  <div class="media">
+    <video id="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/hero-poster.jpg" aria-hidden="true">
+      <source src="assets/hero.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="scrim" aria-hidden="true"></div>
   <div class="hero-in">
     <div>
-      <h1 id="hero-h">Process engineering for citrus and fish factories</h1>
+      <h1 id="hero-h">We design citrus and fish plants, and build our own juice evaporators.</h1>
       <div class="acts">
-        <a class="pill pill-fill" href="#mission">Discover</a>
-      </div>
-      <div class="brix-wrap" aria-hidden="true">
-        <div class="brix live" id="brix-hero" data-value="12"></div>
-        <p class="mono brix-cap">Feed to concentrate, °Brix</p>
+        <a class="pill pill-ink" href="#evaporators">See our evaporators</a>
+        <a class="pill pill-glass glass" href="#contact">Request a quote</a>
       </div>
     </div>
-    <a class="case" href="#company" aria-label="Case study: concentrate output doubled on the existing boiler, Sundays River Valley">
+    <a class="case glass" href="#technology" aria-label="Case study: concentrate output doubled on the existing boiler, Sundays River Valley">
       <div>
         <p class="label">Case study</p>
-        <p>Concentrate output doubled on the existing boiler, Sundays River Valley.</p>
+        <p>Concentrate output doubled on the existing boiler.</p>
       </div>
-      <img src="assets/tile-citrus.jpg" alt="" width="104" height="104">
+      <img src="assets/evaporator-render.jpg" alt="" width="88" height="88">
     </a>
   </div>
+  <div class="brix live" id="brix-hero" data-value="12" aria-hidden="true"></div>
 </section>
 
 <!-- ================= 2 MISSION / LOCATIONS / PRODUCT / SERVICES ================= -->
@@ -339,41 +330,53 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
 
   <div class="tiles">
     <figure class="tile">
-      <img src="assets/tile-citrus.jpg" alt="Citrus orchards and a juice plant in the Sundays River Valley" width="1600" height="1600">
-      <a class="loc" href="#technology" aria-label="Sundays River Valley: citrus juice plants and evaporators">
-        <span>Sundays River Valley</span>
+      <img src="assets/tile-citrus.jpg" alt="Citrus orchards beside a river and a juice plant in the Sundays River Valley" width="1600" height="1600">
+      <a class="loc glass" href="#technology" aria-label="Sundays River Valley, South Africa: citrus">
+        <span class="tx"><b>Sundays River Valley</b><span class="mono">South Africa · Citrus</span></span>
         <span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 8h12M9 3l5 5-5 5"/></svg></span>
       </a>
     </figure>
     <figure class="tile">
       <img src="assets/tile-fish.jpg" alt="Fishmeal plant and trawlers on the quay at Walvis Bay" width="1600" height="1600">
-      <a class="loc" href="#services" aria-label="Walvis Bay: fishmeal and fish oil plants">
-        <span>Walvis Bay</span>
+      <a class="loc glass" href="#services" aria-label="Walvis Bay, Namibia: fish">
+        <span class="tx"><b>Walvis Bay</b><span class="mono">Namibia · Fish</span></span>
         <span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 8h12M9 3l5 5-5 5"/></svg></span>
       </a>
     </figure>
   </div>
 
-  <section class="product" id="evaporators" aria-labelledby="evap-h">
-    <div class="product-copy">
-      <h2 class="label" id="evap-h">Evaporators</h2>
-      <p class="st">COOK builds its own citrus juice concentrators: falling-film evaporators that take single-strength juice to 65 °Brix while keeping its colour, flavour and aroma.</p>
-      <ul class="facts mono">
-        <li>12 → 65 °Brix</li>
-        <li>2–25 t/h water evaporation</li>
-        <li>4–7 effects, optional TVR</li>
-        <li>316L stainless, CIP throughout</li>
+  <section class="split" id="footprint" aria-labelledby="fp-h">
+    <h2 class="label" id="fp-h">Where we work</h2>
+    <div class="split-body">
+      <p class="st">From the Eastern Cape's citrus valleys to the fishmeal plants of the Atlantic coast, we work wherever southern Africa processes fruit and fish.</p>
+      <ul class="countries mono" aria-label="Countries served">
+        <li>South Africa</li><li>Namibia</li><li>Eswatini</li><li>Zimbabwe</li><li>Mozambique</li><li>Botswana</li><li>Lesotho</li>
       </ul>
-      <a class="pill" href="#technology">See the five stages</a>
     </div>
-    <div class="panel" aria-label="Product view">
-      <figure>
-        <img id="img-evap" src="assets/evaporator-render.jpg" alt="COOK falling-film juice evaporator, isolated three-quarter view">
-        <img id="img-conc" src="assets/concentrate.jpg" alt="Citrus juice concentrate at 65 °Brix" hidden>
-      </figure>
-      <div class="seg" role="group" aria-label="Show">
-        <button type="button" aria-pressed="true" data-show="img-evap">Evaporator</button>
-        <button type="button" aria-pressed="false" data-show="img-conc">Concentrate</button>
+  </section>
+
+  <section id="evaporators" aria-labelledby="evap-h">
+    <div class="split">
+      <h2 class="label" id="evap-h">Evaporators</h2>
+      <div class="split-body">
+        <p class="st">COOK builds its own citrus juice concentrators: falling-film evaporators that take single-strength juice to <span class="nb">65&nbsp;°Brix</span> while keeping its colour, flavour and aroma.</p>
+        <dl class="facts mono">
+          <dt>Concentration</dt><dd class="nb">12&nbsp;→&nbsp;65&nbsp;°Brix</dd>
+          <dt>Evaporation</dt><dd class="nb">2–25&nbsp;t/h water</dd>
+          <dt>Effects</dt><dd>4–7, optional TVR</dd>
+          <dt>Construction</dt><dd>316L stainless, CIP throughout</dd>
+        </dl>
+        <a class="pill" href="#technology">See the five stages</a>
+      </div>
+    </div>
+    <div class="product-row">
+      <div class="panel">
+        <img id="img-evap" src="assets/evaporator-render.jpg" alt="COOK four-effect falling-film juice evaporator, isolated three-quarter view">
+        <img id="img-conc" src="assets/concentrate.jpg" alt="Orange juice concentrate in a glass beaker beside a halved orange" hidden>
+        <div class="seg glass" role="group" aria-label="Product view">
+          <button type="button" aria-pressed="true" data-show="img-evap">Evaporator</button>
+          <button type="button" aria-pressed="false" data-show="img-conc">Concentrate</button>
+        </div>
       </div>
     </div>
   </section>
@@ -382,13 +385,18 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
     <h2 class="label" id="svc-h">Supply &amp; services</h2>
     <div class="split-body">
       <p class="st">We work for owners and operators, so our designs are judged on yield, steam use and uptime, not on equipment sold.</p>
-      <ol class="svc">
-        <li><span class="mono">01</span><div><h3>Plant design &amp; layout</h3><p>Mass and energy balances, P&amp;IDs and general arrangements for new plants and expansions.</p></div></li>
-        <li><span class="mono">02</span><div><h3>Juice evaporators</h3><p>Our own concentrators with aroma recovery, as a full package or an upgrade to an existing line.</p></div></li>
-        <li><span class="mono">03</span><div><h3>Project engineering</h3><p>Specification, tender evaluation, site supervision and contractor coordination to handover.</p></div></li>
-        <li><span class="mono">04</span><div><h3>Plant audits &amp; optimisation</h3><p>Measured yield, steam, water and power, with improvements ranked by payback.</p></div></li>
-        <li><span class="mono">05</span><div><h3>Operator training &amp; season support</h3><p>Shift training, start-of-season checks and on-call help when the fruit or fish arrives.</p></div></li>
-      </ol>
+      <ul class="acc" data-acc>
+        <li><h3><button class="row" type="button" aria-expanded="true" aria-controls="v0"><span class="num">01</span><span class="t">Plant design &amp; layout</span><span class="pm" aria-hidden="true"></span></button></h3>
+          <div class="body" id="v0"><p class="mono">Mass balance · P&amp;IDs · general arrangements</p><p>Process design for new plants and expansions, with a budget estimate you can take to the board.</p></div></li>
+        <li><h3><button class="row" type="button" aria-expanded="false" aria-controls="v1"><span class="num">02</span><span class="t">Juice evaporators</span><span class="pm" aria-hidden="true"></span></button></h3>
+          <div class="body" id="v1" hidden><p class="mono">Designed and built by COOK</p><p>Our own concentrators with aroma recovery, supplied as a full package or as an upgrade to an existing line.</p></div></li>
+        <li><h3><button class="row" type="button" aria-expanded="false" aria-controls="v2"><span class="num">03</span><span class="t">Project engineering</span><span class="pm" aria-hidden="true"></span></button></h3>
+          <div class="body" id="v2" hidden><p class="mono">Tender to handover</p><p>Equipment specification, tender evaluation, site supervision and contractor coordination through to commissioning.</p></div></li>
+        <li><h3><button class="row" type="button" aria-expanded="false" aria-controls="v3"><span class="num">04</span><span class="t">Plant audits &amp; optimisation</span><span class="pm" aria-hidden="true"></span></button></h3>
+          <div class="body" id="v3" hidden><p class="mono">Steam · water · yield</p><p>Measured audits of yield, steam, water and power, with a costed list of improvements ranked by payback.</p></div></li>
+        <li><h3><button class="row" type="button" aria-expanded="false" aria-controls="v4"><span class="num">05</span><span class="t">Training &amp; season support</span><span class="pm" aria-hidden="true"></span></button></h3>
+          <div class="body" id="v4" hidden><p class="mono">Start-up · SOPs · on call</p><p>Hands-on training for shift teams, start-of-season checks and on-call help when the fruit or fish arrives.</p></div></li>
+      </ul>
       <a class="pill" href="#contact">Talk to an engineer</a>
     </div>
   </section>
@@ -398,25 +406,15 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
 <section class="band" id="technology" data-piece="3" aria-labelledby="tech-h">
   <div class="band-grid">
     <div class="drawing">
-      <svg viewBox="0 0 600 560" role="img" aria-labelledby="draw-t">
-        <title id="draw-t">Line drawing of a COOK falling-film evaporator: preheater, holding tube, four falling-film effects, aroma column and flash cooler</title>
-        <!-- product manifold -->
-        <path class="ln" d="M0 490H600" opacity=".35"/>
-        <text x="0" y="512" class="mu">12 °BRIX IN</text>
-        <text x="600" y="512" text-anchor="end" class="mu">65 °BRIX OUT</text>
-
+      <svg viewBox="0 0 600 520" role="img" aria-labelledby="draw-t">
+        <title id="draw-t">Line drawing of a four-effect COOK falling-film evaporator: preheater, holding tube, four effects, aroma column and flash cooler</title>
         <g class="stg" data-stage="0">
           <rect class="ln" x="24" y="250" width="60" height="200" rx="30"/>
-          <path class="ln" d="M24 282H84M24 418H84M40 282V418M49 282V418M59 282V418M68 282V418M54 450V490"/>
-          <text x="54" y="540" text-anchor="middle">01</text>
+          <path class="ln" d="M24 282H84M24 418H84M40 282V418M49 282V418M59 282V418M68 282V418M54 450V490H112"/>
         </g>
-
         <g class="stg" data-stage="1">
-          <path class="ln" d="M112 490V300A15 15 0 0 1 142 300V420A15 15 0 0 0 172 420V290"/>
-          <path class="ln" d="M172 290H196"/>
-          <text x="142" y="540" text-anchor="middle">02</text>
+          <path class="ln" d="M112 490V300A15 15 0 0 1 142 300V420A15 15 0 0 0 172 420V290H196"/>
         </g>
-
         <g class="stg" data-stage="2">
           <rect class="ln" x="196" y="60" width="48" height="380" rx="24"/>
           <rect class="ln" x="258" y="90" width="48" height="350" rx="24"/>
@@ -425,67 +423,50 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
           <path class="ln" d="M196 100H244M196 400H244M258 130H306M258 400H306M320 160H368M320 400H368M382 190H430M382 400H430"/>
           <path class="ln" d="M208 100V400M216 100V400M224 100V400M232 100V400M270 130V400M278 130V400M286 130V400M294 130V400M332 160V400M340 160V400M348 160V400M356 160V400M394 190V400M402 190V400M410 190V400M418 190V400"/>
           <path class="film" d="M208 100V400M224 100V400M270 130V400M286 130V400M332 160V400M348 160V400M394 190V400M410 190V400"/>
-          <path class="ln" d="M220 60V36H282V90M282 90V66H344V120M344 120V96H406V150M220 440V490M282 440V490M344 440V490M406 440V490"/>
-          <text x="220" y="462" text-anchor="middle" class="mu">E1</text>
-          <text x="282" y="462" text-anchor="middle" class="mu">E2</text>
-          <text x="344" y="462" text-anchor="middle" class="mu">E3</text>
-          <text x="406" y="462" text-anchor="middle" class="mu">E4</text>
-          <text x="313" y="540" text-anchor="middle">03</text>
+          <path class="ln" d="M220 60V36H282V90M282 90V66H344V120M344 120V96H406V150M220 440V490H406V440M282 440V490M344 440V490"/>
         </g>
-
         <g class="stg" data-stage="3">
           <path class="ln" d="M220 36V18H476V80"/>
           <rect class="ln" x="456" y="80" width="40" height="220" rx="20"/>
           <path class="ln" d="M456 120H496M456 260H496M460 130L492 150L460 170L492 190L460 210L492 230L460 250"/>
-          <path class="ln" d="M476 300V330"/>
-          <text x="476" y="540" text-anchor="middle">04</text>
         </g>
-
         <g class="stg" data-stage="4">
           <rect class="ln" x="520" y="340" width="64" height="100" rx="32"/>
-          <path class="ln" d="M534 370H570M534 410H570M552 440V490M430 420H520"/>
-          <text x="552" y="540" text-anchor="middle">05</text>
+          <path class="ln" d="M534 370H570M534 410H570M552 440V510M406 490H430V420H520"/>
         </g>
       </svg>
-      <div class="brix-head"><span class="mono">Stage concentration</span><span class="mono" id="stage-name">01 Feed &amp; preheat</span></div>
       <div class="brix" id="brix-tech" data-value="12" aria-hidden="true"></div>
+      <p class="note mono">Drawing shows a four-effect unit. COOK builds 4 to 7 effects.</p>
       <p class="sr" id="brix-sr" aria-live="polite"></p>
     </div>
 
     <div class="acc-col">
       <h2 class="label" id="tech-h">Technology</h2>
-      <p class="st">Five stages, one continuous film. Every COOK evaporator follows the same short, gentle path from fruit to frozen concentrate.</p>
-      <ul class="acc" id="acc">
+      <p class="st">Five stages, one continuous film, from single-strength juice to frozen concentrate.</p>
+      <ul class="acc" id="acc" data-acc>
         <li>
-          <h3><button class="row" type="button" aria-expanded="true" aria-controls="s0" data-brix="12"><span class="t"><span class="num">01</span>Feed &amp; preheat</span><span class="pm" aria-hidden="true"></span></button></h3>
-          <div class="body" id="s0"><p class="mono">12 °Brix single-strength juice in</p><p>Juice is preheated with vapour recovered from the effects, so heat that leaves one stage warms the feed for the next.</p></div>
+          <h3><button class="row" type="button" aria-expanded="true" aria-controls="s0" data-brix="12"><span class="num">01</span><span class="t">Feed &amp; preheat</span><span class="meta">12&nbsp;°Brix</span><span class="pm" aria-hidden="true"></span></button></h3>
+          <div class="body" id="s0"><p class="mono">Single-strength juice in</p><p>Juice is preheated with vapour recovered from the effects, so heat that leaves one stage warms the feed for the next.</p></div>
         </li>
         <li>
-          <h3><button class="row" type="button" aria-expanded="false" aria-controls="s1" data-brix="12"><span class="t"><span class="num">02</span>Pasteurisation</span><span class="pm" aria-hidden="true"></span></button></h3>
+          <h3><button class="row" type="button" aria-expanded="false" aria-controls="s1" data-brix="12"><span class="num">02</span><span class="t">Pasteurisation</span><span class="meta">12&nbsp;°Brix</span><span class="pm" aria-hidden="true"></span></button></h3>
           <div class="body" id="s1" hidden><p class="mono">Short high-temperature hold</p><p>A brief hold inactivates pectin methylesterase and spoilage organisms, so the finished concentrate keeps a stable cloud.</p></div>
         </li>
         <li>
-          <h3><button class="row" type="button" aria-expanded="false" aria-controls="s2" data-brix="45"><span class="t"><span class="num">03</span>Falling-film effects</span><span class="pm" aria-hidden="true"></span></button></h3>
-          <div class="body" id="s2" hidden><p class="mono">4–7 effects · optional TVR · 12 → 45 °Brix</p><p>Juice runs as a thin film down the tube walls of each effect. Residence time stays short and the temperature drops effect by effect, which protects flavour and colour.</p></div>
+          <h3><button class="row" type="button" aria-expanded="false" aria-controls="s2" data-brix="45"><span class="num">03</span><span class="t">Falling-film effects</span><span class="meta">45&nbsp;°Brix</span><span class="pm" aria-hidden="true"></span></button></h3>
+          <div class="body" id="s2" hidden><p class="mono">4–7 effects · optional TVR</p><p>Juice runs as a thin film down the tube walls of each effect. Residence time stays short and the temperature drops effect by effect, which protects flavour and colour.</p></div>
         </li>
         <li>
-          <h3><button class="row" type="button" aria-expanded="false" aria-controls="s3" data-brix="58"><span class="t"><span class="num">04</span>Aroma recovery</span><span class="pm" aria-hidden="true"></span></button></h3>
-          <div class="body" id="s3" hidden><p class="mono">Essence column · finishing to 58 °Brix</p><p>Volatiles stripped from the first-effect vapour are condensed and rectified into an essence that can be added back or sold separately, while the last effects finish the juice.</p></div>
+          <h3><button class="row" type="button" aria-expanded="false" aria-controls="s3" data-brix="58"><span class="num">04</span><span class="t">Aroma recovery</span><span class="meta">58&nbsp;°Brix</span><span class="pm" aria-hidden="true"></span></button></h3>
+          <div class="body" id="s3" hidden><p class="mono">Essence column</p><p>Volatiles stripped from the first-effect vapour are condensed and rectified into an essence that can be added back or sold separately, while the last effects finish the juice.</p></div>
         </li>
         <li>
-          <h3><button class="row" type="button" aria-expanded="false" aria-controls="s4" data-brix="65"><span class="t"><span class="num">05</span>Flash cooling</span><span class="pm" aria-hidden="true"></span></button></h3>
-          <div class="body" id="s4" hidden><p class="mono">65 °Brix concentrate out</p><p>Concentrate is flash-cooled under vacuum and pumped to blending or drumming, ready for frozen storage.</p></div>
+          <h3><button class="row" type="button" aria-expanded="false" aria-controls="s4" data-brix="65"><span class="num">05</span><span class="t">Flash cooling</span><span class="meta">65&nbsp;°Brix</span><span class="pm" aria-hidden="true"></span></button></h3>
+          <div class="body" id="s4" hidden><p class="mono">Concentrate out</p><p>Concentrate is flash-cooled under vacuum and pumped to blending or drumming, ready for frozen storage.</p></div>
         </li>
       </ul>
     </div>
   </div>
-
-  <dl class="specs">
-    <div><dt>65 °Brix</dt><dd class="mono">Concentrate from 12 °Brix juice</dd></div>
-    <div><dt>2–25 t/h</dt><dd class="mono">Water evaporation</dd></div>
-    <div><dt>4–7</dt><dd class="mono">Effects, optional TVR</dd></div>
-    <div><dt>316L</dt><dd class="mono">Product contact, CIP throughout</dd></div>
-  </dl>
 </section>
 
 <!-- ================= 4 COMPANY / STATS / INSIGHTS / CONTACT / FOOTER ================= -->
@@ -493,20 +474,25 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
   <section class="split company" id="company" aria-labelledby="co-h">
     <h2 class="label" id="co-h">Company</h2>
     <div class="split-body">
-      <p class="st">COOK is a South African engineering firm working across South Africa, Namibia, Eswatini, Zimbabwe, Mozambique, Botswana and Lesotho.</p>
+      <p class="st">COOK is a South African engineering firm. Our engineers stay with a plant from the first mass balance to its first full season.</p>
       <a class="pill" href="#contact">Learn more</a>
     </div>
   </section>
 
   <div class="stats-wrap" aria-label="COOK in numbers">
     <figure class="shop">
-      <img src="assets/workshop.jpg" alt="Stainless-steel evaporator tubes in the COOK workshop">
+      <img src="assets/workshop.jpg" alt="Stainless-steel evaporator vessels and a tube bundle in the COOK workshop">
     </figure>
-    <div class="stats">
-      <div class="brix" id="brix-co" data-value="65" aria-hidden="true"></div>
+    <div class="stats" id="stats">
+      <div class="brix" id="brix-co" data-value="12" aria-hidden="true"></div>
       <div class="stat"><b>40+</b><span class="mono">Plants and evaporators commissioned</span></div>
-      <div class="stat"><b>180 t/h</b><span class="mono">Water evaporation installed</span></div>
-      <div class="stat"><b>7</b><span class="mono">Countries in southern Africa</span></div>
+      <div class="stat"><b>180&nbsp;t/h</b><span class="mono">Water evaporation installed</span></div>
+      <div class="stat"><b>65&nbsp;°Brix</b><span class="mono">Concentrate from 12&nbsp;°Brix juice</span></div>
+      <ul class="spec mono">
+        <li>2–25&nbsp;t/h per evaporator</li>
+        <li>4–7 effects, optional TVR</li>
+        <li>316L product contact, CIP throughout</li>
+      </ul>
     </div>
   </div>
 
@@ -517,24 +503,24 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
     </div>
     <div class="news">
       <article>
-        <img src="assets/news-lemons.jpg" alt="Lemons on a juice line">
+        <img src="assets/news-lemons.jpg" alt="Lemons moving along a juice line" width="1200" height="1600">
         <time class="mono" datetime="2026-09-22">22.09.2026</time>
         <h3>Lemon season 2026: what we changed on three juice lines</h3>
       </article>
       <article>
-        <img src="assets/news-tubes.jpg" alt="Close view of evaporator tube ends">
+        <img src="assets/news-tubes.jpg" alt="Close view of evaporator tube ends" width="1200" height="1600">
         <time class="mono" datetime="2026-09-03">03.09.2026</time>
         <h3>Why tube wetting decides how long an evaporator runs between cleans</h3>
       </article>
       <article>
-        <img src="assets/news-catch.jpg" alt="Pelagic catch being landed">
+        <img src="assets/news-catch.jpg" alt="Pelagic catch being landed" width="1200" height="1600">
         <time class="mono" datetime="2026-08-18">18.08.2026</time>
         <h3>Designing a fishmeal plant for a catch that changes every week</h3>
       </article>
       <article>
-        <img src="assets/news-drawing.jpg" alt="Process drawing of a juice plant">
+        <img src="assets/news-drawing.jpg" alt="Row of juice sample vials from pale single-strength juice to deep orange concentrate" width="1200" height="1600">
         <time class="mono" datetime="2026-07-29">29.07.2026</time>
-        <h3>From mass balance to general arrangement in six weeks</h3>
+        <h3>Reading a run in twelve vials: sampling from 12 to 65&nbsp;°Brix</h3>
       </article>
     </div>
   </section>
@@ -543,12 +529,8 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
     <h2 class="label" id="ct-h">Contact</h2>
     <div class="split-body">
       <p class="st">Tell us about your plant.</p>
-      <p class="lead">An engineer, not a salesperson, replies within two working days.</p>
-      <dl class="mono">
-        <dt>Office</dt><dd>[Street address], [Town], South Africa</dd>
-        <dt>Phone</dt><dd>+27 (0)00 000 0000</dd>
-        <dt>Email</dt><dd>info@cookengineering.co.za</dd>
-      </dl>
+      <p class="lead">An engineer, not a salesperson, replies within two working days. Write to <a href="mailto:info@cookengineering.co.za">info@cookengineering.co.za</a> or use the form.</p>
+      <p class="where">Based in South Africa, working across southern Africa.</p>
       <form id="enq" novalidate>
         <div class="field"><label class="mono" for="f-name">Name</label><input id="f-name" name="name" autocomplete="name" required></div>
         <div class="field"><label class="mono" for="f-company">Company</label><input id="f-company" name="company" autocomplete="organization"></div>
@@ -569,23 +551,23 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
     <ul>
       <li><span>1.1</span><a href="#top">Home</a></li>
       <li><span>1.2</span><a href="#mission">Mission</a></li>
-      <li><span>1.3</span><a href="#evaporators">Evaporators</a></li>
-      <li><span>1.4</span><a href="#technology">Technology</a></li>
-      <li><span>1.5</span><a href="#services">Services</a></li>
+      <li><span>1.3</span><a href="#footprint">Where we work</a></li>
+      <li><span>1.4</span><a href="#evaporators">Evaporators</a></li>
     </ul>
     <ul>
-      <li><span>2.1</span><a href="#company">Company</a></li>
-      <li><span>2.2</span><a href="#insights">Insights</a></li>
-      <li><span>2.3</span><a href="#contact">Enquiry</a></li>
+      <li><span>2.1</span><a href="#technology">Technology</a></li>
+      <li><span>2.2</span><a href="#services">Services</a></li>
+      <li><span>2.3</span><a href="#company">Company</a></li>
+      <li><span>2.4</span><a href="#insights">Insights</a></li>
     </ul>
     <ul>
-      <li><span>3.1</span><a href="mailto:info@cookengineering.co.za">Email</a></li>
-      <li><span>3.2</span><a href="tel:+27000000000">Phone</a></li>
+      <li><span>3.1</span><a href="#contact">Enquiry</a></li>
+      <li><span>3.2</span><a href="mailto:info@cookengineering.co.za">Email</a></li>
     </ul>
   </nav>
   <div class="foot-base">
     <svg class="mark" id="mark" viewBox="0 0 750 200" role="img" aria-label="COOK"></svg>
-    <p class="legal mono"><span>© 2026</span><span>COOK Engineering (Pty) Ltd.<br>[Street address], [Town], South Africa</span></p>
+    <p class="legal mono"><span>© 2026</span><span>COOK Engineering.<br>Based in South Africa, working across southern Africa.</span></p>
   </div>
 </footer>
 
@@ -593,14 +575,14 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
 (function(){
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  /* ---- Brix scale (0–65, ticks every 5) ---- */
+  /* ---- Brix scale (0–65, ticks every 5, numerals every 10 and at 65) ---- */
   function pct(v){ return (v/65*100).toFixed(3)+'%'; }
   function buildBrix(el){
     var h = '<div class="rule"></div>';
     for (var v=0; v<=65; v+=5){
       var maj = (v%10===0)||v===65;
       h += '<span class="t'+(maj?' maj':'')+'" style="left:'+pct(v)+'"></span>';
-      if (maj && v!==60) h += '<span class="n" style="left:'+pct(v)+'">'+v+'</span>';
+      if (maj && v!==60) h += '<span class="n'+(v===0?' first':v===65?' last':'')+'" style="left:'+pct(v)+'">'+v+'</span>';
     }
     h += '<span class="mk"></span><span class="v"></span>';
     el.innerHTML = h;
@@ -608,17 +590,16 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
   }
   function setBrix(el, v){
     v = Math.max(0, Math.min(65, v));
-    var p = pct(v);
+    var p = pct(v), lab = el.querySelector('.v');
     el.querySelector('.mk').style.left = p;
-    var lab = el.querySelector('.v');
     lab.style.left = p;
-    lab.textContent = Math.round(v)+' °Brix';
+    lab.textContent = Math.round(v)+' °BRIX';
     lab.style.transform = v > 56 ? 'translateX(calc(-100% + 1px))' : v < 6 ? 'translateX(-1px)' : 'translateX(-50%)';
   }
   document.querySelectorAll('.brix').forEach(buildBrix);
 
   /* ---- Nav ---- */
-  var nav = document.getElementById('nav'), btn = document.getElementById('menu-btn'), hero = document.getElementById('top');
+  var nav = document.getElementById('nav'), btn = document.getElementById('menu-btn');
   btn.addEventListener('click', function(){
     var o = nav.classList.toggle('open');
     btn.setAttribute('aria-expanded', o); btn.textContent = o ? 'Close' : 'Menu';
@@ -626,18 +607,11 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
   nav.querySelectorAll('ul a').forEach(function(a){ a.addEventListener('click', function(){
     nav.classList.remove('open'); btn.setAttribute('aria-expanded','false'); btn.textContent='Menu';
   });});
-  var mini = nav.querySelector('.mini');
-  function onScroll(){
-    var s = window.scrollY > hero.offsetHeight - 120;
-    nav.classList.toggle('scrolled', s);
-    mini.tabIndex = s ? 0 : -1;
-  }
-  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
 
   /* ---- Hero video + Brix progress ---- */
   var vid = document.getElementById('hero-video'), bh = document.getElementById('brix-hero');
   function applyMotion(){
-    if (reduce.matches){ vid.pause(); vid.removeAttribute('autoplay'); try{ vid.currentTime = 0; }catch(e){} setBrix(bh, 65); }
+    if (reduce.matches){ vid.pause(); vid.removeAttribute('autoplay'); try{ vid.currentTime = 0; vid.load(); }catch(e){} setBrix(bh, 65); }
     else { var p = vid.play(); if (p && p.catch) p.catch(function(){}); }
   }
   vid.addEventListener('timeupdate', function(){
@@ -657,40 +631,50 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
     });
   });});
 
-  /* ---- Accordion drives drawing + Brix ---- */
-  var rows = document.querySelectorAll('#acc button.row'), stages = document.querySelectorAll('.drawing .stg'),
-      bt = document.getElementById('brix-tech'), sn = document.getElementById('stage-name'), sr = document.getElementById('brix-sr');
-  function openRow(i){
-    rows.forEach(function(r, j){
-      var on = j === i;
-      r.setAttribute('aria-expanded', on);
-      document.getElementById(r.getAttribute('aria-controls')).hidden = !on;
-      stages[j].classList.toggle('on', on);
-    });
-    var r = rows[i], name = r.querySelector('.t').textContent.replace(/^(\d+)/, '$1 ');
-    setBrix(bt, +r.dataset.brix);
-    sn.textContent = name;
-    sr.textContent = name + ': ' + r.dataset.brix + ' degrees Brix';
+  /* ---- Accordions (one row open at a time) ---- */
+  var stages = document.querySelectorAll('.drawing .stg'), bt = document.getElementById('brix-tech'), sr = document.getElementById('brix-sr');
+  document.querySelectorAll('[data-acc]').forEach(function(acc){
+    var rows = acc.querySelectorAll('button.row'), tech = acc.id === 'acc';
+    function openRow(i){
+      rows.forEach(function(r, j){
+        var on = j === i;
+        r.setAttribute('aria-expanded', on);
+        document.getElementById(r.getAttribute('aria-controls')).hidden = !on;
+        if (tech) stages[j].classList.toggle('on', on);
+      });
+      if (tech){
+        var r = rows[i];
+        setBrix(bt, +r.dataset.brix);
+        sr.textContent = r.querySelector('.t').textContent + ': ' + r.dataset.brix + ' degrees Brix';
+      }
+    }
+    rows.forEach(function(r, i){ r.addEventListener('click', function(){
+      if (r.getAttribute('aria-expanded') !== 'true') openRow(i);
+    });});
+    openRow(0);
+  });
+
+  /* ---- Statistics divider: marker concentrates as the figures scroll past ---- */
+  var bc = document.getElementById('brix-co'), stats = document.getElementById('stats');
+  function statsBrix(){
+    if (reduce.matches){ setBrix(bc, 45); return; }
+    var r = stats.getBoundingClientRect(), vh = window.innerHeight;
+    var t = Math.max(0, Math.min(1, (vh - r.top) / (r.height + vh * .2)));
+    setBrix(bc, 12 + 53 * t);
   }
-  rows.forEach(function(r, i){ r.addEventListener('click', function(){
-    if (r.getAttribute('aria-expanded') === 'true') return;
-    openRow(i);
-  });});
-  openRow(0);
+  bc.classList.add('live');
+  window.addEventListener('scroll', statsBrix, {passive:true}); statsBrix();
 
   /* ---- Footer mark: COOK drawn from vertical tubes ---- */
   (function(){
-    var svg = document.getElementById('mark'), ns = 'http://www.w3.org/2000/svg';
-    // Letter shapes as thick strokes in a mask; tubes are vertical rounded bars showing through.
+    var svg = document.getElementById('mark');
     var shapes =
       '<path d="M150 50A70 70 0 1 0 150 150" fill="none" stroke="#fff" stroke-width="44"/>' +
       '<rect x="218" y="22" width="120" height="156" rx="60" fill="none" stroke="#fff" stroke-width="44"/>' +
       '<rect x="396" y="22" width="120" height="156" rx="60" fill="none" stroke="#fff" stroke-width="44"/>' +
       '<path d="M574 0V200M700 0L596 100L712 200" fill="none" stroke="#fff" stroke-width="44"/>';
     var tubes = '';
-    for (var x = 2; x < 750; x += 11){
-      tubes += '<rect x="'+x+'" y="0" width="7" height="200" rx="3.5"/>';
-    }
+    for (var x = 2; x < 750; x += 11) tubes += '<rect x="'+x+'" y="0" width="7" height="200" rx="3.5"/>';
     svg.innerHTML = '<defs><mask id="mk" maskUnits="userSpaceOnUse" x="0" y="0" width="750" height="200"><rect width="750" height="200" fill="#000"/>'+shapes+'</mask></defs>' +
       '<g mask="url(#mk)" fill="currentColor">'+tubes+'</g>';
   })();
@@ -700,7 +684,7 @@ footer{background:var(--onyx);color:#fff;margin-top:var(--pad);padding:88px var(
     e.preventDefault();
     var s = document.getElementById('f-status'), n = document.getElementById('f-name').value.trim(), m = document.getElementById('f-email').value.trim();
     if (!n || !/^\S+@\S+\.\S+$/.test(m)){ s.textContent = 'Add your name and a valid email address so we can reply.'; return; }
-    s.textContent = 'Thank you. This draft site does not send messages yet; please email us instead.';
+    s.textContent = 'Thank you. This draft site does not send messages yet; please email info@cookengineering.co.za.';
   });
 })();
 </script>
