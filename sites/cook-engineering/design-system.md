@@ -32,11 +32,16 @@ No weight above 400. Geist and Geist Mono replace T1 Sans and T1 Sans Mono, so C
 ## Layout
 
 - 1440 reference width. Content sections: label at the left edge (48px gutter), text column starts at 50%.
+- Exception (from T1's manufacturing row): a product row may put label + statement in the left half and the
+  product panel in the right half, running to 8px from the right viewport edge.
 - Media tiles: 8px from the viewport edge, 8px gap, **64px radius** (COOK's own radius, softer than T1's 80px).
 - Hero: full-bleed video, bottom corners 64px.
 - Section padding 72–120px. At least 40% empty canvas per screen outside the hero.
 
 ## Signature graphics
+
+Placement: the `--pulp` band, the Brix stage indicator and the falling-film drawing all live in the
+**Technology band** (the evaporator stage accordion). The product row and other sections do not repeat them.
 
 1. **Brix scale.** A thin horizontal rule with tick marks every 5 units from 0 to 65 °Brix, numbered in
    Geist Mono at 0, 10, 20 … 65. One `--peel` marker shows a value. It is used as the hero's progress
@@ -55,7 +60,7 @@ No weight above 400. Geist and Geist Mono replace T1 Sans and T1 Sans Mono, so C
 
 ## Components
 
-- Nav: logo left (white), dark glass pill right, links 14px. The logo is never inside or clipped by the pill.
+- Nav: logo left (white on media, ink on light sections) and always visible, dark glass pill right (fully rounded, 100px radius), links 14px. The logo is never inside or clipped by the pill.
 - Case-study card (hero only): `--glass` card, 12px radius, 16px padding, mono "CASE STUDY" label, one-line
   14px result, small thumbnail with 8px radius on the right. The one place a glass surface is a card, not a pill.
 - Buttons: outlined pill (1px `--ink`), 14px; filled pill only for the main hero action.
