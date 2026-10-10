@@ -168,3 +168,19 @@
   .fx-typing i{animation:none;opacity:.6}
   .fx-log{scroll-behavior:auto}
 }
+
+/* ---------- availability results (under "Plan your stay here") ---------- */
+.avail-out:empty{display:none}
+.avail-out{margin-top:28px;padding:28px;border-radius:12px;background:var(--panel)}
+.avail-title{font:400 clamp(26px,2.6vw,34px)/1.15 var(--serif)}
+.avail-meta{margin-top:6px;color:var(--muted);font-size:15px}
+.avail-list{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.avail-card{display:flex;flex-direction:column;gap:14px;padding:20px;border-radius:10px;background:#fff}
+.avail-name{display:block;font:400 22px/1.2 var(--serif)}
+.avail-sub{display:block;font-size:14px;color:var(--muted);margin-top:2px}
+.avail-price{margin-top:auto}
+.avail-price b{display:block;font:400 26px/1.2 var(--serif);font-variant-numeric:tabular-nums}
+.avail-price span{display:block;font-size:13px;color:var(--muted)}
+.avail-btn{justify-content:center;padding:13px 16px;font-size:14px}
+.avail-link{text-decoration:underline;text-underline-offset:3px;display:inline-block;padding:10px 0}
+@media (max-width:760px){.avail-out{padding:20px 16px}.avail-list{grid-template-columns:1fr}}

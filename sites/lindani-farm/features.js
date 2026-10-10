@@ -98,6 +98,15 @@
     return '';
   }
 
+  function nextOpenings(q) {
+    var n = nightsBetween(q.from, q.to), found = [];
+    for (var i = 1; i <= 60 && found.length < 2; i++) {
+      var a = addDays(q.from, i), b = addDays(a, n);
+      if (bestCombo(freeRooms(a, b), q.adults, q.kids, a, b)) { found.push(a); i += n; }
+    }
+    return found.map(function (a) { return { from: a, to: addDays(a, n) }; });
+  }
+
   /* ---------- language ---------- */
   var LANGS = { en: 'EN', de: 'DE', nl: 'NL', af: 'AF' };
   var NAMES = { en: 'English', de: 'Deutsch', nl: 'Nederlands', af: 'Afrikaans' };
@@ -513,14 +522,6 @@
       });
       return f;
     }
-    function nextOpenings(q) {
-      var n = nightsBetween(q.from, q.to), found = [];
-      for (var i = 1; i <= 60 && found.length < 2; i++) {
-        var a = addDays(q.from, i), b = addDays(a, n);
-        if (bestCombo(freeRooms(a, b), q.adults, q.kids, a, b)) { found.push(a); i += n; }
-      }
-      return found.map(function (a) { return { from: a, to: addDays(a, n) }; });
-    }
     function dateResult(m) {
       var q = m.q, n = nightsBetween(q.from, q.to), party = q.adults + q.kids;
       var free = freeRooms(q.from, q.to);
@@ -759,6 +760,7 @@
       } else launcher.focus();
     }
     api.open = function (intent) { setOpen(true, intent); };
+    api.book = function (prefill) { setOpen(true); startBooking(prefill); };
 
     root = el('div', { class: 'fx-chat', id: 'fx-chat' });
     launcher = el('button', { type: 'button', class: 'fx-launch', 'aria-expanded': 'false', 'aria-controls': 'fx-panel' }, [
@@ -769,6 +771,89 @@
     api.relabel();
     if (S.open) setOpen(true);
     return api;
+  })();
+
+  /* =====================================================================
+     AVAILABILITY CHECKER (the "Plan your stay here" form under the hero)
+     ===================================================================== */
+  (function () {
+    var form = $('#qform'), out = $('#avail-out');
+    if (!form || !out) return;
+    var f = form.elements, t0 = today();
+    f.from.min = t0; f.to.min = addDays(t0, 1);
+    // Default to the next weekend at least three days away, so the form shows a real example
+    var fri = addDays(t0, ((5 - weekday(t0) + 7) % 7) || 7);
+    if (nightsBetween(t0, fri) < 3) fri = addDays(fri, 7);
+    f.from.value = fri; f.to.value = addDays(fri, D.booking.minNights);
+    f.from.addEventListener('change', function () {
+      if (!f.from.value) return;
+      f.to.min = addDays(f.from.value, 1);
+      if (!f.to.value || f.to.value <= f.from.value) f.to.value = addDays(f.from.value, D.booking.minNights);
+    });
+    function setErr(input, msg) {
+      var id = input.id + '-err', box = document.getElementById(id);
+      if (!msg) { if (box) box.remove(); input.removeAttribute('aria-invalid'); input.removeAttribute('aria-describedby'); return; }
+      if (!box) { box = el('p', { class: 'err', id: id }); input.parentNode.appendChild(box); }
+      box.textContent = msg; input.setAttribute('aria-invalid', 'true'); input.setAttribute('aria-describedby', id);
+    }
+    function card(name, sub, total, nights, btnLabel, prefill) {
+      return el('li', { class: 'avail-card' }, [
+        el('div', null, [el('b', { class: 'avail-name', text: name }), el('span', { class: 'avail-sub', text: sub })]),
+        el('div', { class: 'avail-price' }, [el('b', { text: money(total) }), el('span', { text: 'for ' + nights + ' night' + (nights > 1 ? 's' : '') + ' · about ' + money(total / nights) + ' a night' })]),
+        el('button', { type: 'button', class: 'btn btn-book avail-btn', text: btnLabel, onclick: function () { chat.book(prefill); } })
+      ]);
+    }
+    function run(q) {
+      out.innerHTML = '';
+      var n = nightsBetween(q.from, q.to), party = q.adults + q.kids;
+      var free = freeRooms(q.from, q.to);
+      var fit = free.filter(function (r) { return r.maxAdults >= q.adults && r.sleeps >= party; });
+      var head = fmtDate(q.from) + ' – ' + fmtDate(q.to) + ' · ' + n + ' night' + (n > 1 ? 's' : '') + ' · ' + party + ' guest' + (party > 1 ? 's' : '');
+      var base = { from: q.from, to: q.to, adults: q.adults, kids: q.kids };
+      if (fit.length) {
+        out.appendChild(el('h3', { class: 'avail-title', text: (fit.length === 1 ? 'One studio is' : fit.length + ' studios are') + ' free' }));
+        out.appendChild(el('p', { class: 'avail-meta', text: head }));
+        out.appendChild(el('ul', { class: 'avail-list' }, fit.map(function (r) {
+          return card(r.name, r.bed + ' · sleeps ' + r.sleeps, stayPrice(r, q.from, q.to), n, 'Request ' + r.name,
+            Object.assign({ room: r.id }, base));
+        })));
+        out.appendChild(nudgeEl(otaSaving(Math.min.apply(null, fit.map(function (r) { return stayPrice(r, q.from, q.to); })))));
+      } else {
+        var combo = bestCombo(free, q.adults, q.kids, q.from, q.to);
+        if (combo) {
+          out.appendChild(el('h3', { class: 'avail-title', text: 'Free if you take ' + combo.rooms.length + ' studios' }));
+          out.appendChild(el('p', { class: 'avail-meta', text: head + '. No single studio sleeps ' + party + '.' }));
+          out.appendChild(el('ul', { class: 'avail-list' }, [card(combo.rooms.map(function (r) { return r.name; }).join(' + '),
+            combo.rooms.map(function (r) { return r.bed; }).join(' · '), combo.price, n, 'Request these studios',
+            Object.assign({ room: combo.rooms.map(function (r) { return r.id; }).join('+') }, base))]));
+          out.appendChild(nudgeEl(otaSaving(combo.price)));
+        } else {
+          out.appendChild(el('h3', { class: 'avail-title', text: 'Those dates are full' }));
+          out.appendChild(el('p', { class: 'avail-meta', text: head }));
+          var alt = nextOpenings(q);
+          if (alt.length) {
+            out.appendChild(el('p', { class: 'avail-meta', text: 'The next free dates for the same length of stay:' }));
+            out.appendChild(el('div', { class: 'fx-actions' }, alt.map(function (a) {
+              return el('button', { type: 'button', class: 'fx-chip', text: fmtDate(a.from) + ' – ' + fmtDate(a.to), onclick: function () {
+                f.from.value = a.from; f.to.value = a.to; run({ from: a.from, to: a.to, adults: q.adults, kids: q.kids });
+              } });
+            })));
+          }
+          out.appendChild(el('p', { class: 'avail-meta' }, [el('a', { href: waLink('Hello Lindani Farm, do you have space from ' + fmtDate(q.from) + ' to ' + fmtDate(q.to) + ' for ' + party + ' guests?'), target: '_blank', rel: 'noopener', class: 'avail-link', text: 'Ask the farm on WhatsApp' })]));
+        }
+      }
+    }
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var q = { from: f.from.value, to: f.to.value, adults: +f.adults.value, kids: +f.kids.value };
+      setErr(f.from, ''); setErr(f.to, '');
+      var msg = validStay(q.from, q.to);
+      if (msg) {
+        var target = !q.from || q.from < today() ? f.from : f.to;
+        setErr(target, msg); target.focus(); out.innerHTML = ''; return;
+      }
+      run(q);
+    });
   })();
 
   // Any element with data-open-chat="<intent>" opens the concierge at that step

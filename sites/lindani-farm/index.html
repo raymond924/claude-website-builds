@@ -96,7 +96,10 @@ a,button{touch-action:manipulation}
 /* Quick enquiry under hero */
 .quick{padding:72px 0 24px}
 .quick h2{margin-bottom:28px}
-.qform{display:grid;grid-template-columns:1.3fr 1fr 1fr auto;gap:16px;align-items:end}
+.qform{display:grid;grid-template-columns:repeat(2,minmax(0,1.25fr)) repeat(2,minmax(0,.75fr)) auto;gap:16px;align-items:start}
+.qform .field{min-width:0}
+.qform .field input,.qform .field select{min-width:0}
+.qform > .btn{margin-top:22px;height:52px;white-space:nowrap}
 .field{display:flex;flex-direction:column;gap:8px}
 .field label{font:600 12px/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase}
 .field input,.field select,.field textarea{width:100%;height:52px;padding:0 16px;border:1px solid transparent;border-radius:var(--btn-r);background:var(--panel);font-size:16px;cursor:text;scroll-margin-block:120px 40px;appearance:none;-webkit-appearance:none}
@@ -227,8 +230,8 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
 @media (max-width:1024px){
   :root{--gutter:32px}
   .nav-links{gap:22px}
-  .qform{grid-template-columns:1fr 1fr}
-  .qform .btn{justify-self:start}
+  .qform{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .qform > .btn{grid-column:1/-1;justify-self:start;margin-top:4px}
   .exp-panel{grid-template-columns:1fr 1fr;padding:40px}
   .exp-panel figure{grid-column:1/-1;aspect-ratio:16/9}
   .features{grid-template-columns:1fr 1fr}
@@ -253,8 +256,8 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
   .hero-inner{padding:0 20px 28px}
   .hero .circle{display:none}
   .quick{padding:48px 0 8px}
-  .qform{grid-template-columns:1fr}
-  .qform .btn{width:100%;justify-content:center}
+  .qform{gap:14px 12px}
+  .qform > .btn{width:100%;justify-content:center}
   .experience{padding:72px 0 24px}
   .experience h2{margin-bottom:32px}
   .exp-panel{grid-template-columns:1fr;gap:20px;padding:24px 20px}
@@ -331,29 +334,17 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
   <section class="quick" id="quick" aria-labelledby="quick-title">
     <div class="wrap">
       <h2 id="quick-title" class="h-l" data-i18n="quick_title">Plan your stay here</h2>
-      <form class="qform" id="qform" novalidate>
-        <div class="field">
-          <label for="q-name">Full name*</label>
-          <input id="q-name" name="name" placeholder="Full name…" autocomplete="name" required>
-        </div>
-        <div class="field">
-          <label for="q-studios">Studios*</label>
-          <select id="q-studios" name="studios" required>
-            <option value="1">1 studio</option>
-            <option value="2">2 studios</option>
-            <option value="3">3 studios</option>
-            <option value="4">All 4 studios</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="q-date">Arrival date*</label>
-          <input id="q-date" name="arrival" type="date" required>
-        </div>
+      <form class="qform" id="qform" novalidate aria-describedby="qnote">
+        <div class="field"><label for="q-from">Arrive</label><input id="q-from" name="from" type="date" required></div>
+        <div class="field"><label for="q-to">Leave</label><input id="q-to" name="to" type="date" required></div>
+        <div class="field"><label for="q-adults">Adults</label><select id="q-adults" name="adults"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></div>
+        <div class="field"><label for="q-kids">Children</label><select id="q-kids" name="kids"><option selected>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
         <button class="btn btn-book" type="submit"><span data-i18n="check_dates">Check dates</span>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7"/></svg>
         </button>
       </form>
-      <p class="form-note" id="qnote" role="status">Prefer to talk? Call or WhatsApp reservations on <a href="tel:+27832916790">083 291 6790</a>.</p>
+      <p class="form-note" id="qnote" role="status">Sample calendar and rates for now. Prefer to talk? Call or WhatsApp reservations on <a href="tel:+27832916790">083 291 6790</a>.</p>
+      <div class="avail-out" id="avail-out" aria-live="polite"></div>
     </div>
   </section>
 
@@ -570,7 +561,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
 
   // Dates: no past arrivals; departure at least one night after arrival
   var today=new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10);
-  ['q-date','e-in','e-out'].forEach(function(id){document.getElementById(id).min=today;});
+  ['e-in','e-out'].forEach(function(id){document.getElementById(id).min=today;});
   var eIn=document.getElementById('e-in'),eOut=document.getElementById('e-out');
   function nextDay(v){var d=new Date(v+'T12:00:00');d.setDate(d.getDate()+1);return d.toISOString().slice(0,10);}
   eIn.addEventListener('change',function(){if(eIn.value){eOut.min=nextDay(eIn.value);if(eOut.value&&eOut.value<=eIn.value)eOut.value='';}});
@@ -598,24 +589,11 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
     return {first:first,n:n};
   }
   // Validate on blur once a field has been touched, clear as soon as it's fixed
-  document.querySelectorAll('#qform [required],#eform [required]').forEach(function(el){
+  document.querySelectorAll('#eform [required]').forEach(function(el){
     el.addEventListener('blur',function(){if(el.value.trim()||el.hasAttribute('aria-invalid'))setErr(el,fieldMsg(el));});
     el.addEventListener('input',function(){if(el.hasAttribute('aria-invalid')&&!fieldMsg(el))setErr(el,'');});
   });
 
-  var qnote=document.getElementById('qnote');
-  document.getElementById('qform').addEventListener('submit',function(e){
-    e.preventDefault();
-    var r=check(this);
-    if(r.first){qnote.dataset.state='err';qnote.textContent=r.n===1?'One field needs attention.':r.n+' fields need attention.';r.first.focus();return;}
-    // Carry the quick details into the full form so nothing is typed twice
-    document.getElementById('e-name').value=this.elements['name'].value;
-    eIn.value=this.elements['arrival'].value;eOut.min=nextDay(eIn.value);
-    document.getElementById('e-studios').selectedIndex=document.getElementById('q-studios').selectedIndex;
-    qnote.dataset.state='ok';qnote.textContent='Thanks. Your details are copied into the enquiry form below.';
-    document.getElementById('enquire').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
-    setTimeout(function(){document.getElementById('e-contact').focus({preventScroll:true});},700);
-  });
   var enote=document.getElementById('enote');
   var sendBtn=document.querySelector('#eform button[type="submit"]');
   document.getElementById('eform').addEventListener('submit',function(e){
