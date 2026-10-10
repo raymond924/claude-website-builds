@@ -37,49 +37,6 @@
 .rate-price{text-align:right;flex:none;font-variant-numeric:tabular-nums}
 .rate-foot{margin-top:12px;font-size:13px;color:var(--muted)}
 
-/* ---------- trip planner ---------- */
-.planner{padding:120px 0 40px}
-.planner-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:40px}
-.planner-head p{max-width:44ch;color:var(--muted)}
-.planner-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:16px;align-items:start}
-.planner-form{padding:32px;border-radius:12px;background:var(--sage);display:grid;gap:22px;position:sticky;top:96px}
-.planner-form fieldset{border:0;margin:0;padding:0;min-width:0}
-.planner-form legend{font:600 12px/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px;padding:0}
-.planner-form .two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.planner-form .field{min-width:0}
-.planner-form .field input,.planner-form .field select{min-width:0;padding:0 12px}
-.planner-form .field input,.planner-form .field select{background:#fff}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{position:relative}
-.chip input{position:absolute;opacity:0;width:1px;height:1px}
-.chip label{display:inline-flex;align-items:center;min-height:44px;padding:10px 16px;border:1px solid rgba(31,36,26,.25);border-radius:999px;background:#fff;font-size:14px;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
-.chip label:hover{border-color:var(--ink)}
-.chip input:checked+label{background:var(--olive);border-color:var(--olive);color:#fff}
-.chip input:checked+label::before{content:"";width:12px;height:7px;margin-right:8px;border:solid currentColor;border-width:0 0 2px 2px;transform:translateY(-2px) rotate(-45deg)}
-.chip input:focus-visible+label{outline:2px solid var(--olive);outline-offset:2px}
-.planner-err{min-height:1px;font-size:14px;color:#a5462b}
-.planner-err:empty{display:none}
-.planner-out{padding:32px;border-radius:12px;background:var(--panel);min-height:300px}
-.planner-out:focus{outline:none}
-.plan-head h3{font:400 clamp(28px,3vw,40px)/1.1 var(--serif)}
-.plan-head p{color:var(--muted);margin-top:6px}
-.plan-days{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:12px}
-.plan-day{padding:18px 20px;border-radius:10px;background:#fff}
-.plan-day h4{font:400 20px/1.2 var(--serif);margin:0 0 10px}
-.plan-day h4 span{font:600 12px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-right:8px;vertical-align:3px}
-.plan-items{list-style:none;margin:0;padding:0}
-.plan-items li{display:grid;grid-template-columns:92px minmax(0,1fr) auto;gap:12px;padding:10px 0;border-top:1px solid var(--panel);align-items:baseline}
-.plan-items li:first-child{border-top:0}
-.plan-slot{font:600 12px/1.4 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.plan-what b{display:block;font-weight:500;font-size:15px}
-.plan-what small{display:block;font-size:13px;color:var(--muted);line-height:1.5}
-.plan-price{font-size:14px;font-variant-numeric:tabular-nums;white-space:nowrap}
-.plan-total{margin:20px 0 0;padding:0}
-.plan-total div{display:flex;justify-content:space-between;gap:16px;padding:8px 0;border-bottom:1px solid var(--line);font-size:15px}
-.plan-total dd{margin:0;font-variant-numeric:tabular-nums;white-space:nowrap}
-.plan-total .is-total{border-bottom:0;font:400 22px/1.3 var(--serif)}
-.plan-send-title{margin-top:20px;font-weight:600}
-
 /* ---------- concierge ---------- */
 .fx-chat{position:fixed;z-index:60;right:calc(16px + env(safe-area-inset-right, 0px));bottom:calc(16px + env(safe-area-inset-bottom, 0px));font:400 15px/1.5 var(--sans);color:var(--ink)}
 .fx-launch{display:inline-flex;align-items:center;gap:10px;min-height:56px;padding:0 22px 0 18px;border:0;border-radius:999px;background:var(--olive);color:#fff;font:500 15px/1 var(--sans);box-shadow:0 10px 30px rgba(31,36,26,.28);cursor:pointer;transition:transform .2s,background .2s}
@@ -155,12 +112,6 @@
   .fx-chat.is-open{left:0;right:0;bottom:0}
   .fx-panel{position:fixed;left:0;right:0;bottom:0;width:100%;height:min(88dvh,720px);border-radius:16px 16px 0 0}
   .rates{grid-template-columns:1fr;padding:24px 20px}
-  .planner{padding:80px 0 24px}
-  .planner-grid{grid-template-columns:1fr}
-  .planner-form{position:static;padding:24px 20px}
-  .planner-out{padding:24px 16px}
-  .plan-items li{grid-template-columns:minmax(0,1fr) auto}
-  .plan-slot{grid-column:1/-1}
   .footer{margin-bottom:84px}
 }
 @media (prefers-reduced-motion:reduce){

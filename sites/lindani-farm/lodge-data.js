@@ -1,7 +1,7 @@
 /* ==========================================================================
    LINDANI FARM: SITE DATA
    This is the only file the owner needs to edit. Everything the booking
-   concierge, trip planner, rates table, book-direct note and language
+   concierge, availability checker, rates table, book-direct note and language
    switcher show comes from here.
 
    - Anything marked  PLACEHOLDER  is sample content. Replace it with the
@@ -13,7 +13,7 @@
 window.LODGE = {
 
   name: "Lindani Farm",
-  // Shown as a small notice in the concierge and planner while sample data is in use.
+  // Shown as a small notice in the concierge while sample data is in use.
   // Set to false once every PLACEHOLDER below has been replaced.
   showDemoNotice: true,
 
@@ -83,63 +83,6 @@ window.LODGE = {
     { room: "studio-3", from: "2027-02-12", to: "2027-02-15" }
   ],
 
-  // Interests the trip planner offers. Keys are used in activities below.
-  interests: [
-    { id: "game",    label: "Game drives" },
-    { id: "birding", label: "Birding" },
-    { id: "farm",    label: "Farm life" },
-    { id: "relax",   label: "Relaxing" },
-    { id: "romance", label: "Romance" }
-  ],
-
-  // Activity budget per person per day for the planner (activities only, not the room).
-  budgets: [
-    { id: "easy",    label: "Easy on the wallet", perPersonPerDay: 300 },
-    { id: "comfort", label: "Comfortable",        perPersonPerDay: 1000 },
-    { id: "treat",   label: "Treat ourselves",    perPersonPerDay: 999999 }
-  ],
-
-  // Activities for the planner and concierge.
-  // when: "morning" | "afternoon" | "evening" | "fullday"
-  // where: "farm" (on Lindani) or "nearby" (drive needed)
-  // ALL PRICES ARE PLACEHOLDERS. Places named are real, but confirm details before publishing.
-  activities: [
-    { id: "farm-walk", name: "Morning farm walk with the geese", interests: ["farm", "birding"], when: "morning", where: "farm",
-      priceAdult: 0, priceChild: 0, kids: true, note: "Free. Wear closed shoes.", placeholder: true },
-    { id: "dawn-birding", name: "Dawn birding at the farm dam", interests: ["birding"], when: "morning", where: "farm",
-      priceAdult: 0, priceChild: 0, kids: true, note: "Bring binoculars.", placeholder: true },
-    { id: "pool", name: "Pool afternoon under the old trees", interests: ["relax"], when: "afternoon", where: "farm",
-      priceAdult: 0, priceChild: 0, kids: true, note: "Shared pool.", filler: true },
-    { id: "dam-sundowners", name: "Sundowners at the dam", interests: ["relax", "romance", "birding"], when: "evening", where: "farm",
-      priceAdult: 0, priceChild: 0, kids: true, note: "Bring your own drinks and watch the cliffs turn gold." },
-    { id: "braai", name: "Braai night on your patio", interests: ["farm", "romance"], when: "evening", where: "farm",
-      priceAdult: 0, priceChild: 0, kids: true, note: "Built-in braai. Bring wood and food, or ask about a braai pack.", filler: true },
-    { id: "stargazing", name: "Stargazing on the lawn", interests: ["romance", "relax"], when: "evening", where: "farm",
-      priceAdult: 0, priceChild: 0, kids: true, note: "Best on a moonless night." },
-    { id: "picnic", name: "Private picnic for two at the dam", interests: ["romance"], when: "afternoon", where: "farm",
-      priceAdult: 325, priceChild: 0, kids: false, note: "Basket prepared on request. Book a day ahead.", placeholder: true },
-    { id: "massage", name: "In-studio massage", interests: ["romance", "relax"], when: "afternoon", where: "farm",
-      priceAdult: 700, priceChild: 0, kids: false, note: "Mobile therapist, booked through the lodge.", placeholder: true },
-    { id: "market", name: "Paarl weekend market", interests: ["farm", "relax"], when: "morning", where: "nearby",
-      priceAdult: 0, priceChild: 0, kids: true, note: "Saturday mornings.", days: [6], placeholder: true },
-    { id: "bird-sanctuary", name: "Paarl Bird Sanctuary", interests: ["birding"], when: "morning", where: "nearby",
-      priceAdult: 0, priceChild: 0, kids: true, note: "Wetland hides on the edge of Paarl.", placeholder: true },
-    { id: "paarl-mountain", name: "Hike in Paarl Mountain Nature Reserve", interests: ["birding", "relax"], when: "morning", where: "nearby",
-      priceAdult: 60, priceChild: 30, kids: true, note: "Trails up to the granite domes. Entry fee applies.", placeholder: true },
-    { id: "fairview", name: "Wine and cheese tasting at Fairview", interests: ["romance", "relax"], when: "afternoon", where: "nearby",
-      priceAdult: 250, priceChild: 0, kids: true, note: "Cheese tasting suits children too.", placeholder: true },
-    { id: "nederburg", name: "Tasting at Nederburg", interests: ["romance"], when: "afternoon", where: "nearby",
-      priceAdult: 200, priceChild: 0, kids: false, note: "Book ahead on weekends.", placeholder: true },
-    { id: "lion-park", name: "Drakenstein Lion Park", interests: ["game"], when: "afternoon", where: "nearby",
-      priceAdult: 250, priceChild: 150, kids: true, note: "Sanctuary for rescued lions, a short drive away.", placeholder: true },
-    { id: "game-drive", name: "Half-day game drive at a nearby reserve", interests: ["game"], when: "morning", where: "nearby",
-      priceAdult: 1200, priceChild: 600, kids: true, note: "Reserve to be confirmed by the lodge.", placeholder: true },
-    { id: "aquila", name: "Full-day safari at Aquila Private Game Reserve", interests: ["game"], when: "fullday", where: "nearby",
-      priceAdult: 2500, priceChild: 1250, kids: true, note: "About two hours' drive. Includes game drive and lunch.", placeholder: true },
-    { id: "franschhoek", name: "Franschhoek Wine Tram day", interests: ["romance", "relax"], when: "fullday", where: "nearby",
-      priceAdult: 800, priceChild: 300, kids: true, note: "Hop-on, hop-off between wine farms.", placeholder: true }
-  ],
-
   meals: "Lindani is self-catering: every studio has a fully equipped kitchenette, and there are garden braai spots. " +
          "Paarl's shops and restaurants are a short drive away. Breakfast baskets or braai packs may be available on request.", // PLACEHOLDER (second sentence)
 
@@ -193,9 +136,6 @@ window.LODGE = {
         answer: "Good question. We still need to confirm Wi-Fi, air-conditioning, parking and backup power details for this site. Please ask us directly on WhatsApp ({phone}) and we'll answer right away." }, // PLACEHOLDER
       { id: "wedding", keywords: ["wedding", "venue", "event", "celebration", "anniversary", "honeymoon", "birthday"],
         answer: "Lovely! Many Winelands wedding venues are close by, so Lindani is an easy, quiet base for guests. Celebrating something? Mention it in your booking request and we'll help make it special." },
-      { id: "planner", keywords: ["plan", "itinerary", "planner", "schedule", "trip"],
-        action: "planner",
-        answer: "Our trip planner builds a day-by-day plan from your dates and interests." },
       { id: "contact", keywords: ["contact", "phone", "call", "whatsapp", "email", "talk", "human", "person", "owner"],
         action: "contact",
         answer: "You can reach the farm directly on {phone} (call or WhatsApp)." },
@@ -213,13 +153,12 @@ window.LODGE = {
      ------------------------------------------------------------------------ */
   i18n: {
     en: {
-      language: "Language", nav_farm: "The farm", nav_studios: "Studios", nav_nearby: "Nearby", nav_planner: "Plan your trip", nav_contact: "Contact",
+      language: "Language", nav_farm: "The farm", nav_studios: "Studios", nav_nearby: "Nearby", nav_onfarm: "On the farm", nav_contact: "Contact",
       book: "Book your stay", hero_label: "Paarl · Cape Winelands", hero_title: "Leave the city <em>at the gate.</em>",
       quick_title: "Plan your stay here", check_dates: "Check dates", exp_title: "A farm stay <br><em>made for slowing down</em>",
       meet_studios: "Meet the studios", studios_title: "Come home to <br><em>your own studio</em>", rates_title: "Studios & rates",
-      nearby_title: "Taste, explore <br>and <em>wander nearby</em>", plan_days: "Plan your days",
+      nearby_title: "Taste, explore <br>and <em>wander nearby</em>",
       band_title: "Golden hours, pool days <em>and braai nights</em>", see_farm: "See the farm", farm_title: "On the farm",
-      planner_title: "Plan your <em>farm days</em>", planner_build: "Build my plan", planner_send: "Send this plan to the lodge",
       enq_title: "Your farm escape <em>starts here</em>", send_enquiry: "Send enquiry",
       chat_open: "Ask Lindani", chat_title: "Lindani concierge",
       chat_greeting: "Hello and welcome to Lindani Farm! I'm the farm's booking helper. Ask me about the studios, rates, things to do or getting here, or tap an option below.",
@@ -229,13 +168,12 @@ window.LODGE = {
       nudge_generic: "Book direct: no {ota} commission, so the same stay costs you about {pct}% less."
     },
     de: {
-      language: "Sprache", nav_farm: "Die Farm", nav_studios: "Studios", nav_nearby: "Umgebung", nav_planner: "Reise planen", nav_contact: "Kontakt",
+      language: "Sprache", nav_farm: "Die Farm", nav_studios: "Studios", nav_nearby: "Umgebung", nav_onfarm: "Auf der Farm", nav_contact: "Kontakt",
       book: "Aufenthalt buchen", hero_label: "Paarl · Cape Winelands", hero_title: "Lassen Sie die Stadt <em>am Tor zurück.</em>",
       quick_title: "Planen Sie hier Ihren Aufenthalt", check_dates: "Termine prüfen", exp_title: "Ein Farmaufenthalt, <br><em>um zur Ruhe zu kommen</em>",
       meet_studios: "Die Studios ansehen", studios_title: "Willkommen in <br><em>Ihrem eigenen Studio</em>", rates_title: "Studios & Preise",
-      nearby_title: "Genießen, entdecken <br>und <em>die Umgebung erkunden</em>", plan_days: "Tage planen",
+      nearby_title: "Genießen, entdecken <br>und <em>die Umgebung erkunden</em>",
       band_title: "Goldene Stunden, Pooltage <em>und Braai-Abende</em>", see_farm: "Die Farm ansehen", farm_title: "Auf der Farm",
-      planner_title: "Planen Sie Ihre <em>Tage auf der Farm</em>", planner_build: "Plan erstellen", planner_send: "Plan an die Farm senden",
       enq_title: "Ihre Auszeit auf der Farm <em>beginnt hier</em>", send_enquiry: "Anfrage senden",
       chat_open: "Fragen Sie Lindani", chat_title: "Lindani-Concierge",
       chat_greeting: "Hallo und willkommen auf der Lindani Farm! Ich helfe Ihnen bei der Buchung. Fragen Sie mich nach Studios, Preisen, Ausflügen oder der Anreise, oder wählen Sie unten eine Option. (Ausführliche Antworten vorerst auf Englisch.)",
@@ -245,13 +183,12 @@ window.LODGE = {
       nudge_generic: "Direkt buchen: keine {ota}-Provision, derselbe Aufenthalt kostet Sie etwa {pct} % weniger."
     },
     nl: {
-      language: "Taal", nav_farm: "De boerderij", nav_studios: "Studio's", nav_nearby: "In de buurt", nav_planner: "Plan je reis", nav_contact: "Contact",
+      language: "Taal", nav_farm: "De boerderij", nav_studios: "Studio's", nav_nearby: "In de buurt", nav_onfarm: "Op de boerderij", nav_contact: "Contact",
       book: "Boek je verblijf", hero_label: "Paarl · Cape Winelands", hero_title: "Laat de stad <em>achter bij het hek.</em>",
       quick_title: "Plan hier je verblijf", check_dates: "Data bekijken", exp_title: "Een boerderijverblijf <br><em>om tot rust te komen</em>",
       meet_studios: "Bekijk de studio's", studios_title: "Thuiskomen in <br><em>je eigen studio</em>", rates_title: "Studio's & prijzen",
-      nearby_title: "Proeven, ontdekken <br>en <em>de omgeving verkennen</em>", plan_days: "Plan je dagen",
+      nearby_title: "Proeven, ontdekken <br>en <em>de omgeving verkennen</em>",
       band_title: "Gouden uren, zwembaddagen <em>en braai-avonden</em>", see_farm: "Bekijk de boerderij", farm_title: "Op de boerderij",
-      planner_title: "Plan je <em>dagen op de boerderij</em>", planner_build: "Maak mijn plan", planner_send: "Stuur dit plan naar de boerderij",
       enq_title: "Je ontsnapping naar de boerderij <em>begint hier</em>", send_enquiry: "Aanvraag versturen",
       chat_open: "Vraag het Lindani", chat_title: "Lindani-concierge",
       chat_greeting: "Hallo en welkom op Lindani Farm! Ik help je met boeken. Vraag me naar de studio's, prijzen, activiteiten of de route, of kies hieronder een optie. (Uitgebreide antwoorden voorlopig in het Engels.)",
@@ -261,13 +198,12 @@ window.LODGE = {
       nudge_generic: "Direct boeken: geen {ota}-commissie, dus hetzelfde verblijf kost je ongeveer {pct}% minder."
     },
     af: {
-      language: "Taal", nav_farm: "Die plaas", nav_studios: "Studio's", nav_nearby: "In die omgewing", nav_planner: "Beplan jou reis", nav_contact: "Kontak",
+      language: "Taal", nav_farm: "Die plaas", nav_studios: "Studio's", nav_nearby: "In die omgewing", nav_onfarm: "Op die plaas", nav_contact: "Kontak",
       book: "Bespreek jou verblyf", hero_label: "Paarl · Kaapse Wynland", hero_title: "Los die stad <em>by die hek.</em>",
       quick_title: "Beplan jou verblyf hier", check_dates: "Kyk na datums", exp_title: "'n Plaasverblyf <br><em>om stadiger te leef</em>",
       meet_studios: "Sien die studio's", studios_title: "Kom tuis in <br><em>jou eie studio</em>", rates_title: "Studio's & tariewe",
-      nearby_title: "Proe, verken <br>en <em>dwaal in die omgewing</em>", plan_days: "Beplan jou dae",
+      nearby_title: "Proe, verken <br>en <em>dwaal in die omgewing</em>",
       band_title: "Goue ure, swembaddae <em>en braai-aande</em>", see_farm: "Sien die plaas", farm_title: "Op die plaas",
-      planner_title: "Beplan jou <em>dae op die plaas</em>", planner_build: "Stel my plan saam", planner_send: "Stuur hierdie plan na die plaas",
       enq_title: "Jou plaasontvlugting <em>begin hier</em>", send_enquiry: "Stuur navraag",
       chat_open: "Vra vir Lindani", chat_title: "Lindani-gasheer",
       chat_greeting: "Hallo en welkom by Lindani Farm! Ek help jou om te bespreek. Vra my oor die studio's, tariewe, aktiwiteite of die roete hierheen, of kies 'n opsie hieronder. (Volledige antwoorde voorlopig in Engels.)",

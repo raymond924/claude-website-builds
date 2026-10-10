@@ -6,7 +6,7 @@ A single-page site for Lindani Farm (Paarl). Open `index.html` in a browser; the
 |---|---|
 | `index.html` | The page itself |
 | `lodge-data.js` | **All editable details**: contact, studios, rates, seasons, availability, activities, policies, concierge answers, translations |
-| `features.js` | The booking concierge, date checker, booking request, trip planner, book-direct note and language switcher |
+| `features.js` | The booking concierge, availability checker, booking request, book-direct note and language switcher |
 | `features.css` | Styles for those features |
 | `assets/` | Photos (AVIF + WebP in several sizes) |
 | `BRIEF.md` | Design record, sources, content still to confirm |
@@ -19,22 +19,21 @@ Everything runs in the visitor's browser. There's no server, no API keys and no 
    - checks dates against the sample calendar and shows free studios with a total price, or the next free dates if the stay is full;
    - collects a **booking request** (not a confirmed booking) and hands it to the farm through WhatsApp, email or copy-paste;
    - remembers the conversation until the browser tab is closed (`sessionStorage`).
-2. **Trip planner** (the "Plan your farm days" section). Builds a day-by-day plan from the dates, guests, interests and budget, with an estimated total, and sends it to the farm through WhatsApp or email.
-3. **Book-direct note**. Shows the saving compared with Booking.com in the rates block, the concierge, the planner and the enquiry form, worked out from `otaCommissionPercent`.
+2. **Availability checker** (the "Plan your stay here" form under the photo). Shows free studios with a total price, a two-studio option for larger groups, or the next free dates. "Request" opens the concierge's booking request with the details filled in.
+3. **Book-direct note**. Shows the saving compared with Booking.com in the rates block, the availability results, the concierge and the enquiry form, worked out from `otaCommissionPercent`.
 4. **Language switcher**. English, German, Dutch and Afrikaans for headings, buttons and the concierge greeting. The visitor's choice is remembered on their device. The concierge's detailed answers stay in English.
 
 ## Editing `lodge-data.js`
 
 Open the file in any text editor. Everything is labelled.
 
-- **Find the placeholders.** Search for `PLACEHOLDER`. Each one marks sample content: rates, the calendar, activity prices, policies, the email address and directions. Replace the value, then delete the comment.
+- **Find the placeholders.** Search for `PLACEHOLDER`. Each one marks sample content: rates, the calendar, policies, the email address and directions. Replace the value, then delete the comment.
 - **Rates.** Each studio has a `rate` per night in rand. `seasons` raise or lower that rate for date ranges written as `MM-DD`; the festive season wraps over New Year.
 - **Availability.** `booked` lists blocked dates per studio. `from` is the check-in date and `to` is the check-out date (that night isn't blocked).
-- **Activities.** Each has a time of day (`when`), the interests it suits, prices per adult and child, and `kids: false` if it isn't for children. `days: [6]` limits it to Saturdays (0 = Sunday).
 - **Concierge answers.** Edit `concierge.intents`. Add words guests might type to `keywords`. In answers you can use `{phone}`, `{checkIn}`, `{checkOut}`, `{minNights}` and the policy names (`{kids}`, `{pets}`, `{payment}` …).
 - **Translations.** Edit `i18n`. Keep the `<em>` and `<br>` tags in headings. The German, Dutch and Afrikaans text should be checked by a native speaker before going live.
 - **Email.** Set `contact.email`. Until then, "Send by email" opens with an empty address line.
-- **Turn off the demo labels.** Set `showDemoNotice: false` once all sample data is replaced. Also remove the "Sample rates" badge and the "Demo planner" note from `index.html`.
+- **Turn off the demo labels.** Set `showDemoNotice: false` once all sample data is replaced. Also remove the "Sample rates" badge and the "Sample calendar" note from `index.html`.
 
 If the page stops working after an edit, check for a missing comma or quote mark in `lodge-data.js`. Opening the browser's developer console shows the line.
 

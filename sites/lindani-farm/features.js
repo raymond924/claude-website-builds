@@ -1,6 +1,6 @@
 /* Lindani Farm: on-page demo features.
-   Booking concierge, date checker, booking request, trip planner, book-direct
-   note and language switcher. Runs entirely in the browser: no backend, no
+   Booking concierge, availability checker, booking request, book-direct note
+   and language switcher. Runs entirely in the browser: no backend, no
    API keys. All content comes from lodge-data.js (window.LODGE). */
 (function () {
   'use strict';
@@ -202,190 +202,6 @@
     ]);
     return row;
   }
-
-  /* =====================================================================
-     TRIP PLANNER
-     ===================================================================== */
-  var planner = (function () {
-    var form = $('#planner-form');
-    if (!form) return null;
-    var out = $('#planner-out');
-    var SLOTS = { morning: 'Morning', afternoon: 'Afternoon', evening: 'Evening' };
-
-    function build(opts) {
-      var nights = nightsBetween(opts.from, opts.to);
-      var days = [], used = {}, budget = D.budgets.filter(function (b) { return b.id === opts.budget; })[0] || D.budgets[1];
-      var people = opts.adults + opts.kids;
-      function cost(a) { return a.priceAdult * opts.adults + a.priceChild * opts.kids; }
-      function allowed(a, date) {
-        if (opts.kids && !a.kids) return false;
-        if (a.days && a.days.indexOf(weekday(date)) < 0) return false;
-        return true;
-      }
-      var covered = {};
-      function score(a) {
-        var s = 0;
-        a.interests.forEach(function (i) {
-          if (opts.interests.indexOf(i) >= 0) s += covered[i] ? 2 : 5;   // favour interests the plan hasn't covered yet
-        });
-        if (used[a.id]) s -= 6;
-        if (a.where === 'farm') s += 0.5;
-        return s;
-      }
-      function cover(a) { a.interests.forEach(function (i) { covered[i] = 1; }); }
-      function pick(slot, date, spent) {
-        var cap = budget.perPersonPerDay * people - spent;
-        var list = D.activities.filter(function (a) {
-          return a.when === slot && allowed(a, date) && cost(a) <= cap && score(a) > 0;
-        }).sort(function (a, b) { return score(b) - score(a) || cost(a) - cost(b); });
-        return list[0] || null;
-      }
-      function filler(slot, date) {
-        return D.activities.filter(function (a) { return a.when === slot && a.filler && allowed(a, date); })[0] || null;
-      }
-      for (var i = 0; i <= nights; i++) {
-        var date = addDays(opts.from, i), items = [], spent = 0;
-        var first = i === 0, last = i === nights;
-        if (first) items.push({ slot: 'Afternoon', text: 'Arrive from ' + D.booking.checkIn + ' and settle into your studio', price: 0 });
-        if (last) items.push({ slot: 'Morning', text: 'Slow breakfast on the patio, check out by ' + D.booking.checkOut, price: 0 });
-        var slots = first ? ['evening'] : last ? [] : ['morning', 'afternoon', 'evening'];
-        if (!first && !last) {
-          // A full-day outing replaces morning and afternoon when it scores best
-          var full = D.activities.filter(function (a) {
-            return a.when === 'fullday' && allowed(a, date) && !used[a.id] && score(a) >= 3 && cost(a) <= budget.perPersonPerDay * people;
-          }).sort(function (a, b) { return score(b) - score(a); })[0];
-          var morning = pick('morning', date, 0);
-          if (full && (!morning || score(full) >= score(morning))) {
-            items.push({ slot: 'All day', act: full, price: cost(full) }); used[full.id] = 1; spent += cost(full); cover(full);
-            slots = ['evening'];
-          }
-        }
-        slots.forEach(function (slot) {
-          var a = pick(slot, date, spent) || filler(slot, date);
-          if (!a) return;
-          items.push({ slot: SLOTS[slot], act: a, price: cost(a) });
-          used[a.id] = 1; spent += cost(a); cover(a);
-        });
-        days.push({ date: date, items: items, spent: spent });
-      }
-      var acts = days.reduce(function (s, d) { return s + d.spent; }, 0);
-      var combo = bestCombo(freeRooms(opts.from, opts.to), opts.adults, opts.kids, opts.from, opts.to);
-      return { opts: opts, nights: nights, days: days, acts: acts, combo: combo };
-    }
-
-    function planText(p) {
-      var o = p.opts, lines = [];
-      lines.push('Hello Lindani Farm, here is the trip plan I made on your website:');
-      lines.push(fmtDate(o.from) + ' to ' + fmtDate(o.to) + ' (' + p.nights + ' nights), ' + o.adults + ' adult' + (o.adults > 1 ? 's' : '') +
-        (o.kids ? ', ' + o.kids + ' child' + (o.kids > 1 ? 'ren' : '') : ''));
-      if (p.combo) lines.push('Studio' + (p.combo.rooms.length > 1 ? 's' : '') + ': ' + p.combo.rooms.map(function (r) { return r.name; }).join(', ') + ' (estimate ' + money(p.combo.price) + ')');
-      p.days.forEach(function (d, i) {
-        lines.push('');
-        lines.push('Day ' + (i + 1) + ', ' + fmtDate(d.date) + ':');
-        d.items.forEach(function (it) { lines.push('- ' + it.slot + ': ' + (it.act ? it.act.name : it.text)); });
-      });
-      lines.push('');
-      lines.push('Estimated total: ' + money((p.combo ? p.combo.price : 0) + p.acts) + '. Could you let me know availability?');
-      return lines.join('\n');
-    }
-
-    function render(p) {
-      out.innerHTML = '';
-      var o = p.opts;
-      var head = el('div', { class: 'plan-head' }, [
-        el('h3', { text: p.nights + ' night' + (p.nights > 1 ? 's' : '') + ' at Lindani' }),
-        el('p', { text: fmtDate(o.from) + ' – ' + fmtDate(o.to) + ' · ' + o.adults + ' adult' + (o.adults > 1 ? 's' : '') +
-          (o.kids ? ' · ' + o.kids + ' child' + (o.kids > 1 ? 'ren' : '') : '') })
-      ]);
-      out.appendChild(head);
-      var ol = el('ol', { class: 'plan-days' });
-      p.days.forEach(function (d, i) {
-        var ul = el('ul', { class: 'plan-items' });
-        d.items.forEach(function (it) {
-          ul.appendChild(el('li', null, [
-            el('span', { class: 'plan-slot', text: it.slot }),
-            el('span', { class: 'plan-what' }, [
-              el('b', { text: it.act ? it.act.name : it.text }),
-              it.act ? el('small', { text: (it.act.where === 'farm' ? 'On the farm' : 'Nearby') + ' · ' + it.act.note }) : null
-            ]),
-            el('span', { class: 'plan-price', text: it.price ? money(it.price) : (it.act ? 'Free' : '') })
-          ]));
-        });
-        ol.appendChild(el('li', { class: 'plan-day' }, [el('h4', null, [el('span', { text: 'Day ' + (i + 1) }), ' ' + fmtDate(d.date)]), ul]));
-      });
-      out.appendChild(ol);
-
-      var stay = p.combo ? p.combo.price : 0;
-      var rows = [];
-      if (p.combo) rows.push(['Accommodation: ' + p.combo.rooms.map(function (r) { return r.name; }).join(' + ') + ', ' + p.nights + ' nights', money(stay)]);
-      rows.push(['Activities (estimate)', money(p.acts)]);
-      rows.push(['Estimated total', money(stay + p.acts)]);
-      var dl = el('dl', { class: 'plan-total' });
-      rows.forEach(function (r, i) {
-        dl.appendChild(el('div', { class: i === rows.length - 1 ? 'is-total' : null }, [el('dt', { text: r[0] }), el('dd', { text: r[1] })]));
-      });
-      out.appendChild(dl);
-      if (!p.combo) out.appendChild(el('p', { class: 'fx-warn', text: 'No studio combination is free for all those dates and guests. Send the plan anyway and we\'ll suggest alternatives.' }));
-      else out.appendChild(nudgeEl(otaSaving(stay)));
-      out.appendChild(el('p', { class: 'fx-small', text: 'Estimates from sample prices. The lodge confirms the final quote.' }));
-      var status = el('p', { class: 'fx-small', role: 'status' });
-      var sendTitle = el('p', { class: 'plan-send-title', 'data-i18n': 'planner_send', text: t('planner_send') });
-      out.appendChild(sendTitle);
-      out.appendChild(shareButtons('Trip plan: ' + fmtDate(o.from) + ' to ' + fmtDate(o.to), planText(p), status));
-      out.appendChild(status);
-    }
-
-    function read() {
-      var f = form.elements;
-      return {
-        from: f['p-from'].value, to: f['p-to'].value,
-        adults: +f['p-adults'].value || 1, kids: +f['p-kids'].value || 0,
-        interests: $$('input[name="p-int"]:checked', form).map(function (i) { return i.value; }),
-        budget: (form.querySelector('input[name="p-budget"]:checked') || {}).value || 'comfort'
-      };
-    }
-    function init() {
-      var ints = $('#p-interests'), buds = $('#p-budgets');
-      D.interests.forEach(function (it, i) {
-        var id = 'p-int-' + it.id;
-        ints.appendChild(el('span', { class: 'chip' }, [
-          el('input', { type: 'checkbox', id: id, name: 'p-int', value: it.id, checked: it.id === 'farm' || it.id === 'relax' }),
-          el('label', { for: id, text: it.label })
-        ]));
-      });
-      D.budgets.forEach(function (b) {
-        var id = 'p-bud-' + b.id;
-        buds.appendChild(el('span', { class: 'chip' }, [
-          el('input', { type: 'radio', id: id, name: 'p-budget', value: b.id, checked: b.id === 'comfort' }),
-          el('label', { for: id, text: b.label })
-        ]));
-      });
-      // Sensible defaults so the planner shows a working example straight away
-      var t0 = today(), dow = weekday(t0), friday = addDays(t0, ((5 - dow + 7) % 7) || 7);
-      form.elements['p-from'].value = addDays(friday, 14);
-      form.elements['p-to'].value = addDays(friday, 16);
-      form.elements['p-from'].min = t0; form.elements['p-to'].min = addDays(t0, 1);
-      form.elements['p-from'].addEventListener('change', function () {
-        var v = form.elements['p-from'].value;
-        if (v) { form.elements['p-to'].min = addDays(v, 1); if (form.elements['p-to'].value <= v) form.elements['p-to'].value = addDays(v, D.booking.minNights); }
-      });
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        var o = read(), err = $('#planner-err');
-        var msg = validStay(o.from, o.to);
-        if (!msg && !o.interests.length) msg = 'Pick at least one interest.';
-        if (!msg && nightsBetween(o.from, o.to) > 14) msg = 'The planner covers up to 14 nights. For longer stays, ask us directly.';
-        err.textContent = msg;
-        if (msg) { err.focus(); return; }
-        render(build(o));
-        if (e.submitter) out.focus({ preventScroll: true });
-        if (window.innerWidth < 900) out.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
-      });
-      render(build(read()));
-    }
-    init();
-    return { build: build };
-  })();
 
   /* =====================================================================
      BOOKING CONCIERGE (chat widget)
@@ -659,12 +475,11 @@
         case 'book': return startBooking();
         case 'activities':
           return push({ from: 'bot', kind: 'actions', text: fill(it.answer, vars),
-            actions: [{ label: 'Plan my days', href: '#planner' }, { label: t('qr_dates'), intent: 'dates' }] });
+            actions: [{ label: t('qr_dates'), intent: 'dates' }, { label: 'Ask about activities on WhatsApp', href: waLink('Hello Lindani Farm, what can we do during our stay?') }] });
         case 'directions':
           var acts = [{ label: 'WhatsApp for directions', href: waLink('Hello Lindani Farm, could you send me directions to the farm?') }];
           if (D.contact.mapsLink) acts.unshift({ label: 'Open map', href: D.contact.mapsLink });
           return push({ from: 'bot', kind: 'actions', text: D.directions, actions: acts });
-        case 'planner': return push({ from: 'bot', kind: 'actions', text: fill(it.answer, vars), actions: [{ label: 'Open the trip planner', href: '#planner' }] });
         case 'contact': return push({ from: 'bot', kind: 'actions', text: fill(it.answer, vars), actions: [{ label: 'WhatsApp the farm', href: waLink('Hello Lindani Farm, ') }] });
         default: return push({ from: 'bot', text: fill(it.answer, vars) });
       }
