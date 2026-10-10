@@ -830,7 +830,8 @@
       var head = fmtDate(q.from) + ' – ' + fmtDate(q.to) + ' · ' + n + ' night' + (n > 1 ? 's' : '') + ' · ' + party + ' guest' + (party > 1 ? 's' : '');
       var base = { from: q.from, to: q.to, adults: q.adults, kids: q.kids };
       if (fit.length) {
-        out.appendChild(el('h3', { class: 'avail-title', text: (fit.length === 1 ? 'One studio is' : fit.length + ' studios are') + ' free' }));
+        out.appendChild(el('div', { class: 'avail-top' }, [el('h3', { class: 'avail-title', text: (fit.length === 1 ? 'One studio is' : fit.length + ' studios are') + ' free' }),
+          D.showDemoNotice ? el('span', { class: 'tag', text: '( Sample calendar )' }) : null]));
         out.appendChild(el('p', { class: 'avail-meta', text: head }));
         out.appendChild(el('ul', { class: 'avail-list' }, fit.map(function (r) {
           return card(r.name, r.bed + ' · sleeps ' + r.sleeps, stayPrice(r, q.from, q.to), n, 'Request ' + r.name,
@@ -873,6 +874,40 @@
       }
       run(q);
     });
+    // Show real results straight away for the default weekend
+    run({ from: f.from.value, to: f.to.value, adults: +f.adults.value, kids: +f.kids.value });
+  })();
+
+  /* ---------- closing enquiry form: hand the enquiry to the farm ---------- */
+  (function () {
+    var form = $('#eform');
+    if (!form) return;
+    var box = el('div', { class: 'enq-send', hidden: true, 'aria-live': 'polite' });
+    form.appendChild(box);
+    document.addEventListener('lindani:enquiry', function (e) {
+      var r = e.detail, n = r.from && r.to ? nightsBetween(r.from, r.to) : 0;
+      var text = [
+        'ENQUIRY from the Lindani Farm website',
+        'Name: ' + r.name, 'Contact: ' + r.contact,
+        'Dates: ' + fmtDate(r.from) + ' to ' + fmtDate(r.to) + (n ? ' (' + n + ' night' + (n > 1 ? 's' : '') + ')' : ''),
+        'Guests: ' + r.adults + ' adult' + (r.adults > 1 ? 's' : '') + (r.kids ? ', ' + r.kids + ' child' + (r.kids > 1 ? 'ren' : '') : ''),
+        r.message ? 'Message: ' + r.message : null,
+        '', 'Please let me know about availability. Thank you!'
+      ].filter(function (x) { return x !== null; }).join('\n');
+      var status = el('p', { class: 'fx-small', role: 'status' });
+      box.innerHTML = '';
+      box.appendChild(el('p', { text: 'Thanks, ' + r.name.split(' ')[0] + '. Send your enquiry to the farm:' }));
+      box.appendChild(shareButtons('Enquiry: ' + fmtDate(r.from) + ' to ' + fmtDate(r.to), text, status));
+      box.appendChild(status);
+      box.hidden = false;
+      $('a', box).focus();
+    });
+  })();
+
+  /* ---------- footer contact from the data file ---------- */
+  (function () {
+    var em = $('#f-email');
+    if (em && D.contact.email) { em.href = 'mailto:' + D.contact.email; em.textContent = D.contact.email; em.hidden = false; }
   })();
 
   // Any element with data-open-chat="<intent>" opens the concierge at that step
