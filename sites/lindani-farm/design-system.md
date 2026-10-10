@@ -18,7 +18,7 @@ Grafton Safaris layout grammar, in Lindani's own colours and type. Source: refer
 
 - No other saturated colour. No blues, no orange.
 - Error text #A5462B (on light) / #FFC2AD (on dark).
-- Gold buttons: at most two per screen. Savings notes are plain muted text, never gold.
+- Gold buttons: at most two per screen. Secondary booking buttons (for example "Request Studio Three") are olive outlines. Savings notes are plain muted text, never gold.
 
 ## Type
 
@@ -41,9 +41,9 @@ Grafton Safaris layout grammar, in Lindani's own colours and type. Source: refer
 - **Forms:** borderless panel-grey fields, 52px tall, with uppercase labels above. Errors sit directly under the field. On a dark photo panel (the closing form) fields are borderless white at 14% opacity with white text, as on Grafton.
 - **Date checker:** a white card (16px radius) that overlaps the bottom edge of the hero by about 140px (64px on phones), showing free studios for the next weekend on load.
 - **Date fields:** a button showing the date, opening the range calendar (never a typed date).
-- **Nearby list:** large serif names; the active one is ink, the others faint; "( TAG )" on the right.
+- **Nearby list:** large serif names on one line; the active one is ink, the others faint; "( TAG )" on the right (on phones, on its own line under the name). Tags never break inside the brackets.
 - **On the farm stack:** a sage text card (tag at the top, title and body at the bottom) beside a photo of equal height. Cards stick and tilt slightly as the next one arrives.
-- **Footer:** an olive rounded panel, phone and email in the display serif, a circled up-arrow (72px, 56px on phones).
+- **Footer:** an olive rounded panel, phone and email (once an email is set) in the display serif, a circled up-arrow (72px, 56px on phones).
 
 ## Photography
 

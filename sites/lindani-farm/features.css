@@ -34,9 +34,9 @@
 .rate-row:first-child{padding-top:0}
 .rate-main{min-width:0}
 .rate-main b,.rate-price b{display:block;font:500 26px/1.15 var(--serif)}
-.rate-main span,.rate-price span{display:block;font-size:13px;color:var(--muted)}
+.rate-main span,.rate-price span{display:block;font-size:14px;color:var(--muted)}
 .rate-price{text-align:right;flex:none;font-variant-numeric:tabular-nums}
-.rate-foot{margin-top:12px;font-size:13px;color:var(--muted)}
+.rate-foot{margin-top:12px;font-size:14px;color:var(--muted)}
 
 /* ---------- concierge ---------- */
 .fx-chat{position:fixed;z-index:60;right:calc(16px + env(safe-area-inset-right, 0px));bottom:calc(16px + env(safe-area-inset-bottom, 0px));font:400 15px/1.5 var(--sans);color:var(--ink)}
@@ -134,7 +134,8 @@
 .avail-price{margin-top:auto}
 .avail-price b{display:block;font:500 30px/1.15 var(--serif);font-variant-numeric:tabular-nums}
 .avail-price span{display:block;font-size:13px;color:var(--muted)}
-.avail-btn{justify-content:center;padding:13px 16px;font-size:14px}
+.avail-btn{justify-content:center;padding:12px 16px;font-size:14px;background:transparent;border:1px solid var(--olive);color:var(--olive)}
+.avail-btn:hover{background:var(--olive);color:#fff}
 .avail-link{text-decoration:underline;text-underline-offset:3px;display:inline-block;padding:10px 0}
 @media (max-width:760px){.avail-out{padding:20px 16px}.avail-list{grid-template-columns:1fr}}
 
@@ -147,7 +148,7 @@
 .dp-trigger.is-empty .dp-val{color:var(--muted)}
 .dp-ico{width:20px;height:20px;flex:none;opacity:.75}
 .dp-native[aria-invalid="true"]+.dp-trigger{border-color:#a5462b}
-.eform .dp-trigger{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.22);color:#fff}
+.eform .dp-trigger{background:rgba(255,255,255,.14);border-color:transparent;color:#fff}
 .eform .dp-trigger.is-empty .dp-val{color:rgba(255,255,255,.7)}
 .eform .dp-trigger:focus-visible{border-color:var(--gold);box-shadow:0 0 0 3px rgba(232,194,123,.45)}
 .eform .dp-native[aria-invalid="true"]+.dp-trigger{border-color:#ffc2ad}

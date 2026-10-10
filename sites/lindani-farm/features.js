@@ -819,7 +819,7 @@
       return el('li', { class: 'avail-card' }, [
         el('div', null, [el('b', { class: 'avail-name', text: name }), el('span', { class: 'avail-sub', text: sub })]),
         el('div', { class: 'avail-price' }, [el('b', { text: money(total) }), el('span', { text: 'for ' + nights + ' night' + (nights > 1 ? 's' : '') + ' · about ' + money(total / nights) + ' a night' })]),
-        el('button', { type: 'button', class: 'btn btn-book avail-btn', text: btnLabel, onclick: function () { chat.book(prefill); } })
+        el('button', { type: 'button', class: 'btn avail-btn', text: btnLabel, onclick: function () { chat.book(prefill); } })
       ]);
     }
     function run(q) {

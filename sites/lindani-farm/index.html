@@ -57,7 +57,7 @@ a,button{touch-action:manipulation}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gutter)}
 .label{font:600 12px/1.4 var(--sans);letter-spacing:.14em;text-transform:uppercase}
-.tag{font:500 12px/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.tag{font:700 12px/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
 .h-xl{font-size:clamp(50px,7.6vw,112px)}
 .h-l{font-size:clamp(44px,5.8vw,84px)}
 .h-l em,.h-xl em{font-style:italic}
@@ -94,6 +94,7 @@ a,button{touch-action:manipulation}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,24,14,.05) 35%,rgba(20,24,14,.62) 100%)}
 .hero-inner{position:absolute;z-index:1;left:0;right:0;bottom:0;padding:0 40px 176px;display:flex;align-items:flex-end;justify-content:space-between;gap:32px}
 .hero .label{opacity:.88;margin-bottom:22px}
+.hero-sub{margin-top:18px;max-width:34ch;font-size:17px;line-height:1.5;color:rgba(255,255,255,.9)}
 .hero h1{max-width:12ch}
 .hero h1 em{color:var(--gold)}
 .hero .circle{width:64px;height:64px;flex:none;border-color:rgba(255,255,255,.7)}
@@ -126,7 +127,7 @@ a,button{touch-action:manipulation}
 /* Experience: two-column intro on a pale panel */
 .experience{padding:96px 0 40px}
 .experience h2{margin-bottom:56px}
-.experience h2 em{color:var(--olive-2)}
+.experience h2 em{color:var(--olive)}
 .exp-panel{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:56px;align-items:start;padding:56px;border-radius:var(--r);background:var(--panel)}
 .exp-panel p+p{margin-top:20px}
 .exp-panel .circle-link{margin-top:28px}
@@ -149,7 +150,8 @@ a,button{touch-action:manipulation}
 
 /* Nearby: Grafton's big faint list with ( TAG ) labels */
 .nearby{padding:120px 0 48px}
-.nearby-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:64px;align-items:start}
+.nearby-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.5fr);gap:56px;align-items:start}
+.places .p-name{white-space:nowrap}
 .nearby-intro{position:sticky;top:120px}
 .nearby-intro h2{margin-bottom:24px}
 .nearby-intro p{color:var(--muted);max-width:36ch;margin-bottom:32px}
@@ -217,6 +219,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
 .f-contact a:hover{color:var(--gold)}
 .f-contact small{display:block;font-size:14px;color:rgba(255,255,255,.66);margin-top:10px}
 .f-links{display:flex;gap:4px 28px;font-size:14px;font-weight:500;flex-wrap:wrap}
+@media (max-width:760px){.f-links{display:grid;grid-template-columns:1fr 1fr;gap:0 20px}}
 .f-links a{display:inline-flex;align-items:center;min-height:44px}
 .f-links a:hover{color:var(--gold)}
 .f-bot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-top:22px;font-size:13px;color:rgba(255,255,255,.72)}
@@ -262,7 +265,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
   .hero-inner{padding:0 20px 92px}
   .quick-card{margin-top:-64px;padding:28px 20px 24px}
   .hero .circle{display:none}
-  .quick{padding:48px 0 8px}
+  .quick{padding:0 0 8px}
   .qform{gap:14px 12px}
   .qform > .btn{width:100%;justify-content:center}
   .experience{padding:72px 0 24px}
@@ -277,7 +280,10 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
   .features li{padding:20px}
   .nearby{padding:80px 0 24px}
   .places li{gap:12px;padding:12px 0}
-  .places .tag{white-space:normal;text-align:right;max-width:8.5em;line-height:1.35}
+  .places li{flex-direction:column;gap:6px}
+  .places .p-name{white-space:normal}
+  .places .tag{white-space:nowrap}
+  .farm-head{flex-direction:column;align-items:flex-start;gap:10px}
   .band{margin-top:64px}
   .band-inner{grid-template-columns:1fr;min-height:0}
   .band figure{position:relative;inset:auto;aspect-ratio:4/3}
@@ -332,6 +338,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
       <div>
         <p class="label" data-i18n="hero_label">Paarl · Cape Winelands</p>
         <h1 id="hero-title" class="h-xl" data-i18n-html="hero_title">Leave the city <em>at the gate.</em></h1>
+        <p class="hero-sub" data-i18n="hero_sub">Four private self-catering studios on a farm just outside Paarl.</p>
       </div>
       <a href="#quick" class="circle" aria-label="Scroll to plan your stay">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M12 4v16M5 13l7 7 7-7"/></svg>
@@ -395,7 +402,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
       </ul>
       <div class="rates" id="rates" aria-labelledby="rates-title">
         <div class="rates-head">
-          <span class="tag">( Sample rates )</span>
+          <span class="tag">(&nbsp;Sample rates&nbsp;)</span>
           <h3 id="rates-title" data-i18n-html="rates_title">Studios &amp; <em>rates</em></h3>
           <p>Nightly rates per studio. Check your dates for an exact price, including seasonal rates.</p>
           <a href="#quick" class="circle-link"><span data-i18n="check_dates">Check dates</span>
@@ -417,12 +424,12 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
         </a>
       </div>
       <ul class="places" id="places">
-        <li class="on"><div><span class="p-name">Fairview</span><span class="p-note">Wine and cheese tasting on the slopes of Paarl Mountain.</span></div><span class="tag">( Wine &amp; cheese · 10 min )</span></li>
-        <li><div><span class="p-name">Nederburg</span><span class="p-note">One of the Cape's best-known wine estates, on the Paarl side of the valley.</span></div><span class="tag">( Wine · 15 min )</span></li>
-        <li><div><span class="p-name">Franschhoek</span><span class="p-note">The valley of restaurants and wine farms, an easy drive over the hill.</span></div><span class="tag">( Day trip · 30 min )</span></li>
-        <li><div><span class="p-name">Paarl Mountain</span><span class="p-note">Hiking trails through the nature reserve, up to the granite domes.</span></div><span class="tag">( Nature reserve · 10 min )</span></li>
-        <li><div><span class="p-name">Weekend markets</span><span class="p-note">Local food, wine and makers at Paarl's Saturday-morning markets.</span></div><span class="tag">( Saturdays · 10 min )</span></li>
-        <li><div><span class="p-name">Wedding venues</span><span class="p-note">Guests of a Winelands wedding can stay close to the celebration.</span></div><span class="tag">( Winelands · 10–30 min )</span></li>
+        <li class="on"><div><span class="p-name">Fairview</span><span class="p-note">Wine and cheese tasting on the slopes of Paarl Mountain.</span></div><span class="tag">(&nbsp;Wine &amp; cheese&nbsp;·&nbsp;10&nbsp;min&nbsp;)</span></li>
+        <li><div><span class="p-name">Nederburg</span><span class="p-note">One of the Cape's best-known wine estates, on the Paarl side of the valley.</span></div><span class="tag">(&nbsp;Wine&nbsp;·&nbsp;15&nbsp;min&nbsp;)</span></li>
+        <li><div><span class="p-name">Franschhoek</span><span class="p-note">The valley of restaurants and wine farms, an easy drive over the hill.</span></div><span class="tag">(&nbsp;Day trip&nbsp;·&nbsp;30&nbsp;min&nbsp;)</span></li>
+        <li><div><span class="p-name">Paarl Mountain</span><span class="p-note">Hiking trails through the nature reserve, up to the granite domes.</span></div><span class="tag">(&nbsp;Nature reserve&nbsp;·&nbsp;10&nbsp;min&nbsp;)</span></li>
+        <li><div><span class="p-name">Weekend markets</span><span class="p-note">Local food, wine and makers at Paarl's Saturday-morning markets.</span></div><span class="tag">(&nbsp;Saturdays&nbsp;·&nbsp;10&nbsp;min&nbsp;)</span></li>
+        <li><div><span class="p-name">Wedding venues</span><span class="p-note">Guests of a Winelands wedding can stay close to the celebration.</span></div><span class="tag">(&nbsp;Winelands&nbsp;·&nbsp;10–30&nbsp;min&nbsp;)</span></li>
       </ul>
     </div>
   </section>
@@ -444,23 +451,23 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
     <div class="wrap">
       <div class="farm-head">
         <h2 id="farm-title" class="h-l" data-i18n-html="farm_title">Days <em>on the farm</em></h2>
-        <span class="tag">( Scroll )</span>
+        <span class="tag">(&nbsp;Scroll&nbsp;)</span>
       </div>
       <div class="stack" id="stack">
         <article class="card">
-          <div class="card-text"><span class="tag">( 01 · The pool )</span><h3>Long, lazy afternoons</h3><p>A sparkling pool in the shade of the old trees. Bring a book, a towel and nowhere else to be.</p></div>
-          <figure><img src="assets/pool.webp" width="1080" height="669" alt="Swimming pool shaded by a large old tree" loading="lazy"></figure>
+          <div class="card-text"><span class="tag">(&nbsp;01&nbsp;·&nbsp;The pool&nbsp;)</span><h3>Long, lazy afternoons</h3><p>A sparkling pool in the shade of the old trees. Bring a book, a towel and nowhere else to be.</p></div>
+          <figure><img src="assets/pool.webp" width="1080" height="669" alt="Swimming pool shaded by a large old tree" loading="lazy" style="object-position:50% 100%"></figure>
         </article>
         <article class="card">
-          <div class="card-text"><span class="tag">( 02 · The dam )</span><h3>Mountain air, still water</h3><p>Walk down to the dam in the late afternoon, cool off, and watch the light climb the cliffs.</p></div>
+          <div class="card-text"><span class="tag">(&nbsp;02&nbsp;·&nbsp;The dam&nbsp;)</span><h3>Mountain air, still water</h3><p>Walk down to the dam in the late afternoon, cool off, and watch the light climb the cliffs.</p></div>
           <figure><img src="assets/dam.webp" width="1080" height="702" alt="The farm dam with reeds and wildflowers at golden hour" loading="lazy"></figure>
         </article>
         <article class="card">
-          <div class="card-text"><span class="tag">( 03 · The garden )</span><h3>Coffee by day, braai by night</h3><p>Garden spots with a built-in braai, made for good company and slow evenings under the trees.</p></div>
+          <div class="card-text"><span class="tag">(&nbsp;03&nbsp;·&nbsp;The garden&nbsp;)</span><h3>Coffee by day, braai by night</h3><p>Garden spots with a built-in braai, made for good company and slow evenings under the trees.</p></div>
           <figure><img src="assets/braai.webp" width="1080" height="615" alt="Garden seating area with a brick built-in braai under the trees" loading="lazy"></figure>
         </article>
         <article class="card">
-          <div class="card-text"><span class="tag">( 04 · The studios )</span><h3>Your farm escape starts here</h3><p>Four studios open onto the lawn, each with its own patio for sundowners as the farm goes quiet.</p></div>
+          <div class="card-text"><span class="tag">(&nbsp;04&nbsp;·&nbsp;The studios&nbsp;)</span><h3>Your farm escape starts here</h3><p>Four studios open onto the lawn, each with its own patio for sundowners as the farm goes quiet.</p></div>
           <figure><img src="assets/cottages.webp" width="1080" height="491" alt="The four studios with lit patios opening onto a green lawn" loading="lazy"></figure>
         </article>
       </div>
