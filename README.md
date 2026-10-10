@@ -5,7 +5,7 @@ Client websites built with Claude Code from [Refero Styles](https://styles.refer
 | Client | Folder | Reference | Status |
 |---|---|---|---|
 | COOK Engineering | [`sites/cook-engineering`](sites/cook-engineering) | T1 Energy | Paused: "Concentrate" homepage built, copy awaiting client details (see `NEXT.md`) |
-| Lindani Farm | [`sites/lindani-farm`](sites/lindani-farm) | [Grafton Safaris](https://www.graftonsafaris.com/) (live site, not Refero) | Homepage v1 with the client's Instagram photos; details to confirm in `BRIEF.md` |
+| Lindani Farm | [`sites/lindani-farm`](sites/lindani-farm) | [Grafton Safaris](https://www.graftonsafaris.com/) (live site, not Refero) | Homepage with booking concierge, trip planner and language switcher (demo data: see its [README](sites/lindani-farm/README.md)) |
 
 Each client folder holds:
 - `index.html`: the site, a single self-contained HTML file. Open it in a browser.

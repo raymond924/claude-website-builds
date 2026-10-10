@@ -236,14 +236,17 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
   .nearby-intro{position:static}
 }
 /* Phone */
-@media (max-width:760px){
-  :root{--gutter:20px;--edge:8px}
-  .nav{left:var(--edge);right:var(--edge);padding:8px 8px 8px 16px}
+/* Menu button from tablet width down: six nav items plus the language picker need the room */
+@media (max-width:1100px){
   .nav-links{display:none}
   .menu-btn{display:grid}
   .nav-links.open{display:flex;position:absolute;top:calc(100% + 8px);left:0;right:0;flex-direction:column;gap:0;padding:8px 16px;background:#fff;border-radius:12px;box-shadow:0 10px 30px rgba(31,36,26,.12)}
   .nav-links.open a{display:block;padding:14px 4px;font-size:16px;border-bottom:1px solid var(--panel)}
   .nav-links.open li:last-child a{border-bottom:0}
+}
+@media (max-width:760px){
+  :root{--gutter:20px;--edge:8px}
+  .nav{left:var(--edge);right:var(--edge);padding:8px 8px 8px 16px}
   .nav .btn{padding:15px 14px;font-size:14px;white-space:nowrap}
   .nav-right{gap:4px}
   .hero{min-height:560px}
@@ -284,6 +287,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
   .to-top{width:56px;height:56px}
 }
 </style>
+<link rel="stylesheet" href="features.css">
 </head>
 <body>
 <a class="skip" href="#quick">Skip to booking</a>
@@ -292,18 +296,20 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
   <a href="#top" class="mark" aria-label="Lindani Farm, home"><b>LINDANI</b><span>FARM</span></a>
   <nav aria-label="Main">
     <ul class="nav-links" id="nav-links">
-      <li><a href="#experience">The farm</a></li>
-      <li><a href="#studios">Studios</a></li>
-      <li><a href="#nearby">Nearby</a></li>
-      <li><a href="#on-the-farm">On the farm</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#experience" data-i18n="nav_farm">The farm</a></li>
+      <li><a href="#studios" data-i18n="nav_studios">Studios</a></li>
+      <li><a href="#nearby" data-i18n="nav_nearby">Nearby</a></li>
+      <li><a href="#planner" data-i18n="nav_planner">Plan your trip</a></li>
+      <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+      <li class="lang-mob"><span class="lang"><label class="sr" for="lang-mob" data-i18n="language">Language</label><select id="lang-mob" data-lang></select></span></li>
     </ul>
   </nav>
   <div class="nav-right">
+    <span class="lang"><label class="sr" for="lang-desk" data-i18n="language">Language</label><select id="lang-desk" data-lang></select></span>
     <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav-links" aria-label="Menu">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
     </button>
-    <a href="#enquire" class="btn btn-book">Book your stay</a>
+    <a href="#enquire" class="btn btn-book" data-i18n="book">Book your stay</a>
   </div>
 </header>
 
@@ -313,8 +319,8 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
     <img src="assets/avenue.webp" width="1080" height="638" alt="Tree-lined farm road leading to a mountain at Lindani Farm, near Paarl" fetchpriority="high">
     <div class="hero-inner">
       <div>
-        <p class="label">Paarl · Cape Winelands</p>
-        <h1 id="hero-title" class="h-xl">Leave the city <em>at the gate.</em></h1>
+        <p class="label" data-i18n="hero_label">Paarl · Cape Winelands</p>
+        <h1 id="hero-title" class="h-xl" data-i18n-html="hero_title">Leave the city <em>at the gate.</em></h1>
       </div>
       <a href="#quick" class="circle" aria-label="Scroll to plan your stay">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M12 4v16M5 13l7 7 7-7"/></svg>
@@ -324,7 +330,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
 
   <section class="quick" id="quick" aria-labelledby="quick-title">
     <div class="wrap">
-      <h2 id="quick-title" class="h-l">Plan your stay here</h2>
+      <h2 id="quick-title" class="h-l" data-i18n="quick_title">Plan your stay here</h2>
       <form class="qform" id="qform" novalidate>
         <div class="field">
           <label for="q-name">Full name*</label>
@@ -343,7 +349,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
           <label for="q-date">Arrival date*</label>
           <input id="q-date" name="arrival" type="date" required>
         </div>
-        <button class="btn btn-book" type="submit">Check dates
+        <button class="btn btn-book" type="submit"><span data-i18n="check_dates">Check dates</span>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7"/></svg>
         </button>
       </form>
@@ -353,7 +359,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
 
   <section class="experience" id="experience" aria-labelledby="exp-title">
     <div class="wrap">
-      <h2 id="exp-title" class="h-l">A farm stay <br><em>made for slowing down</em></h2>
+      <h2 id="exp-title" class="h-l" data-i18n-html="exp_title">A farm stay <br><em>made for slowing down</em></h2>
       <div class="exp-panel">
         <div>
           <p>Lindani is a small farm just outside Paarl, at the foot of the mountains. A tree-lined road brings you in, and the city stays behind at the gate.</p>
@@ -362,7 +368,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
         <div>
           <p>Evenings are for the braai, and for watching the cliffs turn gold. Nothing to rush for, and nobody to rush you.</p>
           <p>When you do want to go out, Fairview, Nederburg and Franschhoek are close by. Plan less, explore more.</p>
-          <a href="#studios" class="circle-link">Meet the studios
+          <a href="#studios" class="circle-link"><span data-i18n="meet_studios">Meet the studios</span>
             <span class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7"/></svg></span>
           </a>
         </div>
@@ -374,7 +380,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
   <section class="studios" id="studios" aria-labelledby="studios-title">
     <div class="wrap">
       <div class="studios-head">
-        <h2 id="studios-title" class="h-l">Come home to <br><em>your own studio</em></h2>
+        <h2 id="studios-title" class="h-l" data-i18n-html="studios_title">Come home to <br><em>your own studio</em></h2>
         <p>All the comforts of home, only better. Four private units, each self-catering, each with its own way out to the garden.</p>
       </div>
       <div class="studio-grid">
@@ -388,15 +394,25 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
         <li><b>En-suite bathroom</b><span>Your own bathroom in every studio.</span></li>
         <li><b>Private patio</b><span>Morning coffee and evening wine, outside your own door.</span></li>
       </ul>
+      <div class="rates" id="rates" aria-labelledby="rates-title">
+        <div class="rates-head">
+          <span class="demo-badge">Sample rates · to be confirmed</span>
+          <h3 id="rates-title" data-i18n="rates_title">Studios &amp; rates</h3>
+          <p>Nightly rates per studio. Check your dates for an exact price, including seasonal rates.</p>
+          <p class="nudge" data-nudge="example"></p>
+          <button type="button" class="btn btn-book" data-open-chat="dates"><span data-i18n="check_dates">Check dates</span> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7"/></svg></button>
+        </div>
+        <div id="rates-list" class="rates-list"><p class="fx-small">Rates load with JavaScript. Call or WhatsApp 083 291 6790 for prices.</p></div>
+      </div>
     </div>
   </section>
 
   <section class="nearby" id="nearby" aria-labelledby="nearby-title">
     <div class="wrap nearby-grid">
       <div class="nearby-intro">
-        <h2 id="nearby-title" class="h-l">Taste, explore <br>and <em>wander nearby</em></h2>
+        <h2 id="nearby-title" class="h-l" data-i18n-html="nearby_title">Taste, explore <br>and <em>wander nearby</em></h2>
         <p>Wine farms, mountain trails, weekend markets and wedding venues, all just down the road. Stay close. Stay at Lindani.</p>
-        <a href="#enquire" class="circle-link">Plan your days
+        <a href="#planner" class="circle-link"><span data-i18n="plan_days">Plan your days</span>
           <span class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7"/></svg></span>
         </a>
       </div>
@@ -415,9 +431,9 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
     <figure><img src="assets/golden.webp" width="1080" height="551" alt="Guest looking out over the valley and mountains in golden-hour light" loading="lazy"></figure>
     <div class="band-inner">
       <div class="band-copy">
-        <h2 id="band-title" class="h-l">Golden hours, pool days <em>and braai nights</em></h2>
+        <h2 id="band-title" class="h-l" data-i18n-html="band_title">Golden hours, pool days <em>and braai nights</em></h2>
         <p>Mountain air and still water. Cool off in the dam and watch the cliffs turn gold, then light the fire. Lindani is a place for the long afternoons you never seem to get at home.</p>
-        <a href="#on-the-farm" class="circle-link">See the farm
+        <a href="#on-the-farm" class="circle-link"><span data-i18n="see_farm">See the farm</span>
           <span class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7"/></svg></span>
         </a>
       </div>
@@ -427,7 +443,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
   <section class="farm" id="on-the-farm" aria-labelledby="farm-title">
     <div class="wrap">
       <div class="farm-head">
-        <h2 id="farm-title" class="h-l">On the farm</h2>
+        <h2 id="farm-title" class="h-l" data-i18n="farm_title">On the farm</h2>
         <span class="tag">( Scroll )</span>
       </div>
       <div class="stack" id="stack">
@@ -451,11 +467,39 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
     </div>
   </section>
 
+  <section class="planner" id="planner" aria-labelledby="planner-title">
+    <div class="wrap">
+      <div class="planner-head">
+        <h2 id="planner-title" class="h-l" data-i18n-html="planner_title">Plan your <em>farm days</em></h2>
+        <p>Pick your dates, who's coming and what you love. We'll suggest a day-by-day plan with an estimated cost that you can send straight to the farm.</p>
+      </div>
+      <div class="planner-grid">
+        <form class="planner-form" id="planner-form" novalidate>
+          <div class="two">
+            <div class="field"><label for="p-from">Arrive</label><input id="p-from" name="p-from" type="date" required></div>
+            <div class="field"><label for="p-to">Leave</label><input id="p-to" name="p-to" type="date" required></div>
+            <div class="field"><label for="p-adults">Adults</label><select id="p-adults" name="p-adults"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></div>
+            <div class="field"><label for="p-kids">Children</label><select id="p-kids" name="p-kids"><option selected>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+          </div>
+          <fieldset><legend>Interests</legend><div class="chips" id="p-interests"></div></fieldset>
+          <fieldset><legend>Activity budget</legend><div class="chips" id="p-budgets"></div></fieldset>
+          <p class="planner-err" id="planner-err" role="alert" tabindex="-1"></p>
+          <button class="btn btn-book" type="submit"><span data-i18n="planner_build">Build my plan</span> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7"/></svg></button>
+          <p class="fx-small">Demo planner: activities and prices are samples until the farm confirms them.</p>
+        </form>
+        <div class="planner-out" id="planner-out" aria-live="polite" tabindex="-1">
+          <p class="fx-small">The planner needs JavaScript. Call or WhatsApp 083 291 6790 and we'll plan your stay with you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="enquire" id="enquire" aria-labelledby="enq-title">
     <img src="assets/avenue.webp" width="1080" height="638" alt="" loading="lazy">
     <div class="enquire-inner">
-      <h2 id="enq-title" class="h-l">Your farm escape <em>starts here</em></h2>
+      <h2 id="enq-title" class="h-l" data-i18n-html="enq_title">Your farm escape <em>starts here</em></h2>
       <p class="lede">Tell us your dates and we'll come back to you with availability. Or call or WhatsApp reservations on <a href="tel:+27832916790" style="text-decoration:underline;text-underline-offset:3px">083 291 6790</a>.</p>
+      <p class="nudge" data-nudge="generic"></p>
       <form class="eform" id="eform" novalidate>
         <div class="field"><label for="e-name">Full name*</label><input id="e-name" name="name" placeholder="Full name…" autocomplete="name" required></div>
         <div class="field"><label for="e-contact">Phone or email*</label><input id="e-contact" name="contact" placeholder="So we can reply…" autocomplete="email" required></div>
@@ -467,7 +511,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
         <div class="field full"><label for="e-msg">Anything we should know?</label><textarea id="e-msg" name="message" placeholder="Celebrating something, travelling for a wedding, arriving late…"></textarea></div>
         <div class="eform-foot">
           <p class="form-note" id="enote" role="status">Draft site: this form doesn't send yet.</p>
-          <button class="btn btn-book" type="submit">Send enquiry
+          <button class="btn btn-book" type="submit"><span data-i18n="send_enquiry">Send enquiry</span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7"/></svg>
           </button>
         </div>
@@ -495,6 +539,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
       <li><a href="#studios">Studios</a></li>
       <li><a href="#nearby">Nearby</a></li>
       <li><a href="#on-the-farm">On the farm</a></li>
+      <li><a href="#planner">Plan your trip</a></li>
       <li><a href="#enquire">Book your stay</a></li>
     </ul>
   </div>
@@ -629,5 +674,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
   frame();
 })();
 </script>
+<script src="lodge-data.js" defer></script>
+<script src="features.js" defer></script>
 </body>
 </html>
