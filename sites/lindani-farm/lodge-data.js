@@ -164,8 +164,7 @@ window.LODGE = {
       chat_greeting: "Hello and welcome to Lindani Farm! I'm the farm's booking helper. Ask me about the studios, rates, things to do or getting here, or tap an option below.",
       chat_placeholder: "Type your question…", chat_send: "Send", chat_close: "Close chat",
       qr_rooms: "Rooms & rates", qr_activities: "Activities", qr_dates: "Check dates", qr_directions: "Getting here", qr_kids: "Kids & pets", qr_book: "Book a stay",
-      nudge: "Book direct and save about {amount} compared with {ota}.",
-      nudge_generic: "Book direct: no {ota} commission, so the same stay costs you about {pct}% less."
+      nudge: "Book direct and save about {amount} compared with {ota}."
     },
     de: {
       language: "Sprache", nav_farm: "Die Farm", nav_studios: "Studios", nav_nearby: "Umgebung", nav_onfarm: "Auf der Farm", nav_contact: "Kontakt",
@@ -179,8 +178,7 @@ window.LODGE = {
       chat_greeting: "Hallo und willkommen auf der Lindani Farm! Ich helfe Ihnen bei der Buchung. Fragen Sie mich nach Studios, Preisen, Ausflügen oder der Anreise, oder wählen Sie unten eine Option. (Ausführliche Antworten vorerst auf Englisch.)",
       chat_placeholder: "Ihre Frage …", chat_send: "Senden", chat_close: "Chat schließen",
       qr_rooms: "Zimmer & Preise", qr_activities: "Aktivitäten", qr_dates: "Termine prüfen", qr_directions: "Anreise", qr_kids: "Kinder & Haustiere", qr_book: "Aufenthalt buchen",
-      nudge: "Direkt buchen und gegenüber {ota} etwa {amount} sparen.",
-      nudge_generic: "Direkt buchen: keine {ota}-Provision, derselbe Aufenthalt kostet Sie etwa {pct} % weniger."
+      nudge: "Direkt buchen und gegenüber {ota} etwa {amount} sparen."
     },
     nl: {
       language: "Taal", nav_farm: "De boerderij", nav_studios: "Studio's", nav_nearby: "In de buurt", nav_onfarm: "Op de boerderij", nav_contact: "Contact",
@@ -194,8 +192,7 @@ window.LODGE = {
       chat_greeting: "Hallo en welkom op Lindani Farm! Ik help je met boeken. Vraag me naar de studio's, prijzen, activiteiten of de route, of kies hieronder een optie. (Uitgebreide antwoorden voorlopig in het Engels.)",
       chat_placeholder: "Typ je vraag…", chat_send: "Verstuur", chat_close: "Chat sluiten",
       qr_rooms: "Kamers & prijzen", qr_activities: "Activiteiten", qr_dates: "Data bekijken", qr_directions: "Route", qr_kids: "Kinderen & huisdieren", qr_book: "Verblijf boeken",
-      nudge: "Boek direct en bespaar ongeveer {amount} ten opzichte van {ota}.",
-      nudge_generic: "Direct boeken: geen {ota}-commissie, dus hetzelfde verblijf kost je ongeveer {pct}% minder."
+      nudge: "Boek direct en bespaar ongeveer {amount} ten opzichte van {ota}."
     },
     af: {
       language: "Taal", nav_farm: "Die plaas", nav_studios: "Studio's", nav_nearby: "In die omgewing", nav_onfarm: "Op die plaas", nav_contact: "Kontak",
@@ -209,8 +206,7 @@ window.LODGE = {
       chat_greeting: "Hallo en welkom by Lindani Farm! Ek help jou om te bespreek. Vra my oor die studio's, tariewe, aktiwiteite of die roete hierheen, of kies 'n opsie hieronder. (Volledige antwoorde voorlopig in Engels.)",
       chat_placeholder: "Tik jou vraag…", chat_send: "Stuur", chat_close: "Maak klets toe",
       qr_rooms: "Kamers & tariewe", qr_activities: "Aktiwiteite", qr_dates: "Kyk na datums", qr_directions: "Roete hierheen", qr_kids: "Kinders & troeteldiere", qr_book: "Bespreek 'n verblyf",
-      nudge: "Bespreek direk en spaar sowat {amount} teenoor {ota}.",
-      nudge_generic: "Bespreek direk: geen {ota}-kommissie nie, so dieselfde verblyf kos jou sowat {pct}% minder."
+      nudge: "Bespreek direk en spaar sowat {amount} teenoor {ota}."
     }
   }
 };

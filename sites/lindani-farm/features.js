@@ -98,6 +98,209 @@
     return '';
   }
 
+  /* ---------- date range picker ----------
+     Replaces each pair of native date inputs with two buttons that open one
+     calendar. The native inputs stay in the form (hidden) and keep the values,
+     so every form reads its dates exactly as before. */
+  var picker = (function () {
+    var DAY = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    var pairs = [], st = null, pop, backdrop, monthsEl, hintEl, sumEl, doneBtn;
+    var MAXD = 540;
+    function fullNight(d) { return D.rooms.every(function (r) { return !isFree(r.id, d, addDays(d, 1)); }); }
+    function firstFullAfter(from) {
+      for (var i = 1; i <= D.booking.maxNights; i++) { var n = addDays(from, i); if (fullNight(n)) return n; }
+      return addDays(from, D.booking.maxNights);
+    }
+    function monthStart(d) { return d.slice(0, 8) + '01'; }
+    function addMonths(m, k) { var y = +m.slice(0, 4), mo = +m.slice(5, 7) - 1 + k; y += Math.floor(mo / 12); mo = ((mo % 12) + 12) % 12; return y + '-' + String(mo + 1).padStart(2, '0') + '-01'; }
+    function monthName(m) { try { return new Date(toMs(m)).toLocaleDateString('en-ZA', { month: 'long', year: 'numeric', timeZone: 'UTC' }); } catch (e) { return m.slice(0, 7); } }
+    function longDate(d) { try { return new Date(toMs(d)).toLocaleDateString('en-ZA', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }); } catch (e) { return d; } }
+    function wide() { return window.innerWidth >= 760; }
+    function asStart(d) { return d < today() || d > addDays(today(), MAXD) || fullNight(d); }
+    function disabled(d) {
+      if (st.step === 'to' && st.from && d > st.from) return d < addDays(st.from, Math.max(1, D.booking.minNights)) || d > firstFullAfter(st.from);
+      return asStart(d);
+    }
+    function svgIcon() {
+      var s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      s.setAttribute('viewBox', '0 0 24 24'); s.setAttribute('aria-hidden', 'true'); s.setAttribute('class', 'dp-ico');
+      s.innerHTML = '<rect x="3.5" y="5" width="17" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3.5 10h17M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="1.5"/>';
+      return s;
+    }
+    function attach(a, b) {
+      if (!a || !b || a._dp) return;
+      var pair = { a: a, b: b, btns: {} };
+      [['from', a], ['to', b]].forEach(function (x) {
+        var which = x[0], input = x[1];
+        var lab = input.labels && input.labels[0] ? input.labels[0].textContent.replace('*', '').trim() : (which === 'from' ? 'Arrive' : 'Leave');
+        var btn = el('button', { type: 'button', class: 'dp-trigger' }, [el('span', { class: 'dp-val' }), svgIcon()]);
+        btn._lab = lab;
+        btn.addEventListener('click', function () { open(pair, which, btn); });
+        input.classList.add('dp-native'); input.setAttribute('tabindex', '-1'); input.setAttribute('aria-hidden', 'true');
+        input.addEventListener('focus', function () { btn.focus(); });
+        input.after(btn);
+        input._dp = pair; pair.btns[which] = btn;
+      });
+      pairs.push(pair); sync(pair);
+    }
+    function sync(pair) {
+      [['from', pair.a], ['to', pair.b]].forEach(function (x) {
+        var btn = pair.btns[x[0]], v = x[1].value;
+        $('.dp-val', btn).textContent = v ? fmtDate(v) : 'Add date';
+        btn.classList.toggle('is-empty', !v);
+        btn.setAttribute('aria-label', btn._lab + ': ' + (v ? longDate(v) : 'not chosen') + '. Open calendar');
+      });
+    }
+    function syncAll() { pairs = pairs.filter(function (p) { return document.body.contains(p.a); }); pairs.forEach(sync); }
+
+    function build() {
+      backdrop = el('div', { class: 'dp-backdrop', hidden: true, onclick: function () { close(true); } });
+      hintEl = el('p', { class: 'dp-hint', 'aria-live': 'polite' });
+      monthsEl = el('div', { class: 'dp-months' });
+      sumEl = el('p', { class: 'dp-sum' });
+      doneBtn = el('button', { type: 'button', class: 'fx-btn fx-btn-book', text: 'Done', onclick: function () { close(true); } });
+      pop = el('div', { class: 'dp-pop', role: 'dialog', 'aria-modal': 'true', 'aria-label': 'Choose your dates', hidden: true }, [
+        el('div', { class: 'dp-top' }, [
+          el('button', { type: 'button', class: 'dp-nav', 'aria-label': 'Previous month', html: '&#8249;', onclick: function () { shift(-1); } }),
+          hintEl,
+          el('button', { type: 'button', class: 'dp-nav', 'aria-label': 'Next month', html: '&#8250;', onclick: function () { shift(1); } })
+        ]),
+        monthsEl,
+        el('p', { class: 'dp-legend' }, [el('span', { class: 'dp-key', 'aria-hidden': 'true', text: '12' }), ' Fully booked' + (D.showDemoNotice ? ' · sample calendar' : '')]),
+        el('div', { class: 'dp-foot' }, [sumEl, el('div', { class: 'dp-foot-btns' }, [
+          el('button', { type: 'button', class: 'fx-btn fx-btn-ghost', text: 'Clear', onclick: function () { st.from = ''; st.to = ''; st.step = 'from'; render(); } }),
+          doneBtn])])
+      ]);
+      pop.addEventListener('keydown', onKey);
+      monthsEl.addEventListener('mouseover', function (e) {
+        var d = e.target.closest('[data-d]');
+        if (st && st.step === 'to' && st.from && d) { st.hover = d.getAttribute('data-d'); paint(); }
+      });
+      monthsEl.addEventListener('mouseleave', function () { if (st) { st.hover = ''; paint(); } });
+      document.body.appendChild(backdrop); document.body.appendChild(pop);
+      window.addEventListener('resize', function () { if (st) { render(); place(); } });
+      window.addEventListener('scroll', function () { if (st && wide()) place(); }, { passive: true });
+      document.addEventListener('mousedown', function (e) {
+        if (st && wide() && !pop.contains(e.target) && !e.target.closest('.dp-trigger')) close(true);
+      });
+    }
+    function open(pair, which, btn) {
+      if (!pop) build();
+      var a = pair.a.value, b = pair.b.value;
+      st = { pair: pair, btn: btn, from: a, to: b, step: which === 'to' && a ? 'to' : 'from', hover: '' };
+      var focus = (which === 'to' && b) ? b : (a || today());
+      st.view = monthStart(focus < today() ? today() : focus);
+      st.focus = focus < today() ? today() : focus;
+      pop.hidden = false; backdrop.hidden = wide();
+      document.documentElement.classList.toggle('dp-lock', !wide());
+      render(); place(); focusDay();
+    }
+    function close(commitPartial) {
+      if (!st) return;
+      var s0 = st; st = null;
+      if (commitPartial !== false) commit(s0);
+      pop.hidden = true; backdrop.hidden = true; document.documentElement.classList.remove('dp-lock');
+      s0.btn.focus();
+    }
+    function commit(s0) {
+      var p = s0.pair;
+      if (p.a.value !== s0.from) { p.a.value = s0.from; p.a.dispatchEvent(new Event('change', { bubbles: true })); p.a.dispatchEvent(new Event('input', { bubbles: true })); }
+      if (s0.to || !s0.from) { if (p.b.value !== s0.to) { p.b.value = s0.to; p.b.dispatchEvent(new Event('change', { bubbles: true })); p.b.dispatchEvent(new Event('input', { bubbles: true })); } }
+      syncAll();
+    }
+    function place() {
+      if (!wide()) { pop.style.cssText = ''; pop.classList.add('dp-sheet'); return; }
+      pop.classList.remove('dp-sheet');
+      var r = st.btn.getBoundingClientRect(), w = pop.offsetWidth, h = pop.offsetHeight;
+      var left = Math.min(Math.max(8, r.left), window.innerWidth - w - 8);
+      var top = r.bottom + 8;
+      if (top + h > window.innerHeight - 8 && r.top - h - 8 > 8) top = r.top - h - 8;
+      if (top + h > window.innerHeight - 8) top = Math.max(8, window.innerHeight - h - 8);
+      pop.style.left = left + 'px'; pop.style.top = top + 'px';
+    }
+    function shift(k) { st.view = addMonths(st.view, k); st.focus = addMonths(st.focus.slice(0, 8) + '01', k); render(); }
+    function render() {
+      var n = wide() ? 2 : 1;
+      monthsEl.innerHTML = '';
+      monthsEl.style.gridTemplateColumns = 'repeat(' + n + ',minmax(0,1fr))';
+      for (var k = 0; k < n; k++) {
+        var m = addMonths(st.view, k), days = el('div', { class: 'dp-days' });
+        DAY.forEach(function (d) { days.appendChild(el('span', { class: 'dp-dow', 'aria-hidden': 'true', text: d.slice(0, 2) })); });
+        var lead = (weekday(m) + 6) % 7;
+        for (var i = 0; i < lead; i++) days.appendChild(el('span', { class: 'dp-pad' }));
+        for (var d = m; d.slice(0, 7) === m.slice(0, 7); d = addDays(d, 1)) {
+          days.appendChild(el('button', { type: 'button', class: 'dp-day', 'data-d': d, tabindex: '-1', text: String(+d.slice(8)),
+            onclick: (function (dd) { return function () { pick(dd); }; })(d) }));
+        }
+        monthsEl.appendChild(el('div', { class: 'dp-month' }, [el('p', { class: 'dp-mname', text: monthName(m) }), days]));
+      }
+      var first = st.view, last = addMonths(st.view, n);
+      if (st.focus < first || st.focus >= last) st.focus = first < today() ? today() : first;
+      $$('.dp-nav', pop)[0].disabled = st.view <= monthStart(today());
+      paint();
+    }
+    function paint() {
+      var lo = st.from, hi = st.to || (st.step === 'to' && st.hover > st.from ? st.hover : '');
+      $$('.dp-day', monthsEl).forEach(function (b) {
+        var d = b.getAttribute('data-d'), full = fullNight(d), dis = disabled(d);
+        b.disabled = dis;
+        b.classList.toggle('is-full', full);
+        b.classList.toggle('is-today', d === today());
+        b.classList.toggle('is-start', d === lo);
+        b.classList.toggle('is-end', !!hi && d === hi);
+        b.classList.toggle('in-range', !!(lo && hi && d > lo && d < hi));
+        b.setAttribute('tabindex', d === st.focus ? '0' : '-1');
+        b.setAttribute('aria-pressed', d === lo || d === st.to ? 'true' : 'false');
+        b.setAttribute('aria-label', longDate(d) + (full ? ', fully booked' : '') + (d === lo ? ', arrival' : '') + (d === st.to ? ', departure' : '') + (dis && !full ? ', not available' : ''));
+      });
+      var nights = st.from && st.to ? nightsBetween(st.from, st.to) : 0;
+      hintEl.textContent = st.step === 'from' || !st.from ? 'Choose your arrival date' : 'Now choose your departure date' + (D.booking.minNights > 1 ? ' (minimum ' + D.booking.minNights + ' nights)' : '');
+      sumEl.textContent = st.from ? fmtDate(st.from) + ' → ' + (st.to ? fmtDate(st.to) + ' · ' + nights + ' night' + (nights > 1 ? 's' : '') : '…') : 'No dates chosen';
+      doneBtn.textContent = st.from && !st.to ? 'Done (arrival only)' : 'Done';
+    }
+    function focusDay() {
+      var b = $('.dp-day[data-d="' + st.focus + '"]', monthsEl);
+      if (b) b.focus({ preventScroll: true });
+    }
+    function pick(d) {
+      if (st.step === 'to' && st.from && d > st.from) {
+        st.to = d; st.focus = d; paint();
+        setTimeout(function () { close(true); }, reduceMotion ? 0 : 220);
+      } else {
+        st.from = d; st.to = ''; st.step = 'to'; st.focus = d; st.hover = ''; paint(); focusDay();
+      }
+    }
+    function onKey(e) {
+      if (e.key === 'Escape') { e.preventDefault(); close(false); return; }
+      if (e.key === 'Tab') {
+        var f = $$('button:not([disabled])', pop).filter(function (b) { return !b.classList.contains('dp-day') || b.getAttribute('tabindex') === '0'; });
+        var i = f.indexOf(document.activeElement);
+        if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); }
+        else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); }
+        return;
+      }
+      if (!e.target.classList.contains('dp-day')) return;
+      var step = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -7, ArrowDown: 7 }[e.key];
+      var d = st.focus;
+      if (step) d = addDays(d, step);
+      else if (e.key === 'PageUp') d = addMonths(monthStart(d), -1).slice(0, 8) + d.slice(8);
+      else if (e.key === 'PageDown') d = addMonths(monthStart(d), 1).slice(0, 8) + d.slice(8);
+      else if (e.key === 'Home') d = addDays(d, -((weekday(d) + 6) % 7));
+      else if (e.key === 'End') d = addDays(d, 6 - ((weekday(d) + 6) % 7));
+      else return;
+      e.preventDefault();
+      if (d < today()) d = today();
+      var n = wide() ? 2 : 1;
+      if (monthStart(d) < st.view) st.view = monthStart(d);
+      if (monthStart(d) >= addMonths(st.view, n)) st.view = addMonths(monthStart(d), 1 - n);
+      st.focus = d;
+      if (!$('.dp-day[data-d="' + d + '"]', monthsEl)) render(); else paint();
+      if (st.step === 'to' && st.from) { st.hover = d; paint(); }
+      focusDay();
+    }
+    return { attach: attach, syncAll: syncAll };
+  })();
+
   function nextOpenings(q) {
     var n = nightsBetween(q.from, q.to), found = [];
     for (var i = 1; i <= 60 && found.length < 2; i++) {
@@ -138,12 +341,9 @@
   }
 
   /* ---------- book-direct note ---------- */
-  function nudgeText(amount) {
-    if (amount) return t('nudge', { amount: money(amount), ota: D.booking.otaName });
-    // Direct = agent price × (1 − commission), so the saving is the commission share of the agent's price
-    return t('nudge_generic', { ota: D.booking.otaName, pct: Math.round(D.booking.otaCommissionPercent) });
-  }
-  function nudgeEl(amount) { return el('p', { class: 'nudge', text: nudgeText(amount) }); }
+  function nudgeText(amount) { return t('nudge', { amount: money(amount), ota: D.booking.otaName }); }
+  // Only shown when there's a real saving to name
+  function nudgeEl(amount) { return amount > 0 ? el('p', { class: 'nudge', text: nudgeText(amount) }) : document.createTextNode(''); }
   function renderNudges() {
     $$('[data-nudge]').forEach(function (n) {
       var kind = n.getAttribute('data-nudge');
@@ -153,7 +353,7 @@
         var direct = r.rate * D.booking.minNights;
         n.textContent = nudgeText(otaSaving(direct)) + ' (Example: ' + D.booking.minNights + ' nights in ' + r.name + ', ' +
           money(direct) + ' direct vs about ' + money(direct + otaSaving(direct)) + '.)';
-      } else n.textContent = nudgeText(0);
+      }
     });
   }
 
@@ -278,7 +478,7 @@
     // Every message is stored as data and re-drawn from data, so the chat survives a page reload.
     function draw(m) {
       switch (m.kind) {
-        case 'rooms': return bubble('bot', [textNode(m.text), roomsList(), nudgeEl(0), actionsRow([{ label: t('qr_dates'), intent: 'dates' }, { label: t('qr_book'), intent: 'book' }])]);
+        case 'rooms': return bubble('bot', [textNode(m.text), roomsList(), actionsRow([{ label: t('qr_dates'), intent: 'dates' }, { label: t('qr_book'), intent: 'book' }])]);
         case 'dateForm': return bubble('bot', [textNode(m.text), dateForm(m)], 'fx-wide');
         case 'dateResult': return bubble('bot', dateResult(m), 'fx-wide');
         case 'bookForm': return bubble('bot', [textNode(m.text), bookForm(m)], 'fx-wide');
@@ -327,6 +527,7 @@
         err,
         el('button', { type: 'submit', class: 'fx-btn fx-btn-book', text: 'Check availability' })
       ]);
+      picker.attach(inp, out);
       f.addEventListener('submit', function (e) {
         e.preventDefault();
         var q = { from: inp.value, to: out.value, adults: +f.elements.adults.value, kids: +f.elements.kids.value };
@@ -403,6 +604,7 @@
         err,
         el('button', { type: 'submit', class: 'fx-btn fx-btn-book', text: 'Review my request' })
       ]);
+      picker.attach(from, to);
       f.addEventListener('submit', function (e) {
         e.preventDefault();
         var r = {
@@ -600,10 +802,12 @@
     var fri = addDays(t0, ((5 - weekday(t0) + 7) % 7) || 7);
     if (nightsBetween(t0, fri) < 3) fri = addDays(fri, 7);
     f.from.value = fri; f.to.value = addDays(fri, D.booking.minNights);
+    picker.attach(f.from, f.to);
     f.from.addEventListener('change', function () {
       if (!f.from.value) return;
       f.to.min = addDays(f.from.value, 1);
       if (!f.to.value || f.to.value <= f.from.value) f.to.value = addDays(f.from.value, D.booking.minNights);
+      picker.syncAll();
     });
     function setErr(input, msg) {
       var id = input.id + '-err', box = document.getElementById(id);
@@ -650,7 +854,7 @@
             out.appendChild(el('p', { class: 'avail-meta', text: 'The next free dates for the same length of stay:' }));
             out.appendChild(el('div', { class: 'fx-actions' }, alt.map(function (a) {
               return el('button', { type: 'button', class: 'fx-chip', text: fmtDate(a.from) + ' – ' + fmtDate(a.to), onclick: function () {
-                f.from.value = a.from; f.to.value = a.to; run({ from: a.from, to: a.to, adults: q.adults, kids: q.kids });
+                f.from.value = a.from; f.to.value = a.to; picker.syncAll(); run({ from: a.from, to: a.to, adults: q.adults, kids: q.kids });
               } });
             })));
           }
@@ -679,6 +883,7 @@
     chat.open(b.getAttribute('data-open-chat') || null);
   });
 
+  picker.attach($('#e-in'), $('#e-out'));
   renderRates();
   initLang();
 })();
