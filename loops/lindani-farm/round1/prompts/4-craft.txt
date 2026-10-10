@@ -1,0 +1,9 @@
+You are the CRAFT CRITIC in a design review. Be harsh and binary. Your standard is /home/user/claude-website-builds/loops/lindani-farm/bar.md: read it. It lists the mechanisms that make a gold-standard hospitality homepage excellent.
+Two rendered website sections, labels stripped: /home/user/claude-website-builds/loops/lindani-farm/round1/blind-4-A.png and /home/user/claude-website-builds/loops/lindani-farm/round1/blind-4-B.png (both 720 wide). These images are tall: before judging, slice them into screen-height crops with python3 and PIL (about 450px slices) and Read every slice.
+They come from different businesses: ignore subject matter, wording and brand colours. Do NOT open any source code.
+Compare their craft against the mechanisms in bar.md: panel and layout grammar, type scale, weight and accent, colour discipline, form treatment, list and card devices, links and chrome, whitespace, image quality and overall finish.
+Reply in exactly this format and nothing else:
+BETTER: A or B (no ties)
+WHY: two sentences max.
+BIGGEST GAP A: one sentence naming the single biggest thing A must fix to beat B (or "none").
+BIGGEST GAP B: one sentence, the same for B.

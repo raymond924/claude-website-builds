@@ -5,10 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Lindani Farm</title>
 <meta name="description" content="Lindani Farm: four private self-catering studios on a farm just outside Paarl, close to Fairview, Nederburg and Franschhoek.">
+<link rel="preload" href="assets/fonts/satoshi-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/satoshi-500.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Work+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap">
 <style>
+/* Satoshi (Indian Type Foundry, via Fontshare; free for commercial use), self-hosted */
+@font-face{font-family:"Satoshi";src:url("assets/fonts/satoshi-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Satoshi";src:url("assets/fonts/satoshi-500.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Satoshi";src:url("assets/fonts/satoshi-700.woff2") format("woff2");font-weight:600 700;font-style:normal;font-display:swap}
 /* Reference lock: Grafton Safaris layout and type roles (BRIEF.md).
    Grafton's orange CTA and charcoal footer are swapped for Lindani's own gold and olive. */
 :root{
@@ -24,7 +30,7 @@
   --gold:#e8c27b;
   --gold-ink:#2c341f;
   --serif:"Playfair Display",Georgia,"Times New Roman",serif;
-  --sans:"Work Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --sans:"Satoshi",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
   --edge:12px;
   --r:16px;
   --btn-r:8px;
@@ -318,7 +324,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
 
 <main id="top">
 
-  <section class="hero" aria-labelledby="hero-title">
+  <section class="hero" data-piece="1" aria-labelledby="hero-title">
     <img src="assets/avenue.webp" width="1080" height="638" alt="Tree-lined farm road leading to a mountain at Lindani Farm, near Paarl" fetchpriority="high">
     <div class="hero-inner">
       <div>
@@ -331,7 +337,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
     </div>
   </section>
 
-  <section class="quick" id="quick" aria-labelledby="quick-title">
+  <section class="quick" data-piece="1" id="quick" aria-labelledby="quick-title">
     <div class="wrap">
       <h2 id="quick-title" class="h-l" data-i18n="quick_title">Plan your stay here</h2>
       <form class="qform" id="qform" novalidate aria-describedby="qnote">
@@ -348,7 +354,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
     </div>
   </section>
 
-  <section class="experience" id="experience" aria-labelledby="exp-title">
+  <section class="experience" data-piece="2" id="experience" aria-labelledby="exp-title">
     <div class="wrap">
       <h2 id="exp-title" class="h-l" data-i18n-html="exp_title">A farm stay <br><em>made for slowing down</em></h2>
       <div class="exp-panel">
@@ -368,7 +374,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
     </div>
   </section>
 
-  <section class="studios" id="studios" aria-labelledby="studios-title">
+  <section class="studios" data-piece="2" id="studios" aria-labelledby="studios-title">
     <div class="wrap">
       <div class="studios-head">
         <h2 id="studios-title" class="h-l" data-i18n-html="studios_title">Come home to <br><em>your own studio</em></h2>
@@ -398,7 +404,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
     </div>
   </section>
 
-  <section class="nearby" id="nearby" aria-labelledby="nearby-title">
+  <section class="nearby" data-piece="3" id="nearby" aria-labelledby="nearby-title">
     <div class="wrap nearby-grid">
       <div class="nearby-intro">
         <h2 id="nearby-title" class="h-l" data-i18n-html="nearby_title">Taste, explore <br>and <em>wander nearby</em></h2>
@@ -418,7 +424,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
     </div>
   </section>
 
-  <section class="band" aria-labelledby="band-title">
+  <section class="band" data-piece="3" aria-labelledby="band-title">
     <figure><img src="assets/golden.webp" width="1080" height="551" alt="Guest looking out over the valley and mountains in golden-hour light" loading="lazy"></figure>
     <div class="band-inner">
       <div class="band-copy">
@@ -431,7 +437,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
     </div>
   </section>
 
-  <section class="farm" id="on-the-farm" aria-labelledby="farm-title">
+  <section class="farm" data-piece="3" id="on-the-farm" aria-labelledby="farm-title">
     <div class="wrap">
       <div class="farm-head">
         <h2 id="farm-title" class="h-l" data-i18n="farm_title">On the farm</h2>
@@ -458,7 +464,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
     </div>
   </section>
 
-  <section class="enquire" id="enquire" aria-labelledby="enq-title">
+  <section class="enquire" data-piece="4" id="enquire" aria-labelledby="enq-title">
     <img src="assets/avenue.webp" width="1080" height="638" alt="" loading="lazy">
     <div class="enquire-inner">
       <h2 id="enq-title" class="h-l" data-i18n-html="enq_title">Your farm escape <em>starts here</em></h2>
@@ -484,7 +490,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
 
 </main>
 
-<footer class="footer" id="contact">
+<footer class="footer" data-piece="4" id="contact">
   <div class="f-top">
     <a href="#top" class="mark" aria-label="Lindani Farm, back to top"><b>LINDANI</b><span>FARM</span></a>
     <a href="#top" class="circle to-top" aria-label="Back to top">

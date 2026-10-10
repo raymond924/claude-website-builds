@@ -1,0 +1,22 @@
+# Netlify settings for the Lindani Farm site.
+# In Netlify: Site configuration > Build & deploy > Base directory = sites/lindani-farm
+# Only the public files are copied into dist/, so BRIEF.md, README.md and the
+# design references in this folder are never published.
+[build]
+  command = "rm -rf dist && mkdir dist && cp -r index.html features.js features.css lodge-data.js assets dist/"
+  publish = "dist"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

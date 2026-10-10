@@ -45,7 +45,7 @@ Path: direct build in the reference's layout, Lindani's brand colours.
 ```text
 Primary reference: Grafton Safaris (graftonsafaris.com), captured 2026-10-10 at 1440 and 390.
 Preserve: warm off-white canvas (#FAF9F8); large light display serif with an italic accent word
-  ("The Grafton *Experience*"); Work Sans body at small sizes with generous line height;
+  ("The Grafton *Experience*"); small sans body with generous line height;
   floating white rounded nav bar with a filled CTA on the right; full-bleed rounded inset hero
   (12px from the edges) with the headline bottom-left and a circled down-arrow; quick enquiry form
   straight under the hero; intro text in two columns on a pale panel; the big faint serif list
@@ -61,7 +61,7 @@ Token commitments: canvas #FAF9F8, panel #F0F1EF, sage card #DCDED8, ink #1F241A
   olive #2C341F (dark band + footer, Lindani's brand colour in place of Grafton's #222),
   gold #E8C27B (CTA fill and italic accents on dark, Lindani's brand gold in place of the orange).
   Display: Playfair Display 400 + italic (stands in for Grafton's proprietary "seasons" and matches
-  Lindani's own Instagram headlines). Body: Work Sans (same as Grafton).
+  Lindani's own Instagram headlines). Body/UI: Satoshi, self-hosted (client's choice, 2026-10-10; replaces Grafton's Work Sans).
 ```
 
 ## Decision ledger

@@ -1,0 +1,9 @@
+You are the SYSTEM CRITIC in a design review. Be harsh, binary and objective. Your only standard is the design system in /home/user/claude-website-builds/sites/lindani-farm/design-system.md: read all of it.
+Judge ONLY the rendered screenshots: /home/user/claude-website-builds/loops/lindani-farm/round1/ours-2-desk.png (1440 wide) and /home/user/claude-website-builds/loops/lindani-farm/round1/ours-2-mob.png (390 wide). These images are tall: before judging, slice them into screen-height crops with python3 and PIL (for example 900px slices of the desktop shot, 844px slices of the phone shot) and Read every slice.
+Do NOT open any HTML, CSS or JS. You may measure the screenshots with python3 and PIL (sample pixel colours, measure radii, gaps, inset from the edge, text heights) to check the rules.
+Check every rule that applies to what you can see: colour roles (above all, gold only on booking actions and at most two gold buttons per screen; no other saturated colour), fonts (Playfair Display display with one italic accent per major heading, Satoshi body, 12px uppercase labels), minimum text size, panel inset and radius, card/button radii, secondary links as label plus circled arrow, form fields, date fields as buttons, shadows only where allowed, footer rules, photos only (no text in images).
+PASS only if there is no material violation.
+Reply in exactly this format and nothing else:
+VERDICT: PASS or FAIL
+VIOLATIONS: bullet list (max 5), most serious first, or "none"
+BIGGEST GAP: one sentence.
