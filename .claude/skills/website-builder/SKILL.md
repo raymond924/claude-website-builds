@@ -163,3 +163,4 @@ style and the live site. Mark the selected style. Style the page in the selected
 | Date | Client | Primary reference | Alternatives | Notes |
 |---|---|---|---|---|
 | 2026-10-07 | COOK Engineering (citrus + fish factory engineering, juice evaporators; South Africa) | T1 Energy | ON.energy, teenage engineering | v1 with placeholders; v2 "Concentrate" system via /design-loop (3 rounds, 5/12 → fixes) with Higgsfield video + 11 images (8.7 of 10 credits). |
+| 2026-10-10 | Lindani Farm (four self-catering studios near Paarl, Western Cape) | Grafton Safaris (a live site the user named, not Refero) | none | Content and photos pulled from Instagram via the public `/<user>/embed/` page (the profile page and API need a login). Text-free crops of the client's branded posts; client gold/olive replaced the reference's orange/charcoal. Grafton crashes in headless Chromium unless launched with SwiftShader WebGL flags. |

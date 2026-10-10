@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lindani Farm</title>
+<meta name="description" content="Lindani Farm: four private self-catering studios on a farm just outside Paarl, close to Fairview, Nederburg and Franschhoek.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Work+Sans:wght@400;500;600&display=swap">
+<style>
+/* Reference lock: Grafton Safaris layout and type roles (BRIEF.md).
+   Grafton's orange CTA and charcoal footer are swapped for Lindani's own gold and olive. */
+:root{
+  --canvas:#faf9f8;
+  --panel:#f0f1ef;
+  --sage:#dcded8;
+  --line:#d3d5cf;
+  --ink:#1f241a;
+  --muted:#5f6457;
+  --faint:#c3c6bd;
+  --olive:#2c341f;
+  --olive-2:#3c4630;
+  --gold:#e8c27b;
+  --gold-ink:#2c341f;
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --sans:"Work Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --edge:12px;
+  --r:16px;
+  --btn-r:8px;
+  --wrap:1200px;
+  --gutter:48px;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:96px}
+body{margin:0;background:var(--canvas);color:var(--ink);font:400 15px/1.75 var(--sans);overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3,p,ul,dl,dd,figure{margin:0;padding:0}
+ul{list-style:none}
+h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;line-height:1.05}
+em{font-style:italic}
+:focus-visible{outline:2px solid var(--olive);outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gutter)}
+.label{font:600 11px/1.4 var(--sans);letter-spacing:.14em;text-transform:uppercase}
+.tag{font:500 10px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.h-xl{font-size:clamp(44px,6.7vw,96px)}
+.h-l{font-size:clamp(40px,5vw,72px)}
+.h-l em,.h-xl em{font-style:italic}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:12px;border:0;border-radius:var(--btn-r);padding:16px 24px;font:500 15px/1 var(--sans);cursor:pointer;transition:filter .2s,transform .2s}
+.btn-book{background:var(--gold);color:var(--gold-ink)}
+.btn-book:hover{filter:brightness(1.05)}
+.btn-ghost{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.35)}
+.circle-link{display:inline-flex;align-items:center;gap:14px;font:500 14px/1 var(--sans)}
+.circle{display:inline-grid;place-items:center;width:44px;height:44px;border:1px solid currentColor;border-radius:50%;transition:background .25s,color .25s}
+.circle svg{width:20px;height:20px}
+.circle-link:hover .circle{background:var(--ink);color:var(--canvas)}
+
+/* Nav: floating white bar, Grafton style */
+.nav{position:fixed;z-index:50;top:var(--edge);left:calc(var(--edge) + 12px);right:calc(var(--edge) + 12px);display:flex;align-items:center;justify-content:space-between;gap:24px;padding:10px 10px 10px 22px;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:12px;transition:box-shadow .3s}
+.nav.scrolled{box-shadow:0 6px 30px rgba(31,36,26,.08)}
+.mark{display:flex;flex-direction:column;align-items:center;line-height:1;color:var(--olive)}
+.mark b{font:500 20px/1 var(--serif);letter-spacing:.28em;margin-right:-.28em}
+.mark span{display:flex;align-items:center;gap:6px;font:500 8px/1 var(--sans);letter-spacing:.42em;margin-top:5px;margin-right:-.42em}
+.mark span::before,.mark span::after{content:"";width:14px;height:1px;background:currentColor;opacity:.6}
+.nav-links{display:flex;gap:32px;font-size:13px;font-weight:500}
+.nav-links a{padding:6px 0;border-bottom:1px solid transparent}
+.nav-links a:hover{border-color:currentColor}
+.nav-right{display:flex;align-items:center;gap:10px}
+.menu-btn{display:none;width:44px;height:44px;border:0;background:none;border-radius:8px;cursor:pointer;place-items:center}
+.menu-btn svg{width:22px;height:22px}
+
+/* Hero: rounded inset photo, headline bottom-left */
+.hero{position:relative;margin:var(--edge);height:calc(100svh - 2*var(--edge));min-height:600px;border-radius:var(--r);overflow:hidden;color:#fff;background:var(--olive)}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%;transform:scale(1.04);animation:settle 2.4s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes settle{to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,24,14,.05) 35%,rgba(20,24,14,.62) 100%)}
+.hero-inner{position:absolute;z-index:1;left:0;right:0;bottom:0;padding:0 40px 48px;display:flex;align-items:flex-end;justify-content:space-between;gap:32px}
+.hero .label{opacity:.88;margin-bottom:22px}
+.hero h1{max-width:12ch}
+.hero h1 em{color:var(--gold)}
+.hero .circle{width:64px;height:64px;flex:none;border-color:rgba(255,255,255,.7)}
+.hero .circle:hover{background:#fff;color:var(--olive)}
+
+/* Quick enquiry under hero */
+.quick{padding:72px 0 24px}
+.quick h2{margin-bottom:28px}
+.qform{display:grid;grid-template-columns:1.3fr 1fr 1fr auto;gap:16px;align-items:end}
+.field{display:flex;flex-direction:column;gap:8px}
+.field label{font:600 10px/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase}
+.field input,.field select,.field textarea{width:100%;height:52px;padding:0 16px;border:1px solid transparent;border-radius:var(--btn-r);background:var(--panel);font-size:14px;appearance:none;-webkit-appearance:none}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231f241a' stroke-width='1.6'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:18px;padding-right:44px}
+.field textarea{height:auto;min-height:96px;padding:14px 16px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--olive)}
+.field input[aria-invalid="true"]{border-color:#a5462b}
+.form-note{margin-top:14px;font-size:13px;color:var(--muted)}
+.form-note[data-state="ok"]{color:var(--olive)}
+.form-note[data-state="err"]{color:#a5462b}
+.form-note a{text-decoration:underline;text-underline-offset:3px}
+
+/* Experience: two-column intro on a pale panel */
+.experience{padding:96px 0 40px}
+.experience h2{margin-bottom:56px}
+.experience h2 em{color:var(--olive-2)}
+.exp-panel{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:56px;align-items:start;padding:56px;border-radius:var(--r);background:linear-gradient(180deg,var(--canvas),var(--panel) 30%)}
+.exp-panel p+p{margin-top:20px}
+.exp-panel .circle-link{margin-top:28px}
+.exp-panel figure{border-radius:12px;overflow:hidden;aspect-ratio:4/5}
+.exp-panel figure img{width:100%;height:100%;object-fit:cover}
+
+/* Studios */
+.studios{padding:120px 0 40px}
+.studios-head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:48px}
+.studios-head p{max-width:40ch;color:var(--muted)}
+.studio-grid{display:grid;grid-template-columns:1.4fr 1fr;grid-template-rows:auto auto;gap:16px}
+.studio-grid figure{border-radius:12px;overflow:hidden;background:var(--sage)}
+.studio-grid figure img{width:100%;height:100%;object-fit:cover}
+.studio-grid .big{grid-row:span 2;aspect-ratio:1/1}
+.studio-grid .small{aspect-ratio:16/10}
+.features{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:16px}
+.features li{padding:24px;border-radius:12px;background:var(--panel)}
+.features b{display:block;font:400 22px/1.2 var(--serif);margin-bottom:6px}
+.features span{font-size:13px;color:var(--muted);line-height:1.6;display:block}
+
+/* Nearby: Grafton's big faint list with ( TAG ) labels */
+.nearby{padding:120px 0 48px}
+.nearby-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:64px;align-items:start}
+.nearby-intro{position:sticky;top:120px}
+.nearby-intro h2{margin-bottom:24px}
+.nearby-intro p{color:var(--muted);max-width:36ch;margin-bottom:32px}
+.places li{display:flex;align-items:baseline;gap:18px;padding:6px 0}
+.places .p-name{font:400 clamp(34px,4.4vw,60px)/1.12 var(--serif);color:var(--faint);transition:color .35s}
+.places li.on .p-name,.places li:hover .p-name{color:var(--ink)}
+.places .p-note{display:block;max-height:0;overflow:hidden;font-size:14px;color:var(--muted);transition:max-height .45s ease,margin .45s ease}
+.places li.on .p-note{max-height:80px;margin-top:8px}
+.places li > div{flex:1 1 auto}
+
+/* Dark olive band */
+.band{position:relative;margin:96px var(--edge) 0;border-radius:var(--r);overflow:hidden;color:#fff;background:var(--olive)}
+.band-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;min-height:640px}
+.band-copy{padding:96px 64px 80px;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(90deg,var(--olive) 70%,rgba(44,52,31,0))}
+.band h2 em{color:var(--gold)}
+.band p{margin:32px 0 36px;max-width:40ch;color:rgba(255,255,255,.82)}
+.band .circle-link:hover .circle{background:#fff;color:var(--olive)}
+.band figure{position:absolute;inset:0 0 0 38%}
+.band figure img{width:100%;height:100%;object-fit:cover}
+
+/* On the farm: stacked sticky cards */
+.farm{padding:120px 0 40px}
+.farm-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px}
+.stack{position:relative}
+.card{position:sticky;top:104px;display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:48px;transform-origin:50% 0;will-change:transform}
+.card-text{display:flex;flex-direction:column;justify-content:flex-end;min-height:440px;padding:40px;border-radius:12px;background:var(--sage)}
+.card-text .tag{margin-bottom:auto}
+.card-text h3{font-size:clamp(30px,3vw,40px);margin:0 0 16px}
+.card-text p{max-width:42ch;font-size:14px}
+.card figure{border-radius:12px;overflow:hidden;background:var(--sage)}
+.card figure img{width:100%;height:100%;object-fit:cover}
+
+/* Final enquiry over a photo */
+.enquire{position:relative;margin:96px var(--edge) 0;border-radius:var(--r);overflow:hidden;color:#fff;background:var(--olive)}
+.enquire > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.enquire::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(28,32,20,.5),rgba(28,32,20,.82))}
+.enquire-inner{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:112px 24px 104px}
+.enquire h2{text-align:center;margin-bottom:16px}
+.enquire h2 em{color:var(--gold);display:block}
+.enquire .lede{text-align:center;color:rgba(255,255,255,.84);margin:0 auto 48px;max-width:46ch}
+.eform{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.eform .full{grid-column:1/-1}
+.eform .field input,.eform .field select,.eform .field textarea{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.22)}
+.eform .field input::placeholder,.eform .field textarea::placeholder{color:rgba(255,255,255,.62)}
+.eform .field select{background-repeat:no-repeat;background-position:right 14px center;background-size:18px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='1.6'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")}
+.eform .field select option{color:var(--ink)}
+.eform .field input:focus,.eform .field select:focus,.eform .field textarea:focus{border-color:var(--gold)}
+.eform-foot{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-top:8px}
+.enquire .form-note{color:rgba(255,255,255,.8)}
+.enquire .form-note[data-state="ok"]{color:var(--gold)}
+.enquire .form-note[data-state="err"]{color:#ffb39b}
+input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
+.eform input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1)}
+
+/* Footer: olive rounded panel */
+.footer{margin:16px var(--edge) var(--edge);border-radius:var(--r);background:var(--olive);color:#fff;padding:56px 48px 32px}
+.f-top{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;margin-bottom:40px}
+.footer .mark{color:#fff}
+.to-top{width:72px;height:72px;border-color:rgba(255,255,255,.55)}
+.to-top:hover{background:#fff;color:var(--olive)}
+.to-top svg{width:26px;height:26px}
+.f-mid{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;padding-bottom:28px;border-bottom:1px solid rgba(255,255,255,.18)}
+.f-contact a{display:block;font:400 clamp(24px,2.6vw,34px)/1.3 var(--serif)}
+.f-contact a:hover{color:var(--gold)}
+.f-contact small{display:block;font-size:13px;color:rgba(255,255,255,.66);margin-top:10px}
+.f-links{display:flex;gap:28px;font-size:13px;font-weight:500;flex-wrap:wrap}
+.f-links a:hover{color:var(--gold)}
+.f-bot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-top:22px;font-size:12px;color:rgba(255,255,255,.66)}
+.f-social{display:flex;gap:18px;align-items:center}
+.f-social a{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:50%}
+.f-social a:hover{color:var(--gold)}
+.f-social svg{width:18px;height:18px}
+
+/* Reveal on scroll */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none;transition:none}
+  .hero img{animation:none;transform:none}
+  .card{transform:none!important}
+}
+
+/* Tablet */
+@media (max-width:1024px){
+  :root{--gutter:32px}
+  .nav-links{gap:22px}
+  .qform{grid-template-columns:1fr 1fr}
+  .qform .btn{justify-self:start}
+  .exp-panel{grid-template-columns:1fr 1fr;padding:40px}
+  .exp-panel figure{grid-column:1/-1;aspect-ratio:16/9}
+  .features{grid-template-columns:1fr 1fr}
+  .nearby-grid{grid-template-columns:1fr;gap:40px}
+  .nearby-intro{position:static}
+}
+/* Phone */
+@media (max-width:760px){
+  :root{--gutter:20px;--edge:8px}
+  body{font-size:14px}
+  .nav{left:var(--edge);right:var(--edge);padding:8px 8px 8px 16px}
+  .nav-links{display:none}
+  .menu-btn{display:grid}
+  .nav-links.open{display:flex;position:absolute;top:calc(100% + 8px);left:0;right:0;flex-direction:column;gap:0;padding:8px 16px;background:#fff;border-radius:12px;box-shadow:0 10px 30px rgba(31,36,26,.12)}
+  .nav-links.open a{display:block;padding:14px 4px;font-size:16px;border-bottom:1px solid var(--panel)}
+  .nav-links.open li:last-child a{border-bottom:0}
+  .nav .btn{padding:13px 16px;font-size:14px}
+  .hero{min-height:560px}
+  .hero-inner{padding:0 20px 28px}
+  .hero .circle{display:none}
+  .quick{padding:48px 0 8px}
+  .qform{grid-template-columns:1fr}
+  .qform .btn{width:100%;justify-content:center}
+  .experience{padding:72px 0 24px}
+  .experience h2{margin-bottom:32px}
+  .exp-panel{grid-template-columns:1fr;gap:20px;padding:24px 20px}
+  .exp-panel figure{aspect-ratio:4/3;margin-top:12px}
+  .studios{padding:80px 0 24px}
+  .studios-head{flex-direction:column;align-items:flex-start;gap:16px}
+  .studio-grid{grid-template-columns:1fr}
+  .studio-grid .big{grid-row:auto;aspect-ratio:4/3}
+  .features{grid-template-columns:1fr}
+  .features li{padding:20px}
+  .nearby{padding:80px 0 24px}
+  .places li{flex-wrap:wrap;gap:4px 12px}
+  .band{margin-top:64px}
+  .band-inner{grid-template-columns:1fr;min-height:0}
+  .band figure{position:relative;inset:auto;aspect-ratio:4/3}
+  .band-copy{padding:48px 24px 40px;background:var(--olive)}
+  .farm{padding:80px 0 24px}
+  .farm-head{margin-bottom:24px}
+  .card{grid-template-columns:1fr;gap:0;top:84px;margin-bottom:32px;border-radius:12px;overflow:hidden;background:var(--sage)}
+  .card figure{order:-1;aspect-ratio:16/10;border-radius:0}
+  .card-text{min-height:0;padding:24px 20px 28px;border-radius:0}
+  .card-text .tag{margin-bottom:14px}
+  .enquire{margin-top:64px}
+  .enquire-inner{padding:72px 16px 64px}
+  .eform{grid-template-columns:1fr}
+  .eform-foot .btn{width:100%;justify-content:center}
+  .footer{padding:40px 20px 24px}
+  .to-top{width:56px;height:56px}
+}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <a href="#top" class="mark" aria-label="Lindani Farm, home"><b>LINDANI</b><span>FARM</span></a>
+  <nav aria-label="Main">
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#experience">The farm</a></li>
+      <li><a href="#studios">Studios</a></li>
+      <li><a href="#nearby">Nearby</a></li>
+      <li><a href="#on-the-farm">On the farm</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  <div class="nav-right">
+    <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav-links" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+    </button>
+    <a href="#enquire" class="btn btn-book">Book your stay</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero" aria-labelledby="hero-title">
+    <img src="assets/avenue.jpg" alt="Tree-lined farm road leading to a mountain at Lindani Farm, near Paarl" fetchpriority="high">
+    <div class="hero-inner">
+      <div>
+        <p class="label">Paarl · Cape Winelands</p>
+        <h1 id="hero-title" class="h-xl">Leave the city <em>at the gate.</em></h1>
+      </div>
+      <a href="#quick" class="circle" aria-label="Scroll to plan your stay">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M12 4v16M5 13l7 7 7-7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <section class="quick" id="quick" aria-labelledby="quick-title">
+    <div class="wrap">
+      <h2 id="quick-title" class="h-l rv">Plan your stay here</h2>
+      <form class="qform rv" id="qform" novalidate>
+        <div class="field">
+          <label for="q-name">Full name*</label>
+          <input id="q-name" name="name" placeholder="Full name…" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="q-studios">Studios*</label>
+          <select id="q-studios" name="studios" required>
+            <option value="1">1 studio</option>
+            <option value="2">2 studios</option>
+            <option value="3">3 studios</option>
+            <option value="4">All 4 studios</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="q-date">Arrival date*</label>
+          <input id="q-date" name="arrival" type="date" required>
+        </div>
+        <button class="btn btn-book" type="submit">Check dates
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7"/></svg>
+        </button>
+      </form>
+      <p class="form-note" id="qnote" role="status">Prefer to talk? Call or WhatsApp reservations on <a href="tel:+27832916790">083 291 6790</a>.</p>
+    </div>
+  </section>
+
+  <section class="experience" id="experience" aria-labelledby="exp-title">
+    <div class="wrap">
+      <h2 id="exp-title" class="h-l rv">A farm stay <br><em>made for slowing down</em></h2>
+      <div class="exp-panel rv">
+        <div>
+          <p>Lindani is a small farm just outside Paarl, at the foot of the mountains. A tree-lined road brings you in, and the city stays behind at the gate.</p>
+          <p>There are four private self-catering studios, each with its own patio. Days are slow here: a swim in the pool under the old trees, a walk down to the dam, coffee in the garden.</p>
+        </div>
+        <div>
+          <p>Evenings are for the braai, and for watching the cliffs turn gold. Nothing to rush for, and nobody to rush you.</p>
+          <p>When you do want to go out, Fairview, Nederburg and Franschhoek are close by. Plan less, explore more.</p>
+          <a href="#studios" class="circle-link">Meet the studios
+            <span class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7"/></svg></span>
+          </a>
+        </div>
+        <figure><img src="assets/sunset.jpg" alt="Sun setting behind the mountains over the vineyards near Lindani Farm" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="studios" id="studios" aria-labelledby="studios-title">
+    <div class="wrap">
+      <div class="studios-head rv">
+        <h2 id="studios-title" class="h-l">Come home to <br><em>your own studio</em></h2>
+        <p>All the comforts of home, only better. Four private units, each self-catering, each with its own way out to the garden.</p>
+      </div>
+      <div class="studio-grid rv">
+        <figure class="big"><img src="assets/studio-bed.jpg" alt="Studio bedroom with white linen, patterned cushions and a kitchenette behind" loading="lazy"></figure>
+        <figure class="small"><img src="assets/studio-patio.jpg" alt="Guest relaxing on the bed with the patio doors open to the trees at sunset" loading="lazy"></figure>
+        <figure class="small"><img src="assets/studio-kitchen.jpg" alt="Studio with fully equipped kitchenette, desk and en-suite bathroom" loading="lazy"></figure>
+      </div>
+      <ul class="features rv">
+        <li><b>Crisp white linen</b><span>Made-up beds and fresh towels when you arrive.</span></li>
+        <li><b>Full kitchenette</b><span>Cook what you like, when you like. Fully equipped.</span></li>
+        <li><b>En-suite bathroom</b><span>Your own bathroom in every studio.</span></li>
+        <li><b>Private patio</b><span>Morning coffee and evening wine, outside your own door.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="nearby" id="nearby" aria-labelledby="nearby-title">
+    <div class="wrap nearby-grid">
+      <div class="nearby-intro rv">
+        <h2 id="nearby-title" class="h-l">Taste, explore <br>and <em>wander nearby</em></h2>
+        <p>Wine farms, mountain trails, weekend markets and wedding venues, all just down the road. Stay close. Stay at Lindani.</p>
+        <a href="#enquire" class="circle-link">Plan your days
+          <span class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7"/></svg></span>
+        </a>
+      </div>
+      <ul class="places" id="places">
+        <li class="on"><div><span class="p-name">Fairview</span><span class="p-note">Wine and cheese tasting on the slopes of Paarl Mountain.</span></div><span class="tag">( Wine &amp; cheese )</span></li>
+        <li><div><span class="p-name">Nederburg</span><span class="p-note">One of the Cape's best-known wine estates, on the Paarl side of the valley.</span></div><span class="tag">( Wine )</span></li>
+        <li><div><span class="p-name">Franschhoek</span><span class="p-note">The valley of restaurants and wine farms, an easy drive over the hill.</span></div><span class="tag">( Day trip )</span></li>
+        <li><div><span class="p-name">Paarl Mountain</span><span class="p-note">Hiking trails through the nature reserve, up to the granite domes.</span></div><span class="tag">( Nature reserve )</span></li>
+        <li><div><span class="p-name">Weekend markets</span><span class="p-note">Local food, wine and makers around Paarl on Saturday mornings.</span></div><span class="tag">( Paarl )</span></li>
+        <li><div><span class="p-name">Wedding venues</span><span class="p-note">Guests of a Winelands wedding can stay close to the celebration.</span></div><span class="tag">( Winelands )</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="band-title">
+    <figure><img src="assets/golden.jpg" alt="Guest looking out over the valley and mountains in golden-hour light" loading="lazy"></figure>
+    <div class="band-inner">
+      <div class="band-copy rv">
+        <h2 id="band-title" class="h-l">Golden hours, pool days <em>and braai nights</em></h2>
+        <p>Mountain air and still water. Cool off in the dam and watch the cliffs turn gold, then light the fire. Lindani is a place for the long afternoons you never seem to get at home.</p>
+        <a href="#on-the-farm" class="circle-link">See the farm
+          <span class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="farm" id="on-the-farm" aria-labelledby="farm-title">
+    <div class="wrap">
+      <div class="farm-head rv">
+        <h2 id="farm-title" class="h-l">On the farm</h2>
+        <span class="tag">( Scroll )</span>
+      </div>
+      <div class="stack" id="stack">
+        <article class="card">
+          <div class="card-text"><span class="tag">( 01 · The pool )</span><h3>Long, lazy afternoons</h3><p>A sparkling pool in the shade of the old trees. Bring a book, a towel and nowhere else to be.</p></div>
+          <figure><img src="assets/pool.jpg" alt="Swimming pool shaded by a large old tree" loading="lazy"></figure>
+        </article>
+        <article class="card">
+          <div class="card-text"><span class="tag">( 02 · The dam )</span><h3>Mountain air, still water</h3><p>Walk down to the dam in the late afternoon, cool off, and watch the light climb the cliffs.</p></div>
+          <figure><img src="assets/dam.jpg" alt="The farm dam with reeds and wildflowers at golden hour" loading="lazy"></figure>
+        </article>
+        <article class="card">
+          <div class="card-text"><span class="tag">( 03 · The garden )</span><h3>Coffee by day, braai by night</h3><p>Garden spots with a built-in braai, made for good company and slow evenings under the trees.</p></div>
+          <figure><img src="assets/braai.jpg" alt="Garden seating area with a brick built-in braai under the trees" loading="lazy"></figure>
+        </article>
+        <article class="card">
+          <div class="card-text"><span class="tag">( 04 · The studios )</span><h3>Your farm escape starts here</h3><p>Four studios open onto the lawn, each with its own patio for sundowners as the farm goes quiet.</p></div>
+          <figure><img src="assets/cottages.jpg" alt="The four studios with lit patios opening onto a green lawn" loading="lazy"></figure>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="enquire" id="enquire" aria-labelledby="enq-title">
+    <img src="assets/avenue.jpg" alt="" loading="lazy">
+    <div class="enquire-inner">
+      <h2 id="enq-title" class="h-l rv">Your farm escape <em>starts here</em></h2>
+      <p class="lede rv">Tell us your dates and we'll come back to you with availability. Or call or WhatsApp reservations on <a href="tel:+27832916790" style="text-decoration:underline;text-underline-offset:3px">083 291 6790</a>.</p>
+      <form class="eform rv" id="eform" novalidate>
+        <div class="field"><label for="e-name">Full name*</label><input id="e-name" name="name" placeholder="Full name…" autocomplete="name" required></div>
+        <div class="field"><label for="e-contact">Phone or email*</label><input id="e-contact" name="contact" placeholder="So we can reply…" autocomplete="email" required></div>
+        <div class="field"><label for="e-in">Arrival*</label><input id="e-in" name="arrival" type="date" required></div>
+        <div class="field"><label for="e-out">Departure*</label><input id="e-out" name="departure" type="date" required></div>
+        <div class="field full"><label for="e-studios">Studios</label>
+          <select id="e-studios" name="studios"><option>1 studio</option><option>2 studios</option><option>3 studios</option><option>All 4 studios</option></select>
+        </div>
+        <div class="field full"><label for="e-msg">Anything we should know?</label><textarea id="e-msg" name="message" placeholder="Celebrating something, travelling for a wedding, arriving late…"></textarea></div>
+        <div class="eform-foot">
+          <p class="form-note" id="enote" role="status">Draft site: this form doesn't send yet.</p>
+          <button class="btn btn-book" type="submit">Send enquiry
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer" id="contact">
+  <div class="f-top">
+    <a href="#top" class="mark" aria-label="Lindani Farm, back to top"><b>LINDANI</b><span>FARM</span></a>
+    <a href="#top" class="circle to-top" aria-label="Back to top">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M12 20V4M5 11l7-7 7 7"/></svg>
+    </a>
+  </div>
+  <div class="f-mid">
+    <div class="f-contact">
+      <a href="tel:+27832916790">+27 (0)83 291 6790</a>
+      <a href="mailto:">[email address]</a>
+      <small>Just outside Paarl, Western Cape · about an hour from Cape Town</small>
+    </div>
+    <ul class="f-links">
+      <li><a href="#experience">The farm</a></li>
+      <li><a href="#studios">Studios</a></li>
+      <li><a href="#nearby">Nearby</a></li>
+      <li><a href="#on-the-farm">On the farm</a></li>
+      <li><a href="#enquire">Book your stay</a></li>
+    </ul>
+  </div>
+  <div class="f-bot">
+    <span>© <span id="yr">2026</span> Lindani Farm, Paarl</span>
+    <div class="f-social">
+      <a href="https://www.instagram.com/lindanifarm/" aria-label="Lindani Farm on Instagram" rel="noopener" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg>
+      </a>
+      <a href="https://wa.me/27832916790" aria-label="WhatsApp Lindani Farm" rel="noopener" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 20l1.3-3.8A8 8 0 1 1 8 19z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a4 4 0 0 1-2-2l.8-1-1-2z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var nav=document.getElementById('nav');
+  var btn=document.getElementById('menu-btn');
+  var links=document.getElementById('nav-links');
+  btn.addEventListener('click',function(){
+    var open=links.classList.toggle('open');
+    btn.setAttribute('aria-expanded',open);
+  });
+  links.addEventListener('click',function(e){
+    if(e.target.closest('a')){links.classList.remove('open');btn.setAttribute('aria-expanded','false');}
+  });
+  document.getElementById('yr').textContent=new Date().getFullYear();
+
+  // Dates: no past arrivals
+  var today=new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10);
+  ['q-date','e-in','e-out'].forEach(function(id){document.getElementById(id).min=today;});
+
+  function check(form){
+    var bad=null;
+    form.querySelectorAll('[required]').forEach(function(el){
+      var ok=el.value.trim()!=='';
+      el.setAttribute('aria-invalid',!ok);
+      if(!ok&&!bad)bad=el;
+    });
+    return bad;
+  }
+  var qnote=document.getElementById('qnote');
+  document.getElementById('qform').addEventListener('submit',function(e){
+    e.preventDefault();
+    var bad=check(this);
+    if(bad){qnote.dataset.state='err';qnote.textContent='Please add your name and arrival date.';bad.focus();return;}
+    // Carry the quick details into the full form
+    document.getElementById('e-name').value=this.name.value;
+    document.getElementById('e-in').value=this.arrival.value;
+    document.getElementById('e-studios').selectedIndex=document.getElementById('q-studios').selectedIndex;
+    qnote.dataset.state='ok';qnote.textContent='Thanks. Add your departure date below to finish the enquiry.';
+    document.getElementById('enquire').scrollIntoView({behavior:'smooth'});
+    setTimeout(function(){document.getElementById('e-contact').focus({preventScroll:true});},700);
+  });
+  var enote=document.getElementById('enote');
+  document.getElementById('eform').addEventListener('submit',function(e){
+    e.preventDefault();
+    var bad=check(this);
+    var a=this.arrival.value,d=this.departure.value;
+    if(!bad&&a&&d&&d<=a){bad=this.departure;bad.setAttribute('aria-invalid','true');enote.dataset.state='err';enote.textContent='Departure needs to be after arrival.';bad.focus();return;}
+    if(bad){enote.dataset.state='err';enote.textContent='Please fill in the fields marked with *.';bad.focus();return;}
+    enote.dataset.state='ok';
+    enote.innerHTML='Thank you. This draft site doesn\'t send enquiries yet. Please WhatsApp <a href="https://wa.me/27832916790" target="_blank" rel="noopener">083 291 6790</a> for now.';
+  });
+
+  // Nav shadow
+  addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>20);},{passive:true});
+
+  // Reveal
+  var rv=document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});},{rootMargin:'0px 0px -8% 0px'});
+    rv.forEach(function(el){io.observe(el);});
+  } else rv.forEach(function(el){el.classList.add('in');});
+
+  // Nearby list: highlight the place nearest the middle of the screen
+  var places=[].slice.call(document.querySelectorAll('#places li'));
+  function hl(){
+    var mid=innerHeight*0.5,best=null,bd=1e9;
+    places.forEach(function(li){var r=li.getBoundingClientRect(),d=Math.abs(r.top+r.height/2-mid);if(d<bd){bd=d;best=li;}});
+    places.forEach(function(li){li.classList.toggle('on',li===best);});
+  }
+  places.forEach(function(li){li.addEventListener('mouseenter',function(){places.forEach(function(x){x.classList.toggle('on',x===li);});});});
+
+  // Stacked cards: cards that are covered tilt and shrink a little (Grafton's stack)
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cards=[].slice.call(document.querySelectorAll('.card'));
+  function stack(){
+    if(reduce)return;
+    cards.forEach(function(c,i){
+      var next=cards[i+1];
+      if(!next){c.style.transform='';return;}
+      var top=parseFloat(getComputedStyle(c).top);
+      var p=1-(next.getBoundingClientRect().top-top)/(c.offsetHeight+48);
+      p=Math.max(0,Math.min(1,p));
+      var rot=(i%2?1:-1)*2.2*p;
+      c.style.transform='scale('+(1-0.05*p)+') rotate('+rot+'deg)';
+      c.style.filter='brightness('+(1-0.12*p)+')';
+    });
+  }
+  var ticking=false;
+  addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(function(){hl();stack();ticking=false;});}},{passive:true});
+  addEventListener('resize',stack);
+  hl();stack();
+})();
+</script>
+</body>
+</html>
