@@ -62,7 +62,7 @@ em{font-style:italic}
 .circle-link:hover .circle{background:var(--ink);color:var(--canvas)}
 
 /* Nav: floating white bar, Grafton style */
-.nav{position:fixed;z-index:50;top:var(--edge);left:calc(var(--edge) + 12px);right:calc(var(--edge) + 12px);display:flex;align-items:center;justify-content:space-between;gap:24px;padding:10px 10px 10px 22px;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:12px;transition:box-shadow .3s}
+.nav{position:fixed;z-index:50;top:calc(var(--edge) + env(safe-area-inset-top, 0px));left:calc(var(--edge) + 12px);right:calc(var(--edge) + 12px);display:flex;align-items:center;justify-content:space-between;gap:24px;padding:10px 10px 10px 22px;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:12px;transition:box-shadow .3s}
 .nav.scrolled{box-shadow:0 6px 30px rgba(31,36,26,.08)}
 .mark{display:flex;flex-direction:column;align-items:center;line-height:1;color:var(--olive)}
 .mark b{font:500 20px/1 var(--serif);letter-spacing:.28em;margin-right:-.28em}
@@ -204,11 +204,8 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
 .f-social svg{width:18px;height:18px}
 
 /* Reveal on scroll */
-.rv{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
-.rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .rv{opacity:1;transform:none;transition:none}
   .hero img{animation:none;transform:none}
   .card{transform:none!important}
 }
