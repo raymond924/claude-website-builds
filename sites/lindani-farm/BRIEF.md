@@ -104,3 +104,22 @@ Current images are cropped from Instagram (1080 px wide, so slightly soft at ful
 | Farm cards | `pool.jpg`, `dam.jpg`, `braai.jpg`, `cottages.jpg` | Originals, landscape |
 | Intro panel (2) | `sunset.jpg` | Wider sunset over the vineyards |
 | Final form | `avenue.jpg` again as a bookend | A different evening shot of the farm |
+
+## UI/UX audit (2026-10-10, ui-ux-pro-max skill)
+
+Automated checks at 375, 768, 1024, 1440 and phone landscape (scripts in the session scratchpad; rules from
+`.claude/skills/ui-ux-pro-max/references/quick-reference.md`). The skill's `--design-system` suggestion
+("Liquid Glass", navy/blue) was rejected: it doesn't fit the locked Grafton reference.
+
+| Area | Found | Fixed |
+|---|---|---|
+| Contrast | Faint "Nearby" list 1.65:1; tags on sage 4.49:1; gold text over photo in the olive band; final-form overlay too light | Faint #868b7e (3.3:1, large text); muted #575c4f; band photo moved right with an olive fade; darker overlay. All text now passes AA |
+| Text size | Labels 8–10px; body 14px on phones | Labels/tags 12px; body 16px; supporting text 14–16px (logo "FARM" lettering excepted) |
+| Keyboard | No skip link; form fields had no focus ring; Esc didn't close menu | Skip link; 3px focus ring on fields; Esc and outside-click close the menu and return focus |
+| Tap targets | Nav, footer, social links and logo under 44px | All 44px+ (inline links inside sentences excepted) |
+| Forms | One shared error line; no aria-describedby; departure could equal arrival; phone/email not checked | Error under each field, linked with aria-describedby; validates on blur, clears on input; departure min = arrival + 1; phone/email check; "Sending…" state |
+| Navigation | No current-section state | Current section underlined in the nav (aria-current) |
+| Performance | JPEGs with no dimensions; scroll handler mixed reads/writes and animated `filter` | WebP (~30% smaller) with width/height; reads batched before writes, transform only |
+| Layout | — | No horizontal scroll at any width; no console errors |
+
+Known and left as is: the tiny "FARM" wordmark (a logo, exempt) and the smooth-scroll page behaviour (it switches off under reduced motion).

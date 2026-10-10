@@ -17,8 +17,8 @@
   --sage:#dcded8;
   --line:#d3d5cf;
   --ink:#1f241a;
-  --muted:#5f6457;
-  --faint:#c3c6bd;
+  --muted:#575c4f;
+  --faint:#868b7e; /* 3.3:1 on canvas: large-text AA, still reads as the faint list */
   --olive:#2c341f;
   --olive-2:#3c4630;
   --gold:#e8c27b;
@@ -34,19 +34,24 @@
 }
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:96px}
-body{margin:0;background:var(--canvas);color:var(--ink);font:400 15px/1.75 var(--sans);overflow-x:hidden}
+body{margin:0;background:var(--canvas);color:var(--ink);font:400 16px/1.7 var(--sans);overflow-x:hidden}
 img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
 button,input,select,textarea{font:inherit;color:inherit}
 h1,h2,h3,p,ul,dl,dd,figure{margin:0;padding:0}
 ul{list-style:none}
-h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;line-height:1.05}
+h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;line-height:1.05;text-wrap:balance}
 em{font-style:italic}
 :focus-visible{outline:2px solid var(--olive);outline-offset:3px}
+.hero :focus-visible,.band :focus-visible,.enquire :focus-visible,.footer :focus-visible{outline-color:var(--gold)}
+.skip{position:fixed;z-index:100;left:16px;top:-80px;padding:15px 18px;border-radius:var(--btn-r);background:var(--olive);color:#fff;font:500 15px/1 var(--sans);transition:top .2s}
+.skip:focus{top:calc(16px + env(safe-area-inset-top, 0px))}
+html{-webkit-tap-highlight-color:transparent}
+a,button{touch-action:manipulation}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gutter)}
-.label{font:600 11px/1.4 var(--sans);letter-spacing:.14em;text-transform:uppercase}
-.tag{font:500 10px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.label{font:600 12px/1.4 var(--sans);letter-spacing:.14em;text-transform:uppercase}
+.tag{font:500 12px/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
 .h-xl{font-size:clamp(44px,6.7vw,96px)}
 .h-l{font-size:clamp(40px,5vw,72px)}
 .h-l em,.h-xl em{font-style:italic}
@@ -64,15 +69,16 @@ em{font-style:italic}
 /* Nav: floating white bar, Grafton style */
 .nav{position:fixed;z-index:50;top:calc(var(--edge) + env(safe-area-inset-top, 0px));left:calc(var(--edge) + 12px);right:calc(var(--edge) + 12px);display:flex;align-items:center;justify-content:space-between;gap:24px;padding:10px 10px 10px 22px;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:12px;transition:box-shadow .3s}
 .nav.scrolled{box-shadow:0 6px 30px rgba(31,36,26,.08)}
-.mark{display:flex;flex-direction:column;align-items:center;line-height:1;color:var(--olive)}
+.mark{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:44px;line-height:1;color:var(--olive)}
 .mark b{font:500 20px/1 var(--serif);letter-spacing:.28em;margin-right:-.28em}
-.mark span{display:flex;align-items:center;gap:6px;font:500 8px/1 var(--sans);letter-spacing:.42em;margin-top:5px;margin-right:-.42em}
+.mark span{display:flex;align-items:center;gap:6px;font:500 9px/1 var(--sans);letter-spacing:.42em;margin-top:5px;margin-right:-.42em}
 .mark span::before,.mark span::after{content:"";width:14px;height:1px;background:currentColor;opacity:.6}
 .nav-links{display:flex;gap:32px;font-size:13px;font-weight:500}
-.nav-links a{padding:6px 0;border-bottom:1px solid transparent}
-.nav-links a:hover{border-color:currentColor}
+.nav-links a{display:inline-flex;align-items:center;min-height:44px;border-bottom:1px solid transparent}
+.nav-links a[aria-current="true"]{border-color:currentColor}
+.nav-links a:hover{border-color:var(--faint)}
 .nav-right{display:flex;align-items:center;gap:10px}
-.menu-btn{display:none;width:44px;height:44px;border:0;background:none;border-radius:8px;cursor:pointer;place-items:center}
+.menu-btn{display:none;width:48px;height:48px;border:0;background:none;border-radius:8px;cursor:pointer;place-items:center}
 .menu-btn svg{width:22px;height:22px}
 
 /* Hero: rounded inset photo, headline bottom-left */
@@ -92,16 +98,20 @@ em{font-style:italic}
 .quick h2{margin-bottom:28px}
 .qform{display:grid;grid-template-columns:1.3fr 1fr 1fr auto;gap:16px;align-items:end}
 .field{display:flex;flex-direction:column;gap:8px}
-.field label{font:600 10px/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase}
-.field input,.field select,.field textarea{width:100%;height:52px;padding:0 16px;border:1px solid transparent;border-radius:var(--btn-r);background:var(--panel);font-size:14px;appearance:none;-webkit-appearance:none}
-.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231f241a' stroke-width='1.6'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:18px;padding-right:44px}
+.field label{font:600 12px/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase}
+.field input,.field select,.field textarea{width:100%;height:52px;padding:0 16px;border:1px solid transparent;border-radius:var(--btn-r);background:var(--panel);font-size:16px;cursor:text;scroll-margin-block:120px 40px;appearance:none;-webkit-appearance:none}
+.field select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231f241a' stroke-width='1.6'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:18px;padding-right:44px}
 .field textarea{height:auto;min-height:96px;padding:14px 16px;resize:vertical}
 .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--olive)}
-.field input[aria-invalid="true"]{border-color:#a5462b}
-.form-note{margin-top:14px;font-size:13px;color:var(--muted)}
+.field input:focus-visible,.field select:focus-visible,.field textarea:focus-visible{box-shadow:0 0 0 3px rgba(44,52,31,.28)}
+.field .err{font-size:13px;line-height:1.4;color:#a5462b}
+.eform .field .err{color:#ffc2ad}
+.field [aria-invalid="true"]{border-color:#a5462b}
+.eform .field [aria-invalid="true"]{border-color:#ffc2ad}
+.form-note{margin-top:14px;font-size:14px;color:var(--muted)}
 .form-note[data-state="ok"]{color:var(--olive)}
 .form-note[data-state="err"]{color:#a5462b}
-.form-note a{text-decoration:underline;text-underline-offset:3px}
+.form-note a{display:inline-block;padding:6px 0;text-decoration:underline;text-underline-offset:3px}
 
 /* Experience: two-column intro on a pale panel */
 .experience{padding:96px 0 40px}
@@ -125,7 +135,7 @@ em{font-style:italic}
 .features{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:16px}
 .features li{padding:24px;border-radius:12px;background:var(--panel)}
 .features b{display:block;font:400 22px/1.2 var(--serif);margin-bottom:6px}
-.features span{font-size:13px;color:var(--muted);line-height:1.6;display:block}
+.features span{font-size:14px;color:var(--muted);line-height:1.6;display:block}
 
 /* Nearby: Grafton's big faint list with ( TAG ) labels */
 .nearby{padding:120px 0 48px}
@@ -136,18 +146,19 @@ em{font-style:italic}
 .places li{display:flex;align-items:baseline;gap:18px;padding:6px 0}
 .places .p-name{font:400 clamp(34px,4.4vw,60px)/1.12 var(--serif);color:var(--faint);transition:color .35s}
 .places li.on .p-name,.places li:hover .p-name{color:var(--ink)}
-.places .p-note{display:block;max-height:0;overflow:hidden;font-size:14px;color:var(--muted);transition:max-height .45s ease,margin .45s ease}
+.places .p-note{display:block;max-height:0;overflow:hidden;font-size:15px;color:var(--muted);transition:max-height .45s ease,margin .45s ease}
 .places li.on .p-note{max-height:80px;margin-top:8px}
 .places li > div{flex:1 1 auto}
 
 /* Dark olive band */
 .band{position:relative;margin:96px var(--edge) 0;border-radius:var(--r);overflow:hidden;color:#fff;background:var(--olive)}
 .band-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;min-height:640px}
-.band-copy{padding:96px 64px 80px;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(90deg,var(--olive) 70%,rgba(44,52,31,0))}
+.band-copy{padding:96px 64px 80px;display:flex;flex-direction:column;justify-content:center}
 .band h2 em{color:var(--gold)}
 .band p{margin:32px 0 36px;max-width:40ch;color:rgba(255,255,255,.82)}
 .band .circle-link:hover .circle{background:#fff;color:var(--olive)}
-.band figure{position:absolute;inset:0 0 0 38%}
+.band figure{position:absolute;inset:0 0 0 46%}
+.band figure::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--olive),rgba(44,52,31,0) 28%)}
 .band figure img{width:100%;height:100%;object-fit:cover}
 
 /* On the farm: stacked sticky cards */
@@ -158,14 +169,14 @@ em{font-style:italic}
 .card-text{display:flex;flex-direction:column;justify-content:flex-end;min-height:440px;padding:40px;border-radius:12px;background:var(--sage)}
 .card-text .tag{margin-bottom:auto}
 .card-text h3{font-size:clamp(30px,3vw,40px);margin:0 0 16px}
-.card-text p{max-width:42ch;font-size:14px}
+.card-text p{max-width:42ch;font-size:15px}
 .card figure{border-radius:12px;overflow:hidden;background:var(--sage)}
 .card figure img{width:100%;height:100%;object-fit:cover}
 
 /* Final enquiry over a photo */
 .enquire{position:relative;margin:96px var(--edge) 0;border-radius:var(--r);overflow:hidden;color:#fff;background:var(--olive)}
 .enquire > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
-.enquire::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(28,32,20,.5),rgba(28,32,20,.82))}
+.enquire::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(28,32,20,.66),rgba(28,32,20,.7) 40%,rgba(28,32,20,.84))}
 .enquire-inner{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:112px 24px 104px}
 .enquire h2{text-align:center;margin-bottom:16px}
 .enquire h2 em{color:var(--gold);display:block}
@@ -177,6 +188,7 @@ em{font-style:italic}
 .eform .field select{background-repeat:no-repeat;background-position:right 14px center;background-size:18px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='1.6'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")}
 .eform .field select option{color:var(--ink)}
 .eform .field input:focus,.eform .field select:focus,.eform .field textarea:focus{border-color:var(--gold)}
+.eform .field input:focus-visible,.eform .field select:focus-visible,.eform .field textarea:focus-visible{box-shadow:0 0 0 3px rgba(232,194,123,.45)}
 .eform-foot{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-top:8px}
 .enquire .form-note{color:rgba(255,255,255,.8)}
 .enquire .form-note[data-state="ok"]{color:var(--gold)}
@@ -192,14 +204,15 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
 .to-top:hover{background:#fff;color:var(--olive)}
 .to-top svg{width:26px;height:26px}
 .f-mid{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;padding-bottom:28px;border-bottom:1px solid rgba(255,255,255,.18)}
-.f-contact a{display:block;font:400 clamp(24px,2.6vw,34px)/1.3 var(--serif)}
+.f-contact a{display:block;padding:6px 0;font:400 clamp(24px,2.6vw,34px)/1.3 var(--serif)}
 .f-contact a:hover{color:var(--gold)}
-.f-contact small{display:block;font-size:13px;color:rgba(255,255,255,.66);margin-top:10px}
-.f-links{display:flex;gap:28px;font-size:13px;font-weight:500;flex-wrap:wrap}
+.f-contact small{display:block;font-size:14px;color:rgba(255,255,255,.66);margin-top:10px}
+.f-links{display:flex;gap:4px 28px;font-size:14px;font-weight:500;flex-wrap:wrap}
+.f-links a{display:inline-flex;align-items:center;min-height:44px}
 .f-links a:hover{color:var(--gold)}
-.f-bot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-top:22px;font-size:12px;color:rgba(255,255,255,.66)}
-.f-social{display:flex;gap:18px;align-items:center}
-.f-social a{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:50%}
+.f-bot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-top:22px;font-size:13px;color:rgba(255,255,255,.72)}
+.f-social{display:flex;gap:8px;align-items:center}
+.f-social a{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%}
 .f-social a:hover{color:var(--gold)}
 .f-social svg{width:18px;height:18px}
 
@@ -225,14 +238,14 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
 /* Phone */
 @media (max-width:760px){
   :root{--gutter:20px;--edge:8px}
-  body{font-size:14px}
   .nav{left:var(--edge);right:var(--edge);padding:8px 8px 8px 16px}
   .nav-links{display:none}
   .menu-btn{display:grid}
   .nav-links.open{display:flex;position:absolute;top:calc(100% + 8px);left:0;right:0;flex-direction:column;gap:0;padding:8px 16px;background:#fff;border-radius:12px;box-shadow:0 10px 30px rgba(31,36,26,.12)}
   .nav-links.open a{display:block;padding:14px 4px;font-size:16px;border-bottom:1px solid var(--panel)}
   .nav-links.open li:last-child a{border-bottom:0}
-  .nav .btn{padding:13px 16px;font-size:14px}
+  .nav .btn{padding:15px 14px;font-size:14px;white-space:nowrap}
+  .nav-right{gap:4px}
   .hero{min-height:560px}
   .hero-inner{padding:0 20px 28px}
   .hero .circle{display:none}
@@ -254,12 +267,14 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
   .band{margin-top:64px}
   .band-inner{grid-template-columns:1fr;min-height:0}
   .band figure{position:relative;inset:auto;aspect-ratio:4/3}
+  .band figure::after{display:none}
   .band-copy{padding:48px 24px 40px;background:var(--olive)}
   .farm{padding:80px 0 24px}
   .farm-head{margin-bottom:24px}
   .card{grid-template-columns:1fr;gap:0;top:84px;margin-bottom:32px;border-radius:12px;overflow:hidden;background:var(--sage)}
   .card figure{order:-1;aspect-ratio:16/10;border-radius:0}
   .card-text{min-height:0;padding:24px 20px 28px;border-radius:0}
+  .card-text p,.places .p-note{font-size:16px}
   .card-text .tag{margin-bottom:14px}
   .enquire{margin-top:64px}
   .enquire-inner{padding:72px 16px 64px}
@@ -271,6 +286,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
 </style>
 </head>
 <body>
+<a class="skip" href="#quick">Skip to booking</a>
 
 <header class="nav" id="nav">
   <a href="#top" class="mark" aria-label="Lindani Farm, home"><b>LINDANI</b><span>FARM</span></a>
@@ -294,7 +310,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
 <main id="top">
 
   <section class="hero" aria-labelledby="hero-title">
-    <img src="assets/avenue.jpg" alt="Tree-lined farm road leading to a mountain at Lindani Farm, near Paarl" fetchpriority="high">
+    <img src="assets/avenue.webp" width="1080" height="638" alt="Tree-lined farm road leading to a mountain at Lindani Farm, near Paarl" fetchpriority="high">
     <div class="hero-inner">
       <div>
         <p class="label">Paarl · Cape Winelands</p>
@@ -308,8 +324,8 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
 
   <section class="quick" id="quick" aria-labelledby="quick-title">
     <div class="wrap">
-      <h2 id="quick-title" class="h-l rv">Plan your stay here</h2>
-      <form class="qform rv" id="qform" novalidate>
+      <h2 id="quick-title" class="h-l">Plan your stay here</h2>
+      <form class="qform" id="qform" novalidate>
         <div class="field">
           <label for="q-name">Full name*</label>
           <input id="q-name" name="name" placeholder="Full name…" autocomplete="name" required>
@@ -337,8 +353,8 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
 
   <section class="experience" id="experience" aria-labelledby="exp-title">
     <div class="wrap">
-      <h2 id="exp-title" class="h-l rv">A farm stay <br><em>made for slowing down</em></h2>
-      <div class="exp-panel rv">
+      <h2 id="exp-title" class="h-l">A farm stay <br><em>made for slowing down</em></h2>
+      <div class="exp-panel">
         <div>
           <p>Lindani is a small farm just outside Paarl, at the foot of the mountains. A tree-lined road brings you in, and the city stays behind at the gate.</p>
           <p>There are four private self-catering studios, each with its own patio. Days are slow here: a swim in the pool under the old trees, a walk down to the dam, coffee in the garden.</p>
@@ -350,23 +366,23 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
             <span class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7"/></svg></span>
           </a>
         </div>
-        <figure><img src="assets/sunset.jpg" alt="Sun setting behind the mountains over the vineyards near Lindani Farm" loading="lazy"></figure>
+        <figure><img src="assets/sunset.webp" width="1005" height="410" alt="Sun setting behind the mountains over the vineyards near Lindani Farm" loading="lazy"></figure>
       </div>
     </div>
   </section>
 
   <section class="studios" id="studios" aria-labelledby="studios-title">
     <div class="wrap">
-      <div class="studios-head rv">
+      <div class="studios-head">
         <h2 id="studios-title" class="h-l">Come home to <br><em>your own studio</em></h2>
         <p>All the comforts of home, only better. Four private units, each self-catering, each with its own way out to the garden.</p>
       </div>
-      <div class="studio-grid rv">
-        <figure class="big"><img src="assets/studio-bed.jpg" alt="Studio bedroom with white linen, patterned cushions and a kitchenette behind" loading="lazy"></figure>
-        <figure class="small"><img src="assets/studio-patio.jpg" alt="Guest relaxing on the bed with the patio doors open to the trees at sunset" loading="lazy"></figure>
-        <figure class="small"><img src="assets/studio-kitchen.jpg" alt="Studio with fully equipped kitchenette, desk and en-suite bathroom" loading="lazy"></figure>
+      <div class="studio-grid">
+        <figure class="big"><img src="assets/studio-bed.webp" width="1080" height="1080" alt="Studio bedroom with white linen, patterned cushions and a kitchenette behind" loading="lazy"></figure>
+        <figure class="small"><img src="assets/studio-patio.webp" width="1080" height="1080" alt="Guest relaxing on the bed with the patio doors open to the trees at sunset" loading="lazy"></figure>
+        <figure class="small"><img src="assets/studio-kitchen.webp" width="1080" height="1080" alt="Studio with fully equipped kitchenette, desk and en-suite bathroom" loading="lazy"></figure>
       </div>
-      <ul class="features rv">
+      <ul class="features">
         <li><b>Crisp white linen</b><span>Made-up beds and fresh towels when you arrive.</span></li>
         <li><b>Full kitchenette</b><span>Cook what you like, when you like. Fully equipped.</span></li>
         <li><b>En-suite bathroom</b><span>Your own bathroom in every studio.</span></li>
@@ -377,7 +393,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
 
   <section class="nearby" id="nearby" aria-labelledby="nearby-title">
     <div class="wrap nearby-grid">
-      <div class="nearby-intro rv">
+      <div class="nearby-intro">
         <h2 id="nearby-title" class="h-l">Taste, explore <br>and <em>wander nearby</em></h2>
         <p>Wine farms, mountain trails, weekend markets and wedding venues, all just down the road. Stay close. Stay at Lindani.</p>
         <a href="#enquire" class="circle-link">Plan your days
@@ -396,9 +412,9 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
   </section>
 
   <section class="band" aria-labelledby="band-title">
-    <figure><img src="assets/golden.jpg" alt="Guest looking out over the valley and mountains in golden-hour light" loading="lazy"></figure>
+    <figure><img src="assets/golden.webp" width="1080" height="551" alt="Guest looking out over the valley and mountains in golden-hour light" loading="lazy"></figure>
     <div class="band-inner">
-      <div class="band-copy rv">
+      <div class="band-copy">
         <h2 id="band-title" class="h-l">Golden hours, pool days <em>and braai nights</em></h2>
         <p>Mountain air and still water. Cool off in the dam and watch the cliffs turn gold, then light the fire. Lindani is a place for the long afternoons you never seem to get at home.</p>
         <a href="#on-the-farm" class="circle-link">See the farm
@@ -410,37 +426,37 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
 
   <section class="farm" id="on-the-farm" aria-labelledby="farm-title">
     <div class="wrap">
-      <div class="farm-head rv">
+      <div class="farm-head">
         <h2 id="farm-title" class="h-l">On the farm</h2>
         <span class="tag">( Scroll )</span>
       </div>
       <div class="stack" id="stack">
         <article class="card">
           <div class="card-text"><span class="tag">( 01 · The pool )</span><h3>Long, lazy afternoons</h3><p>A sparkling pool in the shade of the old trees. Bring a book, a towel and nowhere else to be.</p></div>
-          <figure><img src="assets/pool.jpg" alt="Swimming pool shaded by a large old tree" loading="lazy"></figure>
+          <figure><img src="assets/pool.webp" width="1080" height="669" alt="Swimming pool shaded by a large old tree" loading="lazy"></figure>
         </article>
         <article class="card">
           <div class="card-text"><span class="tag">( 02 · The dam )</span><h3>Mountain air, still water</h3><p>Walk down to the dam in the late afternoon, cool off, and watch the light climb the cliffs.</p></div>
-          <figure><img src="assets/dam.jpg" alt="The farm dam with reeds and wildflowers at golden hour" loading="lazy"></figure>
+          <figure><img src="assets/dam.webp" width="1080" height="702" alt="The farm dam with reeds and wildflowers at golden hour" loading="lazy"></figure>
         </article>
         <article class="card">
           <div class="card-text"><span class="tag">( 03 · The garden )</span><h3>Coffee by day, braai by night</h3><p>Garden spots with a built-in braai, made for good company and slow evenings under the trees.</p></div>
-          <figure><img src="assets/braai.jpg" alt="Garden seating area with a brick built-in braai under the trees" loading="lazy"></figure>
+          <figure><img src="assets/braai.webp" width="1080" height="615" alt="Garden seating area with a brick built-in braai under the trees" loading="lazy"></figure>
         </article>
         <article class="card">
           <div class="card-text"><span class="tag">( 04 · The studios )</span><h3>Your farm escape starts here</h3><p>Four studios open onto the lawn, each with its own patio for sundowners as the farm goes quiet.</p></div>
-          <figure><img src="assets/cottages.jpg" alt="The four studios with lit patios opening onto a green lawn" loading="lazy"></figure>
+          <figure><img src="assets/cottages.webp" width="1080" height="491" alt="The four studios with lit patios opening onto a green lawn" loading="lazy"></figure>
         </article>
       </div>
     </div>
   </section>
 
   <section class="enquire" id="enquire" aria-labelledby="enq-title">
-    <img src="assets/avenue.jpg" alt="" loading="lazy">
+    <img src="assets/avenue.webp" width="1080" height="638" alt="" loading="lazy">
     <div class="enquire-inner">
-      <h2 id="enq-title" class="h-l rv">Your farm escape <em>starts here</em></h2>
-      <p class="lede rv">Tell us your dates and we'll come back to you with availability. Or call or WhatsApp reservations on <a href="tel:+27832916790" style="text-decoration:underline;text-underline-offset:3px">083 291 6790</a>.</p>
-      <form class="eform rv" id="eform" novalidate>
+      <h2 id="enq-title" class="h-l">Your farm escape <em>starts here</em></h2>
+      <p class="lede">Tell us your dates and we'll come back to you with availability. Or call or WhatsApp reservations on <a href="tel:+27832916790" style="text-decoration:underline;text-underline-offset:3px">083 291 6790</a>.</p>
+      <form class="eform" id="eform" novalidate>
         <div class="field"><label for="e-name">Full name*</label><input id="e-name" name="name" placeholder="Full name…" autocomplete="name" required></div>
         <div class="field"><label for="e-contact">Phone or email*</label><input id="e-contact" name="contact" placeholder="So we can reply…" autocomplete="email" required></div>
         <div class="field"><label for="e-in">Arrival*</label><input id="e-in" name="arrival" type="date" required></div>
@@ -500,91 +516,117 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
   var nav=document.getElementById('nav');
   var btn=document.getElementById('menu-btn');
   var links=document.getElementById('nav-links');
-  btn.addEventListener('click',function(){
-    var open=links.classList.toggle('open');
-    btn.setAttribute('aria-expanded',open);
-  });
-  links.addEventListener('click',function(e){
-    if(e.target.closest('a')){links.classList.remove('open');btn.setAttribute('aria-expanded','false');}
-  });
+  function setMenu(open){links.classList.toggle('open',open);btn.setAttribute('aria-expanded',open);}
+  btn.addEventListener('click',function(){setMenu(!links.classList.contains('open'));});
+  links.addEventListener('click',function(e){if(e.target.closest('a'))setMenu(false);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&links.classList.contains('open')){setMenu(false);btn.focus();}});
+  document.addEventListener('click',function(e){if(links.classList.contains('open')&&!nav.contains(e.target))setMenu(false);});
   document.getElementById('yr').textContent=new Date().getFullYear();
 
-  // Dates: no past arrivals
+  // Dates: no past arrivals; departure at least one night after arrival
   var today=new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10);
   ['q-date','e-in','e-out'].forEach(function(id){document.getElementById(id).min=today;});
+  var eIn=document.getElementById('e-in'),eOut=document.getElementById('e-out');
+  function nextDay(v){var d=new Date(v+'T12:00:00');d.setDate(d.getDate()+1);return d.toISOString().slice(0,10);}
+  eIn.addEventListener('change',function(){if(eIn.value){eOut.min=nextDay(eIn.value);if(eOut.value&&eOut.value<=eIn.value)eOut.value='';}});
 
-  function check(form){
-    var bad=null;
-    form.querySelectorAll('[required]').forEach(function(el){
-      var ok=el.value.trim()!=='';
-      el.setAttribute('aria-invalid',!ok);
-      if(!ok&&!bad)bad=el;
-    });
-    return bad;
+  // Field errors sit under the field and are linked with aria-describedby
+  var MSG={name:'Add your name.',arrival:'Choose an arrival date.',departure:'Choose a departure date.',contact:'Add a phone number or email so we can reply.'};
+  function setErr(el,msg){
+    var id=el.id+'-err',box=document.getElementById(id);
+    if(msg){
+      if(!box){box=document.createElement('p');box.className='err';box.id=id;el.parentNode.appendChild(box);}
+      box.textContent=msg;el.setAttribute('aria-invalid','true');el.setAttribute('aria-describedby',id);
+    }else{
+      if(box)box.remove();el.removeAttribute('aria-invalid');el.removeAttribute('aria-describedby');
+    }
   }
+  function fieldMsg(el){
+    if(el.required&&!el.value.trim())return MSG[el.name]||'This field is required.';
+    if(el.name==='contact'){var v=el.value.trim();if(!/@.+\./.test(v)&&v.replace(/\D/g,'').length<9)return 'Enter a valid phone number or email address.';}
+    if(el===eOut&&eIn.value&&el.value&&el.value<=eIn.value)return 'Departure must be at least one night after arrival.';
+    return '';
+  }
+  function check(form){
+    var first=null,n=0;
+    form.querySelectorAll('[required]').forEach(function(el){var m=fieldMsg(el);setErr(el,m);if(m){n++;if(!first)first=el;}});
+    return {first:first,n:n};
+  }
+  // Validate on blur once a field has been touched, clear as soon as it's fixed
+  document.querySelectorAll('#qform [required],#eform [required]').forEach(function(el){
+    el.addEventListener('blur',function(){if(el.value.trim()||el.hasAttribute('aria-invalid'))setErr(el,fieldMsg(el));});
+    el.addEventListener('input',function(){if(el.hasAttribute('aria-invalid')&&!fieldMsg(el))setErr(el,'');});
+  });
+
   var qnote=document.getElementById('qnote');
   document.getElementById('qform').addEventListener('submit',function(e){
     e.preventDefault();
-    var bad=check(this);
-    if(bad){qnote.dataset.state='err';qnote.textContent='Please add your name and arrival date.';bad.focus();return;}
-    // Carry the quick details into the full form
-    document.getElementById('e-name').value=this.name.value;
-    document.getElementById('e-in').value=this.arrival.value;
+    var r=check(this);
+    if(r.first){qnote.dataset.state='err';qnote.textContent=r.n===1?'One field needs attention.':r.n+' fields need attention.';r.first.focus();return;}
+    // Carry the quick details into the full form so nothing is typed twice
+    document.getElementById('e-name').value=this.elements['name'].value;
+    eIn.value=this.elements['arrival'].value;eOut.min=nextDay(eIn.value);
     document.getElementById('e-studios').selectedIndex=document.getElementById('q-studios').selectedIndex;
-    qnote.dataset.state='ok';qnote.textContent='Thanks. Add your departure date below to finish the enquiry.';
-    document.getElementById('enquire').scrollIntoView({behavior:'smooth'});
+    qnote.dataset.state='ok';qnote.textContent='Thanks. Your details are copied into the enquiry form below.';
+    document.getElementById('enquire').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
     setTimeout(function(){document.getElementById('e-contact').focus({preventScroll:true});},700);
   });
   var enote=document.getElementById('enote');
+  var sendBtn=document.querySelector('#eform button[type="submit"]');
   document.getElementById('eform').addEventListener('submit',function(e){
     e.preventDefault();
-    var bad=check(this);
-    var a=this.arrival.value,d=this.departure.value;
-    if(!bad&&a&&d&&d<=a){bad=this.departure;bad.setAttribute('aria-invalid','true');enote.dataset.state='err';enote.textContent='Departure needs to be after arrival.';bad.focus();return;}
-    if(bad){enote.dataset.state='err';enote.textContent='Please fill in the fields marked with *.';bad.focus();return;}
-    enote.dataset.state='ok';
-    enote.innerHTML='Thank you. This draft site doesn\'t send enquiries yet. Please WhatsApp <a href="https://wa.me/27832916790" target="_blank" rel="noopener">083 291 6790</a> for now.';
+    var r=check(this);
+    if(r.first){enote.dataset.state='err';enote.textContent=r.n===1?'One field needs attention.':r.n+' fields need attention.';r.first.focus();return;}
+    sendBtn.disabled=true;sendBtn.setAttribute('aria-busy','true');
+    enote.dataset.state='';enote.textContent='Sending…';
+    setTimeout(function(){
+      sendBtn.disabled=false;sendBtn.removeAttribute('aria-busy');
+      enote.dataset.state='ok';
+      enote.innerHTML='Thank you. This draft site doesn\'t send enquiries yet. Please WhatsApp <a href="https://wa.me/27832916790" target="_blank" rel="noopener">083 291 6790</a> for now.';
+    },500);
   });
 
-  // Nav shadow
-  addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>20);},{passive:true});
-
-  // Reveal
-  var rv=document.querySelectorAll('.rv');
+  // Highlight the current section in the nav
+  var navLinks=[].slice.call(links.querySelectorAll('a'));
+  var secs=navLinks.map(function(a){return document.querySelector(a.getAttribute('href'));});
   if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});},{rootMargin:'0px 0px -8% 0px'});
-    rv.forEach(function(el){io.observe(el);});
-  } else rv.forEach(function(el){el.classList.add('in');});
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(en){if(en.isIntersecting){var i=secs.indexOf(en.target);navLinks.forEach(function(a,k){if(k===i)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current');});}});
+    },{rootMargin:'-45% 0px -50% 0px'});
+    secs.forEach(function(s){if(s)spy.observe(s);});
+  }
 
   // Nearby list: highlight the place nearest the middle of the screen
   var places=[].slice.call(document.querySelectorAll('#places li'));
-  function hl(){
-    var mid=innerHeight*0.5,best=null,bd=1e9;
-    places.forEach(function(li){var r=li.getBoundingClientRect(),d=Math.abs(r.top+r.height/2-mid);if(d<bd){bd=d;best=li;}});
-    places.forEach(function(li){li.classList.toggle('on',li===best);});
-  }
   places.forEach(function(li){li.addEventListener('mouseenter',function(){places.forEach(function(x){x.classList.toggle('on',x===li);});});});
 
-  // Stacked cards: cards that are covered tilt and shrink a little (Grafton's stack)
+  // Stacked cards: covered cards tilt and shrink a little (Grafton's stack)
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var cards=[].slice.call(document.querySelectorAll('.card'));
-  function stack(){
+  function frame(){
+    // Read everything first, then write, so the browser lays out once per frame
+    var mid=innerHeight*0.5,best=null,bd=1e9;
+    var pr=places.map(function(li){return li.getBoundingClientRect();});
+    pr.forEach(function(r,i){var d=Math.abs(r.top+r.height/2-mid);if(d<bd){bd=d;best=places[i];}});
+    var tops=reduce?[]:cards.map(function(c){return c.getBoundingClientRect().top;});
+    var hs=reduce?[]:cards.map(function(c){return c.offsetHeight;});
+    var stick=reduce?0:parseFloat(getComputedStyle(cards[0]).top);
+    var y=scrollY;
+    nav.classList.toggle('scrolled',y>20);
+    places.forEach(function(li){li.classList.toggle('on',li===best);});
     if(reduce)return;
     cards.forEach(function(c,i){
-      var next=cards[i+1];
-      if(!next){c.style.transform='';return;}
-      var top=parseFloat(getComputedStyle(c).top);
-      var p=1-(next.getBoundingClientRect().top-top)/(c.offsetHeight+48);
+      if(i===cards.length-1){c.style.transform='';return;}
+      var p=1-(tops[i+1]-stick)/(hs[i]+48);
       p=Math.max(0,Math.min(1,p));
-      var rot=(i%2?1:-1)*2.2*p;
-      c.style.transform='scale('+(1-0.05*p)+') rotate('+rot+'deg)';
-      c.style.filter='brightness('+(1-0.12*p)+')';
+      c.style.transform=p?'scale('+(1-0.05*p)+') rotate('+((i%2?1:-1)*2.2*p)+'deg)':'';
     });
   }
   var ticking=false;
-  addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(function(){hl();stack();ticking=false;});}},{passive:true});
-  addEventListener('resize',stack);
-  hl();stack();
+  function req(){if(!ticking){ticking=true;requestAnimationFrame(function(){frame();ticking=false;});}}
+  addEventListener('scroll',req,{passive:true});
+  addEventListener('resize',req);
+  frame();
 })();
 </script>
 </body>
